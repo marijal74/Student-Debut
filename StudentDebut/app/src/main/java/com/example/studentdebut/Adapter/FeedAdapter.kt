@@ -67,12 +67,14 @@ class FeedAdapter(private val rssObject: RSSObject, private val mContext: Contex
         holder.txtContent.text = rssObject.items[position].content
         holder.txtPubdate.text = rssObject.items[position].pubDate
 
-        holder.setItemClickListener(ItemClickListener{ view, position, isLongClick ->
+        holder.setItemClickListener(object : ItemClickListener { //anonymus object
+            override fun onClick(view: View?, position: Int, isLongClick: Boolean) {
+                if (!isLongClick) {
 
-            if(!isLongClick){
-
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(rssObject.items[position].link))
-                mContext.startActivity(browserIntent)
+                    val browserIntent =
+                        Intent(Intent.ACTION_VIEW, Uri.parse(rssObject.items[position].link))
+                    mContext.startActivity(browserIntent)
+                }
             }
         })
     }

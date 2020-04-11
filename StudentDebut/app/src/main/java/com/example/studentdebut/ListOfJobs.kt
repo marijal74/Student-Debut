@@ -1,13 +1,87 @@
 package com.example.studentdebut
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.app.ProgressDialog
+import android.os.AsyncTask
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.loader.content.AsyncTaskLoader
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.studentdebut.Adapter.FeedAdapter
+import com.example.studentdebut.Common.HTTPDataHandler
+import com.example.studentdebut.Model.RSSObject
+import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_list_of_jobs.*
+import java.lang.StringBuilder
 
-class ListOfJobs : AppCompatActivity() {
+
+class ListOfJobs : AppCompatActivity()  {
+
+    private val RSS_link="https://startit.rs/poslovi/feed/"
+    private val RSS_to_JSON_API="https://api.rss2json.com/v1/api.json?rss_url="
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_of_jobs)
 
+        toolbar.title="NEWS"
+        setSupportActionBar(toolbar)
+
+        val linearLayoutManager=LinearLayoutManager(baseContext,LinearLayoutManager.VERTICAL,false)
+        RecyclerView.layoutManager = linearLayoutManager
+
+        loadRSS()
+
     }
+
+    private fun loadRSS() {
+       val loadRSSAsync = object:  AsyncTask<String,String,String>(){
+
+          internal var mDialog= Dialog(this@ListOfJobs);
+
+           override fun onPostExecute(result: String?) {
+               mDialog.dismiss()
+               var rssObject:RSSObject
+               rssObject= Gson().fromJson<RSSObject>(result,RSSObject::class.java!!)
+               val adapter = FeedAdapter(rssObject,baseContext)
+               RecyclerView.adapter=adapter
+               adapter.notifyDataSetChanged()
+           }
+
+           override fun doInBackground(vararg params: String?): String {
+             val result:String
+             val http = HTTPDataHandler()
+               result= http.GetHTTPDataHandler(params[0]).toString()
+               return result
+           }
+
+           override fun onPreExecute() {
+             //  mDialog.
+           }
+       }
+
+
+      val url_get_data=StringBuilder(RSS_to_JSON_API)
+        url_get_data.append(RSS_link)
+        loadRSSAsync.execute(url_get_data.toString())
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu,menu)
+        return true
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+     if(item.itemId == R.id.menu_refresh)
+          loadRSS()
+       return true
+    }
+
 
 }

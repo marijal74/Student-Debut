@@ -16,8 +16,6 @@ class MainActivity : AppCompatActivity() {
         AddFilters.setOnClickListener(){
             d("AddFilters Button", "Clicked. New Activity started")
             startActivity(Intent(this, ListOfJobs::class.java))
-
-
         }
     }
 

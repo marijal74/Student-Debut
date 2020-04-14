@@ -38,6 +38,7 @@ class FeedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.On
         itemClickListener!!.onClick(v, absoluteAdapterPosition, false)
     }
 
+    //TODO: izbrisati, nije nam potrebno
     override fun onLongClick(v: View?): Boolean {
         itemClickListener!!.onClick(v, absoluteAdapterPosition, true)
         return true
@@ -63,8 +64,13 @@ class FeedAdapter(private val rssObject: RSSObject, private val mContext: Contex
     }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
+        //TODO: filter po zvanju
         holder.txtTitle.text = rssObject.items[position].title
+        //ovde je potrebno lepo transformisati tekst
+        // TODO: filter po sadrzaju (istraziti sta sve moze tu da bude i da li mozemo da iskoristimo
+        //        za jos neko vid filtriranja)
         holder.txtContent.text = rssObject.items[position].content
+        // TODO: filtrirati po tome da li je vec zavrsena prijava
         holder.txtPubdate.text = rssObject.items[position].pubDate
 
         holder.setItemClickListener(object : ItemClickListener { //anonymus object

@@ -14,13 +14,19 @@ class HTTPDataHandler {
             val urlConnection =
                 url.openConnection() as HttpURLConnection
             if (urlConnection.responseCode == HttpURLConnection.HTTP_OK) {
-                val inputStream: InputStream =
-                    BufferedInputStream(urlConnection.inputStream)
-                val r =
-                    BufferedReader(InputStreamReader(inputStream))
+
+                val inputStream: InputStream = BufferedInputStream(urlConnection.inputStream)
+                val r = BufferedReader(InputStreamReader(inputStream))
+
                 val sb = StringBuilder()
+                //line sluzi kao akumulator za also
                 var line: String? = ""
-                while (r.readLine().also { line = it } != null) sb.append(line)
+
+
+                // also je fja viseg reda (u Kotlinu: scope fja)
+                //procitaj liniju takodje ono sto je procitano upisi u line
+                while (r.readLine().also { line = it } != null)
+                    sb.append(line)
                 stream = sb.toString()
                 urlConnection.disconnect()
             }
@@ -30,6 +36,7 @@ class HTTPDataHandler {
         return stream
     }
 
+    //singlton vezan samo za ovu klasu
     companion object {
         var stream = ""
     }

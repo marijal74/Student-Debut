@@ -29,8 +29,10 @@ class ListOfJobs : AppCompatActivity()  {
         setContentView(R.layout.activity_list_of_jobs)
 
         toolbar.title="NEWS"
-        setSupportActionBar(toolbar)
+        //setSupportActionBar(toolbar)
 
+
+        //postavlja RecyclerView
         val linearLayoutManager=LinearLayoutManager(baseContext,LinearLayoutManager.VERTICAL,false)
         RecyclerView.layoutManager = linearLayoutManager
 
@@ -43,6 +45,8 @@ class ListOfJobs : AppCompatActivity()  {
 
           internal var mDialog= Dialog(this@ListOfJobs);
 
+
+           // mozda i ovde tip Main
            override fun onPostExecute(result: String?) {
                mDialog.dismiss()
                var rssObject:RSSObject
@@ -52,6 +56,8 @@ class ListOfJobs : AppCompatActivity()  {
                adapter.notifyDataSetChanged()
            }
 
+           //postaviti Coroutine ovde tip IO mislim da nece biti problema
+           //jer ne menja UI
            override fun doInBackground(vararg params: String?): String {
              val result:String
              val http = HTTPDataHandler()
@@ -59,6 +65,7 @@ class ListOfJobs : AppCompatActivity()  {
                return result
            }
 
+           //TODO: obrisati, nije nam potrebna nikakva priprema pre dohvatanja sadrzaja
            override fun onPreExecute() {
              //  mDialog.
            }
@@ -70,7 +77,7 @@ class ListOfJobs : AppCompatActivity()  {
         loadRSSAsync.execute(url_get_data.toString())
 
     }
-
+    //TODO: videti sta sa menijem (vrvt izbrisati?)
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
         return true

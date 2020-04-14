@@ -6,6 +6,7 @@ interface ItemClickListener {
     fun onClick(
         view: View?,
         position: Int,
+        //TODO: izbrisati, nije nam potrebno
         isLongClick: Boolean
     )
 }

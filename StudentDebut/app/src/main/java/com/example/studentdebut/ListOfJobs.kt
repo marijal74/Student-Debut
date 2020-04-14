@@ -16,29 +16,40 @@ import com.example.studentdebut.Common.HTTPDataHandler
 import com.example.studentdebut.Model.RSSObject
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_list_of_jobs.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.StringBuilder
 
 
 class ListOfJobs : AppCompatActivity()  {
 
-    private val RSS_link="https://startit.rs/poslovi/feed/"
-    private val RSS_to_JSON_API="https://api.rss2json.com/v1/api.json?rss_url="
+    private val RSS_link =  "https://startit.rs/poslovi/feed/"
+    private val RSS_to_JSON_API = "https://api.rss2json.com/v1/api.json?rss_url="
+
+     lateinit var result:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_of_jobs)
 
         toolbar.title="NEWS"
-        setSupportActionBar(toolbar)
+        //setSupportActionBar(toolbar)
 
         val linearLayoutManager=LinearLayoutManager(baseContext,LinearLayoutManager.VERTICAL,false)
         RecyclerView.layoutManager = linearLayoutManager
 
-        loadRSS()
+        val uiScope = CoroutineScope(Dispatchers.IO)
 
+        uiScope.launch {
+            loadRSS()
+        }
+
+        getText()
     }
 
-    private fun loadRSS() {
+    /*private fun loadRSS() {
        val loadRSSAsync = object:  AsyncTask<String,String,String>(){
 
           internal var mDialog= Dialog(this@ListOfJobs);
@@ -62,26 +73,56 @@ class ListOfJobs : AppCompatActivity()  {
            override fun onPreExecute() {
              //  mDialog.
            }
-       }
+       }*/
+
+    private suspend fun loadRSS() {
+
+        withContext(Dispatchers.IO) {
+            // Make network call
+           // val result:String
+            val http = HTTPDataHandler()
+            result = http.GetHTTPDataHandler("https://startit.rs").toString()
+
+            //return@withContext result
+            // parsing JSON is CPU intensive process, so run it on the Default Dispatcher
+            /*withContext(Dispatchers.Default){
+                val rssObject:RSSObject = Gson().fromJson<RSSObject>(result, RSSObject::class.java)
+                withContext(Dispatchers.Main) {
+                    val adapter = FeedAdapter(rssObject, baseContext)
+                    RecyclerView.adapter = adapter
+                    adapter.notifyDataSetChanged()
+                }
+            }*/
+        }
 
 
-      val url_get_data=StringBuilder(RSS_to_JSON_API)
-        url_get_data.append(RSS_link)
-        loadRSSAsync.execute(url_get_data.toString())
+
+      //val url_get_data=StringBuilder(RSS_to_JSON_API)
+        //url_get_data.append(RSS_link)
+        //loadRSSAsync.execute(url_get_data.toString())
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+   private fun getText(){
+
+       //withContext(Dispatchers.Main) {
+           val rssObject: RSSObject = Gson().fromJson<RSSObject>(result, RSSObject::class.java)
+           val adapter = FeedAdapter(rssObject, baseContext)
+           RecyclerView.adapter = adapter
+           adapter.notifyDataSetChanged()
+       }
+   }
+
+    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
         return true
 
-    }
+    }*/
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
      if(item.itemId == R.id.menu_refresh)
           loadRSS()
        return true
-    }
+    }*/
 
 
-}

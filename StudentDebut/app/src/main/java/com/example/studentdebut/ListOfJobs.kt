@@ -1,8 +1,6 @@
 package com.example.studentdebut
 
 
-import android.app.Dialog
-import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log.d
 import androidx.appcompat.app.AppCompatActivity
@@ -12,12 +10,9 @@ import com.example.studentdebut.Common.HTTPDataHandler
 import com.example.studentdebut.Model.RSSObject
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_list_of_jobs.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import java.lang.NullPointerException
 import java.lang.StringBuilder
 
 

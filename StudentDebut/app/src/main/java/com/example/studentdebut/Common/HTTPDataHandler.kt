@@ -1,5 +1,6 @@
 package com.example.studentdebut.Common
 
+import android.util.Log.d
 import java.io.BufferedInputStream
 import java.io.BufferedReader
 import java.io.InputStream
@@ -27,7 +28,11 @@ class HTTPDataHandler {
                 //procitaj liniju takodje ono sto je procitano upisi u line
                 while (r.readLine().also { line = it } != null)
                     sb.append(line)
+
+
                 stream = sb.toString()
+
+
                 urlConnection.disconnect()
             }
         } catch (e: Exception) {

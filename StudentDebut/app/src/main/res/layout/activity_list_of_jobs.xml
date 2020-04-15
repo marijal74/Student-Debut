@@ -7,11 +7,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerView"
-        android:layout_width="372dp"
-        android:layout_height="637dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginStart="1dp"
         android:layout_marginLeft="1dp"
-        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,10 +20,12 @@
         android:id="@+id/toolbar_listofjobs"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@android:color/holo_blue_dark"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Blabla"
+        app:titleMargin="4dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

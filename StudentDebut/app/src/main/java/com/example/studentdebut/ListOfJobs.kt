@@ -26,7 +26,9 @@ class ListOfJobs : AppCompatActivity()  {
     private val RSS_link =  "https://startit.rs/poslovi/feed/"
     private val RSS_to_JSON_API = "https://api.rss2json.com/v1/api.json?rss_url="
 
-
+    val rsslinks = mutableListOf("https://startit.rs/poslovi/feed/", "https://fonis.rs/category/praksa/feed/",
+                                 "http://oglasi.matf.bg.ac.rs/?feed=rss2", "http://www.sljaka.com/rss/itposlovi/",
+                                 "https://www.helloworld.rs/rss/", "http://www.itposlovi.info/rss/all/")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,17 +46,31 @@ class ListOfJobs : AppCompatActivity()  {
         val uiScope = CoroutineScope(Dispatchers.IO)
 
         uiScope.launch {
-            val url_get_data=StringBuilder(RSS_to_JSON_API)
-            url_get_data.append(RSS_link)
-            val result=async{
-                makeConnection(url_get_data.toString())
-            }.await()
-            d("pechu", result)
-            val rssObject:RSSObject=async{
-                loadRSS(result)
-            }.await()
-            d("pechu", rssObject.toString())
-            showResult(rssObject)
+
+            //var url_get_data=StringBuilder(RSS_to_JSON_API)
+
+            var rssObject:RSSObject
+
+
+            rsslinks.forEach{
+
+                var url_get_data=StringBuilder(RSS_to_JSON_API)
+                url_get_data.append(it)
+
+                d("dib", url_get_data.toString())
+
+                val result=async{
+                    makeConnection(url_get_data.toString())
+                }.await()
+                d("pechu", result)
+                rssObject = async{
+                    loadRSS(result)
+                }.await()
+                d("pechu", rssObject.toString())
+                showResult(rssObject)
+                d("rssi", rssObject.items.size.toString())
+            }
+
         }
 
 

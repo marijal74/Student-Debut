@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentdebut.Adapter.FeedAdapter
 import com.example.studentdebut.Common.HTTPDataHandler
+import com.example.studentdebut.Model.Item
 import com.example.studentdebut.Model.RSSObject
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_list_of_jobs.*
@@ -46,6 +47,8 @@ class ListOfJobs : AppCompatActivity()  {
 
             var rssObject:RSSObject
 
+            var listOfItems= mutableListOf<Item>()
+
 
             rsslinks.forEach{
 
@@ -62,7 +65,12 @@ class ListOfJobs : AppCompatActivity()  {
                     loadRSS(result)
                 }.await()
                 d("pechu", rssObject.toString())
-                showResult(rssObject)
+                listOfItems.addAll(rssObject.items)
+                //d("istina", t.toString())
+                //d("ispis", rssObject.items.toString())
+                //d("listica", listOfItems.toString())
+                //rssObject.items = listOfItems
+                showResult(listOfItems)
                 d("rssi", rssObject.items.size.toString())
             }
 
@@ -96,7 +104,7 @@ class ListOfJobs : AppCompatActivity()  {
 
     }
 
-    private suspend fun showResult(rssObject:RSSObject) {
+    private suspend fun showResult(rssObject: MutableList<Item>) {
         withContext(Main) {
             val adapter = FeedAdapter(rssObject, baseContext)
             RecyclerView.adapter = adapter

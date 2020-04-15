@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentdebut.Interface.ItemClickListener
-import com.example.studentdebut.Model.RSSObject
+import com.example.studentdebut.Model.Item
 import com.example.studentdebut.R
 
 class FeedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener{
@@ -46,7 +46,7 @@ class FeedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.On
 
 }
 
-class FeedAdapter(private val rssObject: RSSObject, private val mContext: Context): RecyclerView.Adapter<FeedViewHolder>(){
+class FeedAdapter(private val rssObject: MutableList<Item>, private val mContext: Context): RecyclerView.Adapter<FeedViewHolder>(){
 
     private  val inflater: LayoutInflater
 
@@ -60,29 +60,31 @@ class FeedAdapter(private val rssObject: RSSObject, private val mContext: Contex
     }
 
     override fun getItemCount(): Int {
-        return rssObject.items.size
+        return rssObject.size
     }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        //TODO: filter po zvanju
-        holder.txtTitle.text = rssObject.items[position].title
-        //ovde je potrebno lepo transformisati tekst
-        // TODO: filter po sadrzaju (istraziti sta sve moze tu da bude i da li mozemo da iskoristimo
-        //        za jos neko vid filtriranja)
-        holder.txtContent.text = rssObject.items[position].content
-        // TODO: filtrirati po tome da li je vec zavrsena prijava
-        holder.txtPubdate.text = rssObject.items[position].pubDate
 
-        holder.setItemClickListener(object : ItemClickListener { //anonymus object
-            override fun onClick(view: View?, position: Int, isLongClick: Boolean) {
-                if (!isLongClick) {
+       // rssObject.forEach {
+            //TODO: filter po zvanju
+            holder.txtTitle.text = rssObject[position].title
+            //ovde je potrebno lepo transformisati tekst
+            // TODO: filter po sadrzaju (istraziti sta sve moze tu da bude i da li mozemo da iskoristimo
+            //        za jos neko vid filtriranja)
+            holder.txtContent.text = rssObject[position].content
+            // TODO: filtrirati po tome da li je vec zavrsena prijava
+            holder.txtPubdate.text = rssObject[position].pubDate
 
-                    val browserIntent =
-                        Intent(Intent.ACTION_VIEW, Uri.parse(rssObject.items[position].link))
-                    mContext.startActivity(browserIntent)
+            holder.setItemClickListener(object : ItemClickListener { //anonymus object
+                override fun onClick(view: View?, position: Int, isLongClick: Boolean) {
+                    if (!isLongClick) {
+
+                        val browserIntent =
+                            Intent(Intent.ACTION_VIEW, Uri.parse(rssObject[position].link))
+                        mContext.startActivity(browserIntent)
+                    }
                 }
-            }
-        })
+            })
     }
 
 

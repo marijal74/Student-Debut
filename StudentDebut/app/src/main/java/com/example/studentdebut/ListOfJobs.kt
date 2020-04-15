@@ -12,6 +12,7 @@ import com.example.studentdebut.Common.HTTPDataHandler
 import com.example.studentdebut.Model.RSSObject
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_list_of_jobs.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
@@ -31,8 +32,8 @@ class ListOfJobs : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_of_jobs)
 
-        toolbar.title="NEWS"
-        //setSupportActionBar(toolbar)
+        toolbar_listofjobs.title="NEWS"
+        setSupportActionBar(toolbar_listofjobs)
 
 
         //postavlja RecyclerView

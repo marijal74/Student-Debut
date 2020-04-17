@@ -14,6 +14,8 @@ import com.example.studentdebut.Model.Item
 import com.example.studentdebut.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
@@ -69,6 +71,7 @@ class FeedAdapter(private var items: MutableList<Item>, private val mContext: Co
     }
 
     override fun getItemCount(): Int {
+        d("velicina", items.size.toString())
         return items.size
     }
 
@@ -80,8 +83,6 @@ class FeedAdapter(private var items: MutableList<Item>, private val mContext: Co
         // TODO: filter po sadrzaju (istraziti sta sve moze tu da bude i da li mozemo da iskoristimo
         //        za jos neko vid filtriranja)
 
-        //fja koji vraca izmenjeni item za prikaz
-        items[position] = presentContent(items[position], url)
 
         holder.txtContent.text = items[position].content
         // TODO: filtrirati po tome da li je vec zavrsena prijava
@@ -101,37 +102,7 @@ class FeedAdapter(private var items: MutableList<Item>, private val mContext: Co
 
     }
 
-    private  fun presentContent( item: Item, url:String) : Item{
 
-        val jsoup = Jsoup.parse(item.content)
-        val links : List<Element> = jsoup.select("a").filter {
-            it.attr("rel").equals("nofollow")
-        }
-        d("linkovi", links.toString())
-
-        //TODO parsirati u zavisnosti od sajta (argument url)
-        //TODO naziv firme, desc i see more
-
-        if(links.isNotEmpty()){
-            val link : Element = links.first()
-
-            d("linkic", link.attr("href").toString())
-            item.link=link.attr("href")
-            val sb = StringBuilder()
-            //izvlacenje linka do kompanije koja nudi posao/praksu
-            sb.append("Link: " +link.attr("href")+"\n")
-            //pozicija
-            sb.append("Pozicija: " + link.text()+"\n")
-            d("lista", sb.toString())
-
-            item.content = sb.toString()
-        }
-
-
-        return item
-
-
-    }
 
 
 }

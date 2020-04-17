@@ -22,6 +22,10 @@ import java.lang.StringBuilder
 class ListOfJobs : AppCompatActivity()  {
 
 
+    //TODO pozabaviti se time da ne skida sve podatke odmah, vec kada se dodje do kraja RecyclerView-a
+    // ??? vise puta prikazuje iste poslove, ima vise poslova sa jednog sajta nego sto bi trebalo,
+    // ??? a drugi se ni ne pojavljuju
+
     private val RSS_to_JSON_API = "https://api.rss2json.com/v1/api.json?rss_url="
 
     val rsslinks = mutableListOf("https://startit.rs/poslovi/feed/",  "https://startit.rs/poslovi/feed/?paged=2",
@@ -73,10 +77,33 @@ class ListOfJobs : AppCompatActivity()  {
 
                 rssObject = async{
                     loadRSS(result)
+
                 }.await()
 
+                withContext(Default){
+                    rssObject.items.forEach {
+                        d("linkic", it.link)
+                        if(it.link.contains("startit")){
+                            it.startitContent()
+                        }
+                        else if(it.link.contains("matf")){
+                            it.matfContent()
+                        }
+                        else if(it.link.contains("sljaka")){
+                            it.sljakaContent()
+                        }
+                        else if(it.link.contains("fonis")){
+                            it.fonisContent()
+                            d("fonis" , it.content)
+                        }
+                        else if(it.link.contains("itposlovi")){
+                            it.itposloviContent()
+                            d("ispis" , it.content)
+                        }
+                    }
+                }
+
                 listOfItems.addAll(rssObject.items)
-                d("predKorutinu", "pre poziva")
                 showResult(listOfItems, rssObject.feed.url)
 
 
@@ -104,7 +131,7 @@ class ListOfJobs : AppCompatActivity()  {
         lateinit var rssObject: RSSObject
 
         withContext(Default){
-            rssObject=Gson().fromJson<RSSObject>(result, RSSObject::class.java)
+            rssObject=Gson().fromJson<RSSObject>(result!!, RSSObject::class.java)
         }
         return rssObject
 

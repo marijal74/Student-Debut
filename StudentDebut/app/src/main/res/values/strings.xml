@@ -1,3 +1,47 @@
 <resources>
     <string name="app_name">StudentDebut</string>
+    <string name="primeni_filtere">Primeni filtere</string>
+    <string name="posao">Posao</string>
+    <string name="praksa">Praksa</string>
+    <string name="da_li_trazite_posao_ili_praksu">Da li trazite posao ili praksu?</string>
+    <string name="next">Next</string>
+    <string name="sve">Sve</string>
+    <string name="senior_developer">Senior developer</string>
+    <string name="turor">Tutor</string>
+    <string name="frontend_engineer">Frontend engineer</string>
+    <string name="mobile_engineer">Mobile engineer</string>
+    <string name="web_designer">Web designer</string>
+    <string name="developer">Developer</string>
+    <string name="analyst">Analyst</string>
+    <string name="junior_developer">Junior developer</string>
+    <string name="graphic_designer">Graphic designer</string>
+    <string name="technical_lead">Technical lead</string>
+    <string name="backend_engineer">Backend engineer</string>
+    <string name="software_engineer">Software engineer</string>
+    <string name="marketing">Marketing</string>
+    <string name="izaberite_poziciju">Izaberite poziciju?</string>
+    <string name="gde_zelite_da_radite">Gde zelite da radite?</string>
+    <string name="inostranstvo">Inostranstvo</string>
+    <string name="srbija">Srbija</string>
+    <string name="prikazi_sve">Prikazi sve</string>
+    <string name="izaberite_programske_jezike">Izaberite programske jezike</string>
+    <string name="javascript">JavaScript</string>
+    <string name="net">.NET</string>
+    <string name="python">Python</string>
+    <string name="mysql">MYSQL</string>
+    <string name="angular">Angular</string>
+    <string name="vue">Vue</string>
+    <string name="jquery">jQuery</string>
+    <string name="wordpress">WordPress</string>
+    <string name="c">C</string>
+    <string name="nodejs">NodeJS</string>
+    <string name="kotlin">Kotlin</string>
+    <string name="html_css">HTML/CSS</string>
+    <string name="scala">Scala</string>
+    <string name="java">Java</string>
+    <string name="csharp">C#</string>
+    <string name="php">PHP</string>
+    <string name="xml">XML</string>
+    <string name="bash">Bash</string>
+
 </resources>

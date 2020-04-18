@@ -8,7 +8,7 @@ import java.lang.StringBuilder
 
 //description i content promenjeni na var da bi bili mutabilni
 data class Item (val title:String, val pubDate:String, var link:String, val guid:String, val author: String,
-                 val thumbnail: String, var description: String, var content: String, val enclosure:Object, val categories:List<String>){
+                 val thumbnail: String, var description: String, var content: String, val enclosure:kotlin.Any, val categories:List<String>){
 
 
     //TODO smanjiti br fja i hendlovati spec slucajeve

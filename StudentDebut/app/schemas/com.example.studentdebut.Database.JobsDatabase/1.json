@@ -2,16 +2,46 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a6913ca1f6645a2bebf80b08a6d41673",
+    "identityHash": "7dfcdfe1ce74654b298635d3a2aa3387",
     "entities": [
       {
         "tableName": "jobs_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `job` TEXT NOT NULL, `stationed` TEXT NOT NULL, `position` TEXT NOT NULL, `language` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `pubDate` TEXT NOT NULL, `link` TEXT NOT NULL, `description` TEXT NOT NULL, `content` TEXT NOT NULL, `job` TEXT NOT NULL, `stationed` TEXT NOT NULL, `position` TEXT NOT NULL, `language` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pubDate",
+            "columnName": "pubDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "link",
+            "columnName": "link",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "content",
+            "columnName": "content",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -52,7 +82,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a6913ca1f6645a2bebf80b08a6d41673')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7dfcdfe1ce74654b298635d3a2aa3387')"
     ]
   }
 }

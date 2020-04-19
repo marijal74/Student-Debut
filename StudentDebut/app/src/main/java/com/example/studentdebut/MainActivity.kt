@@ -9,6 +9,8 @@ import android.widget.CheckBox
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.ViewModelProvider
+import com.example.studentdebut.Database.JobsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -28,6 +30,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+        // TODO odvojiti ovo u fje radi citljivosti
         Posao_ili_praksa.visibility=View.VISIBLE
 
 

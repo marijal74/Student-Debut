@@ -56,18 +56,20 @@ class ListOfJobs : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_of_jobs)
-
+        val moja_lista = intent.getParcelableArrayListExtra<jobItem>("mojalista")
         toolbar_listofjobs.title = "NEWS"
         setSupportActionBar(toolbar_listofjobs)
 
         //postavlja RecyclerView
         // ovo nam je inicijalno radila showResult fja i msm da je zbg toga bio onaj bug da se recycler view
-        //vraca na pocetak, jer se vise puta postavljao adapter u forEach petlji
-
+        // vraca na pocetak, jer se vise puta postavljao adapter u forEach petlji
         val recyclerView = findViewById<RecyclerView>(R.id.RecyclerView)
         val adapter = FeedAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val uiScope = CoroutineScope(Dispatchers.IO)
+
 
         //postavljamo viewmodel
         //ovaj viewModelFactory necete naci u ofc dokumentaciji, nema ga iz nekog razloga, a neophodan je da
@@ -81,53 +83,13 @@ class ListOfJobs : AppCompatActivity() {
             // Update the cached copy of the words in the adapter.
             jobs?.let { adapter.setJobs(it) }
         })
-        val uiScope = CoroutineScope(Dispatchers.IO)
-
+        // d("LOJmojalista",moja_lista.toString())
         uiScope.launch {
+            moja_lista.forEach() {
+                //TODO ovde cete azurirati polja za kategorije, tj samo proslediti ono sto je pokupljeno iz MainActivity
 
 
-            var rssObject: RSSObject
-
-
-            rsslinks.forEach {
-
-                val url_get_data = StringBuilder(RSS_to_JSON_API)
-                url_get_data.append(it)
-
-
-                val result = async {
-                    makeConnection(url_get_data.toString())
-
-                }.await()
-
-                rssObject = async {
-                    loadRSS(result)
-
-                }.await()
-
-                withContext(Default) {
-                    rssObject.items.forEach {
-                        //TODO ovde cete azurirati polja za kategorije, tj samo proslediti ono sto je pokupljeno iz MainActivity
-
-                        // TODO ova fja filterContent vadi tekst iz html-a
-                        // samim tim ovaj kod pod komentarima u sledecem TODO-u vrvt nece biti potreban
-                        // ako se odlucimo da fiksiramo duzinu bubble-a
-                        it.filterContent()
-
-                        val ajob = jobItem(
-                            0,
-                            it.title,
-                            it.pubDate,
-                            it.link,
-                            it.description,
-                            it.content,
-                            "",
-                            "",
-                            "",
-                            ""
-                        )
-
-                        viewModel.insert(ajob)
+                viewModel.insert(it)
                         d("linkic", it.link)
                         // moj kod koji je formatirao content
                         //TODO or not, ubaciti ga na odg mesto u buducnosti
@@ -152,40 +114,11 @@ class ListOfJobs : AppCompatActivity() {
                 }
 
             }
-        }
-
-
-    }
-
-
 }
 
 
 
-    //sve ostalo isto nadalje
-    //TODO prebaciti ovaj posao u MainActivity
 
-    private  fun makeConnection(link: String):String{
-
-        val result:String
-        val http = HTTPDataHandler()
-        result = http.GetHTTPDataHandler(link).toString()
-
-        return result
-    }
-
-    private suspend fun loadRSS(result:String):RSSObject{
-
-
-        lateinit var rssObject: RSSObject
-
-        withContext(Default){
-            rssObject=Gson().fromJson<RSSObject>(result, RSSObject::class.java)
-        }
-        return rssObject
-
-
-    }
 
 
 

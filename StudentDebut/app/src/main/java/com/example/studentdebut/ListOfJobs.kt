@@ -109,6 +109,11 @@ class ListOfJobs : AppCompatActivity() {
                     rssObject.items.forEach {
                         //TODO ovde cete azurirati polja za kategorije, tj samo proslediti ono sto je pokupljeno iz MainActivity
 
+                        // TODO ova fja filterContent vadi tekst iz html-a
+                        // samim tim ovaj kod pod komentarima u sledecem TODO-u vrvt nece biti potreban
+                        // ako se odlucimo da fiksiramo duzinu bubble-a
+                        it.filterContent()
+
                         val ajob = jobItem(
                             0,
                             it.title,

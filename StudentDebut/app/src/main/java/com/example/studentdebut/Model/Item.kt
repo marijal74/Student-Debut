@@ -13,7 +13,16 @@ data class Item (val title:String, val pubDate:String, var link:String, val guid
 
     //TODO smanjiti br fja i hendlovati spec slucajeve
 
+    fun filterContent(){
 
+        val jsoup = Jsoup.parse(this.content)
+
+
+
+        content = jsoup.text()
+        Log.d("tekst", jsoup.text())
+
+    }
     fun startitContent(){
         val jsoup = Jsoup.parse(this.content)
         Log.d("tekst", this.description)

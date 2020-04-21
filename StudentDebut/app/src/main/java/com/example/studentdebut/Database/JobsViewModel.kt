@@ -27,10 +27,10 @@ class JobsViewModel( application: Application) :AndroidViewModel(application)  {
 
     //wrapper za insert radi enkapsulacije od UI-a
     // poziva novu korutinu da ne bi blokirala UI
-    fun insert(job: jobItem) = viewModelScope.launch(Dispatchers.IO) {
-        repo.insert(job)
+  /*  fun insert(job: List<jobItem>) = viewModelScope.launch(Dispatchers.IO) {
+        repo.insert()
     }
-
+*/
 
 }
 

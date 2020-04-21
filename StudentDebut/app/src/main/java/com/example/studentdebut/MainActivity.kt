@@ -15,9 +15,13 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
+import com.example.studentdebut.MyApp.Companion.done
+import com.example.studentdebut.MyApp.Companion.ListOfJobItems
+
+class MainActivity() : AppCompatActivity() {
 
 
-class MainActivity : AppCompatActivity() {
+
 
     //Lista za cuvanje reci po kojima filtriramo
     val filters = mutableListOf<CharSequence>()
@@ -35,9 +39,13 @@ class MainActivity : AppCompatActivity() {
     "https://startit.rs/poslovi/feed/?paged=2",
     "https://startit.rs/poslovi/feed/?paged=3",
     "https://startit.rs/poslovi/feed/?paged=4",
-    "https://startit.rs/poslovi/feed/?paged=5",*/
+    "https://startit.rs/poslovi/feed/?paged=5",
+    "https://www.helloworld.rs/rss/"*/
     val rsslinks = mutableListOf(
-        "https://www.helloworld.rs/rss/",
+        "https://startit.rs/poslovi/feed/?paged=2",
+        "https://startit.rs/poslovi/feed/?paged=3",
+        "https://startit.rs/poslovi/feed/?paged=4",
+        "https://startit.rs/poslovi/feed/?paged=5",
         "http://oglasi.matf.bg.ac.rs/?feed=rss2",
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=2",
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=3",
@@ -54,7 +62,7 @@ class MainActivity : AppCompatActivity() {
     //viewModel
     private lateinit var viewModel: JobsViewModel
 
-    val ListOfJobItems = ArrayList<jobItem>()
+
 
 
     private fun makeConnection(link: String): String {
@@ -80,10 +88,10 @@ class MainActivity : AppCompatActivity() {
         return rssObject
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         Posao_ili_praksa.visibility = View.VISIBLE
         AddFilters.setOnClickListener() {
             // UbaciFiltereJezici()
@@ -92,8 +100,6 @@ class MainActivity : AppCompatActivity() {
             i.putExtra("mojalista",ListOfJobItems)
             //i.putParcelableArrayListExtra("mojalista", ListOfJobItems)
             startActivity(i)
-
-
         }
         btn_Next_page1.setOnClickListener() {
             UbaciFilterePocetna()
@@ -119,7 +125,7 @@ class MainActivity : AppCompatActivity() {
 
                 val url_get_data = StringBuilder(RSS_to_JSON_API)
                 url_get_data.append(it)
-                d("url_get_data",url_get_data.toString())
+              //  d("url_get_data",url_get_data.toString())
                 val result = async {
                     makeConnection(url_get_data.toString())
                 }.await()
@@ -156,11 +162,10 @@ class MainActivity : AppCompatActivity() {
                         ListOfJobItems.add(ajob)
 
                     }
+
                 }
             }
-
-
-
+           done=true
         }
         d("done","DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOONEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
 
@@ -192,7 +197,7 @@ class MainActivity : AppCompatActivity() {
             findViewById<CheckBox>(R.id.cb_posao)
         )
         addInFilters(check_boxes)
-        d("filteri", filters.toString())
+       // d("filteri", filters.toString())
     }
     private fun UbaciFilterePozicija() {
 
@@ -218,7 +223,7 @@ class MainActivity : AppCompatActivity() {
             findViewById<CheckBox>(R.id.cb_ostalo)
         )
         addInFilters(check_boxes)
-        d("filteri", filters.toString())
+      //  d("filteri", filters.toString())
 
 
     }

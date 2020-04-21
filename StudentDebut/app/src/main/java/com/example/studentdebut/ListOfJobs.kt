@@ -89,8 +89,8 @@ class ListOfJobs : AppCompatActivity() {
                 //TODO ovde cete azurirati polja za kategorije, tj samo proslediti ono sto je pokupljeno iz MainActivity
 
 
-                viewModel.insert(it)
-                        d("linkic", it.link)
+               // viewModel.insert(it)
+                      //  d("linkic", it.link)
                         // moj kod koji je formatirao content
                         //TODO or not, ubaciti ga na odg mesto u buducnosti
                         /*if(it.link.contains("startit")){

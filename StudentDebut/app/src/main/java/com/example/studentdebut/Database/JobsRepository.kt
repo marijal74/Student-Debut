@@ -10,7 +10,7 @@ class JobsRepository(private val jobsDao: DataAccessObject) {
 
     val allJobs: LiveData<List<jobItem>> = jobsDao.getAllJobs()
 
-    suspend fun insert(job : jobItem) {
+    suspend fun insert(job : List<jobItem>) {
         jobsDao.insert(job)
     }
 

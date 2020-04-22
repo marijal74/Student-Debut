@@ -58,8 +58,7 @@ public abstract class JobsDatabase: RoomDatabase() {
         override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 scope.launch {
-                    // Add a delay to simulate a long-running operation
-                    //addDelay();
+                    //TODO maybe neka obrada ovde
                     // Generate the data for pre-population
                     withContext(IO) {
                         val database: JobsDatabase = JobsDatabase.getDatabase(appContext, scope)

@@ -96,9 +96,6 @@ class MainActivity() : AppCompatActivity() {
         AddFilters.setOnClickListener() {
             // UbaciFiltereJezici()
             val i = Intent(this, ListOfJobs::class.java)
-            //d("Mainmojalista",ListOfJobItems.toString())
-            i.putExtra("mojalista",ListOfJobItems)
-            //i.putParcelableArrayListExtra("mojalista", ListOfJobItems)
             startActivity(i)
         }
         btn_Next_page1.setOnClickListener() {

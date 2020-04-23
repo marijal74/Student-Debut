@@ -1,520 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-
-    <!--TOOLBAR-->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Student Debut"
-        app:titleMargin="4dp" />
-
-    <!--BUTTON ADD FILTERS-->
-    <Button
-        android:id="@+id/AddFilters"
+    <TextView
+        android:id="@+id/textSkipIntro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/primeni_filtere"
+        android:layout_marginBottom="70dp"
+        android:text="@string/preskoci"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
-    <!--PRVI LAYOUT POSAO/PRAKSA-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Posao_ili_praksa"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/AddFilters"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:minWidth="110dp"
+        android:text="@string/nastavi"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@id/textSkipIntro"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0">
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"/>
 
+    <LinearLayout
+        android:id="@+id/indicatorsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/tv_posao_ili_praksa"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/da_li_trazite_posao_ili_praksu"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <CheckBox
-            android:id="@+id/cb_posao"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="26dp"
-            android:text="@string/posao"
-            app:layout_constraintBottom_toTopOf="@+id/btn_Next_page1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_posao_ili_praksa"
-            app:layout_constraintVertical_bias="0.258" />
-
-        <CheckBox
-            android:id="@+id/cb_praksa"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/praksa"
-            app:layout_constraintBottom_toTopOf="@+id/btn_Next_page1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_posao"
-            app:layout_constraintVertical_bias="0.45" />
-
-
-
-
-        <Button
-            android:id="@+id/btn_Next_page1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/next"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_praksa" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--TRECI layaout POZICIJA-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Pozicija"
-        android:layout_width="0dp"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/introSliderViewPager"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/AddFilters"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0">
+        android:layout_marginBottom="12dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/indicatorsContainer"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-
-        <TextView
-            android:id="@+id/tv_pozicija"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/izaberite_poziciju"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <CheckBox
-            android:id="@+id/cb_prikazi_sve_pagePozicije"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="Prikazi sve"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_pozicija"/>
-
-
-        <CheckBox
-            android:id="@+id/cb_senior_developer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/senior_developer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_prikazi_sve_pagePozicije" />
-
-        <CheckBox
-            android:id="@+id/cb_junior_developer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/junior_developer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_senior_developer" />
-
-        <CheckBox
-            android:id="@+id/cd_developer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/developer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_junior_developer" />
-
-        <CheckBox
-            android:id="@+id/cb_analyst"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/analyst"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cd_developer" />
-
-        <CheckBox
-            android:id="@+id/graphic_designer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/graphic_designer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_analyst" />
-
-        <CheckBox
-            android:id="@+id/web_designer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/web_designer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/graphic_designer" />
-
-        <CheckBox
-            android:id="@+id/tutor"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/turor"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/web_designer" />
-
-
-        <CheckBox
-            android:id="@+id/technical_lead"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/technical_lead"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tutor" />
-
-        <CheckBox
-            android:id="@+id/backend_engineer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/backend_engineer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/technical_lead" />
-
-        <CheckBox
-            android:id="@+id/frontend_engineer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/frontend_engineer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/backend_engineer" />
-
-        <CheckBox
-            android:id="@+id/mobile_engineer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/mobile_engineer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frontend_engineer" />
-
-        <CheckBox
-            android:id="@+id/software_engineer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/software_engineer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mobile_engineer" />
-
-        <CheckBox
-            android:id="@+id/marketing"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/marketing"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/software_engineer" />
-        <CheckBox
-            android:id="@+id/cb_ostalo"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="Druge pozicije"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/marketing" />
-
-        <Button
-            android:id="@+id/btn_Next_pagePozicije"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/next"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_ostalo" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!--DRUGI LAYOUT DESTINACIJA-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Destinacija"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/AddFilters"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.0">
-
-
-
-        <TextView
-            android:id="@+id/tv_destinacija"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            android:text="@string/gde_zelite_da_radite"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <CheckBox
-            android:id="@+id/cb_inostranstvo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="26dp"
-            android:text="@string/inostranstvo"
-            app:layout_constraintBottom_toTopOf="@+id/btn_Next_pageDestinacija"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_destinacija"
-            app:layout_constraintVertical_bias="0.258" />
-
-        <CheckBox
-            android:id="@+id/cb_Srbija"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/srbija"
-            app:layout_constraintBottom_toTopOf="@+id/btn_Next_pageDestinacija"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_inostranstvo"
-            app:layout_constraintVertical_bias="0.45" />
-
-
-
-
-        <Button
-            android:id="@+id/btn_Next_pageDestinacija"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/next"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_Srbija"/>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-    <!--Cetvrti layaout Jezici-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Jezici"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/AddFilters"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0">
-
-
-        <TextView
-            android:id="@+id/tv_jezici"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/izaberite_programske_jezike"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- ubacen scroll view zbog toga sto sve ne staje na obican layout-->
-        <ScrollView
-            android:id="@+id/sc_jezici"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_jezici"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/linearlayout"
-                >
-                <CheckBox
-                    android:id="@+id/cb_prikazi_sve_pageJezici"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/prikazi_sve" />
-
-                <CheckBox
-                    android:id="@+id/cb_javascript"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/javascript" />
-
-                <CheckBox
-                    android:id="@+id/cb_net"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/net" />
-
-                <CheckBox
-                    android:id="@+id/cb_python"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/python" />
-
-                <CheckBox
-                    android:id="@+id/cb_mysql"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mysql" />
-
-                <CheckBox
-                    android:id="@+id/cb_angular"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/angular" />
-
-                <CheckBox
-                    android:id="@+id/cb_vue"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/vue" />
-
-                <CheckBox
-                    android:id="@+id/cb_jquery"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/jquery" />
-
-                <CheckBox
-                    android:id="@+id/cb_wordpress"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/wordpress" />
-
-                <CheckBox
-                    android:id="@+id/cb_c"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/c" />
-
-                <CheckBox
-                    android:id="@+id/cb_nodejs"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/nodejs" />
-
-                <CheckBox
-                    android:id="@+id/cb_kotlin"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/kotlin" />
-
-                <CheckBox
-                    android:id="@+id/cb_htmlcss"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/html_css" />
-
-                <CheckBox
-                    android:id="@+id/cb_scala"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/scala" />
-
-                <CheckBox
-                    android:id="@+id/cb_java"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/java" />
-
-                <CheckBox
-                    android:id="@+id/cb_csharp"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/csharp" />
-
-                <CheckBox
-                    android:id="@+id/cb_php"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/php" />
-
-                <CheckBox
-                    android:id="@+id/cb_XML"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/xml" />
-
-                <CheckBox
-                    android:id="@+id/cb_bash"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bash" />
-                <CheckBox
-                    android:id="@+id/cb_ostalo2"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="Drugi jezici"/>
-
-
-                <!--   <Button
-                       android:id="@+id/btn_Next_pageJezici"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:gravity="center_horizontal"
-                       android:text="@string/next"
-                       android:textAlignment="center"
-                       app:layout_constraintBottom_toBottomOf="parent"
-                       app:layout_constraintEnd_toEndOf="parent"
-                       app:layout_constraintStart_toStartOf="parent"
-                       app:layout_constraintTop_toBottomOf="@+id/cb_bash" />
-
-                 -->
-            </LinearLayout>
-
-        </ScrollView>
-
-
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,5 +43,7 @@
     <string name="php">PHP</string>
     <string name="xml">XML</string>
     <string name="bash">Bash</string>
+    <string name="preskoci">PRESKOCI</string>
+    <string name="nastavi">NASTAVI</string>
 
 </resources>

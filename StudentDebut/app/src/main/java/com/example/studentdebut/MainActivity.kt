@@ -2,13 +2,20 @@ package com.example.studentdebut
 
 import android.content.Intent
 import android.graphics.Path
+import android.media.Image
 import android.os.Bundle
 import android.util.Log.d
 import android.view.View
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.CheckBox
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.view.get
+import androidx.viewpager2.widget.ViewPager2
 import com.example.studentdebut.Common.HTTPDataHandler
 import com.example.studentdebut.Database.JobsViewModel
 import com.example.studentdebut.Database.jobItem
@@ -22,19 +29,111 @@ import kotlinx.android.synthetic.main.activity_options.*
 
 class MainActivity() : AppCompatActivity() {
 
+    private val introSliderAdapter = IntroSliderAdapter(
+        listOf(
+            IntroSlide(
+                "Poslovi",
+                "Ponude poslova iz vise oblasti informatike",
+                R.drawable.job
+
+            ),
+            IntroSlide(
+                "Prakse",
+                "Prakse iz razlicitih oblasti informatike",
+                R.drawable.internship
+            ),
+            IntroSlide(
+                "Stipendije",
+                "Ponuda stipendija iz oblasti informatike i matematike",
+                R.drawable.scholarship
+            )
+        )
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        introSliderViewPager.adapter = introSliderAdapter
+        setupIndicators()
+        setCurrentIndicator(0)
+        introSliderViewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback(){
+
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                setCurrentIndicator(position)
+            }
+
+        })
+
+        buttonNext.setOnClickListener{
+            if(introSliderViewPager.currentItem + 1 < introSliderAdapter.itemCount){
+                introSliderViewPager.currentItem += 1
+            }else{
+                Intent(applicationContext, Options::class.java).also {
+                    startActivity(it)
+                    //TODO: probajte da skinete komentar sa finish pa vidite hocemo li da zadrzimo ponasanje ili ne
+                    //finish()
+                }
+            }
+        }
         textSkipIntro.setOnClickListener() {
-            val i = Intent(this, Options::class.java)
-            startActivity(i)
+            Intent(applicationContext, Options::class.java).also {
+                startActivity(it)
+                //TODO: probajte da skinete komentar sa finish pa vidite hocemo li da zadrzimo ponasanje ili ne
+                //finish()
+            }
         }
     }
 
+    private fun setupIndicators(){
+        val indicators = arrayOfNulls<ImageView>(introSliderAdapter.itemCount)
+        val layoutParams: LinearLayout.LayoutParams =
+            LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+        layoutParams.setMargins(8, 0, 8, 0)
+        for(i in indicators.indices){
+            indicators[i] = ImageView(applicationContext)
+            indicators[i].apply {
+                this?.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.indicator_inactive
+                    )
+                )
+                this?.layoutParams = layoutParams
+            }
+            indicatorsContainer.addView(indicators[i])
+        }
+    }
 
+    private fun setCurrentIndicator(index: Int){
+        val childCount = indicatorsContainer.childCount
+        for(i in 0 until childCount){
+            val imageView = indicatorsContainer[i] as ImageView
+            if(i == index) {
+                imageView.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.indicator_active
+                    )
+                )
+            }else{
+
+                imageView.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.indicator_inactive
+                    )
+                )
+
+            }
+        }
+    }
 }
+
+
+
 
 
 

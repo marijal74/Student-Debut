@@ -2,7 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Options"
+    android:padding="24dp">
 
 
     <!--TOOLBAR-->
@@ -18,15 +21,24 @@
         app:title="Student Debut"
         app:titleMargin="4dp" />
 
+    <include
+        android:id="@+id/myProgressButton"
+        layout="@layout/progress_btn_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <!--BUTTON ADD FILTERS-->
-    <Button
+    <!--<Button
         android:id="@+id/AddFilters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/primeni_filtere"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />-->
 
 
     <!--PRVI LAYOUT POSAO/PRAKSA-->
@@ -35,7 +47,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/AddFilters"
+        app:layout_constraintBottom_toTopOf="@+id/myProgressButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +115,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/AddFilters"
+        app:layout_constraintBottom_toTopOf="@+id/myProgressButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -268,7 +280,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/AddFilters"
+        app:layout_constraintBottom_toTopOf="@+id/myProgressButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0">
 
@@ -336,7 +348,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/AddFilters"
+        app:layout_constraintBottom_toTopOf="@+id/myProgressButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -467,6 +479,8 @@
                     android:layout_width="409dp"
                     android:layout_height="wrap_content"
                     android:text="@string/csharp" />
+
+
 
                 <CheckBox
                     android:id="@+id/cb_php"

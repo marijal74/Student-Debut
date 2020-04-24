@@ -2,6 +2,7 @@ package com.example.studentdebut
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
@@ -88,16 +89,32 @@ class Options() : AppCompatActivity() {
         return rssObject
     }
 
+    lateinit var view : View
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_options)
 
+        view = findViewById(R.id.myProgressButton)
         Posao_ili_praksa.visibility = View.VISIBLE
-        AddFilters.setOnClickListener() {
+        view.setOnClickListener() {
             // UbaciFiltereJezici()
-            val i = Intent(this, ListOfJobs::class.java)
-            startActivity(i)
+            val progressButton = ProgressButton(this@Options, view)
+            progressButton.buttonActivated()
+            val handler = Handler()
+            handler.postDelayed({
+                progressButton.buttonFinished()
+                val handler1 = Handler()
+                handler1.postDelayed({
+                    val intent = Intent(this@Options, ListOfJobs::class.java)
+                    startActivity(intent)
+                },2000)
+            },3000)
+
+            //val i = Intent(this, ListOfJobs::class.java)
+            //startActivity(i)
         }
+
         btn_Next_page1.setOnClickListener() {
             UbaciFilterePocetna()
         }

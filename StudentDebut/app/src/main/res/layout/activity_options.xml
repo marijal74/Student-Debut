@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Options"
-    android:padding="24dp">
+    tools:context=".Options">
 
 
     <!--TOOLBAR-->
@@ -94,12 +93,15 @@
 
 
 
-        <Button
+        <TextView
             android:id="@+id/btn_Next_page1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/next"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="italic"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -134,138 +136,161 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <CheckBox
-            android:id="@+id/cb_prikazi_sve_pagePozicije"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="Prikazi sve"
+
+        <ScrollView
+            android:id="@+id/sc_pozicije"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_pozicija"/>
-
-
-        <CheckBox
-            android:id="@+id/cb_senior_developer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/senior_developer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_prikazi_sve_pagePozicije" />
-
-        <CheckBox
-            android:id="@+id/cb_junior_developer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/junior_developer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_senior_developer" />
-
-        <CheckBox
-            android:id="@+id/cd_developer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/developer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_junior_developer" />
-
-        <CheckBox
-            android:id="@+id/cb_analyst"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/analyst"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cd_developer" />
-
-        <CheckBox
-            android:id="@+id/graphic_designer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/graphic_designer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_analyst" />
-
-        <CheckBox
-            android:id="@+id/web_designer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/web_designer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/graphic_designer" />
-
-        <CheckBox
-            android:id="@+id/tutor"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/turor"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/web_designer" />
-
-
-        <CheckBox
-            android:id="@+id/technical_lead"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/technical_lead"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tutor" />
-
-        <CheckBox
-            android:id="@+id/backend_engineer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/backend_engineer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/technical_lead" />
-
-        <CheckBox
-            android:id="@+id/frontend_engineer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/frontend_engineer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/backend_engineer" />
-
-        <CheckBox
-            android:id="@+id/mobile_engineer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/mobile_engineer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frontend_engineer" />
-
-        <CheckBox
-            android:id="@+id/software_engineer"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/software_engineer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mobile_engineer" />
-
-        <CheckBox
-            android:id="@+id/marketing"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="@string/marketing"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/software_engineer" />
-        <CheckBox
-            android:id="@+id/cb_ostalo"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:text="Druge pozicije"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/marketing" />
-
-        <Button
-            android:id="@+id/btn_Next_pagePozicije"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/next"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_ostalo" />
+            app:layout_constraintTop_toBottomOf="@id/tv_pozicija"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/cb_prikazi_sve_pagePozicije"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="Prikazi sve"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_pozicija"/>
+
+
+                <CheckBox
+                    android:id="@+id/cb_senior_developer"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/senior_developer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cb_prikazi_sve_pagePozicije" />
+
+                <CheckBox
+                    android:id="@+id/cb_junior_developer"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/junior_developer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cb_senior_developer" />
+
+                <CheckBox
+                    android:id="@+id/cd_developer"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/developer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cb_junior_developer" />
+
+                <CheckBox
+                    android:id="@+id/cb_analyst"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/analyst"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cd_developer" />
+
+                <CheckBox
+                    android:id="@+id/graphic_designer"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/graphic_designer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cb_analyst" />
+
+                <CheckBox
+                    android:id="@+id/web_designer"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/web_designer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/graphic_designer" />
+
+                <CheckBox
+                    android:id="@+id/tutor"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/turor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/web_designer" />
+
+
+                <CheckBox
+                    android:id="@+id/technical_lead"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/technical_lead"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tutor" />
+
+                <CheckBox
+                    android:id="@+id/backend_engineer"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/backend_engineer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/technical_lead" />
+
+                <CheckBox
+                    android:id="@+id/frontend_engineer"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/frontend_engineer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/backend_engineer" />
+
+                <CheckBox
+                    android:id="@+id/mobile_engineer"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mobile_engineer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/frontend_engineer" />
+
+                <CheckBox
+                    android:id="@+id/software_engineer"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/software_engineer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mobile_engineer" />
+
+                <CheckBox
+                    android:id="@+id/marketing"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/marketing"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/software_engineer" />
+
+                <CheckBox
+                    android:id="@+id/cb_ostalo"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="Druge pozicije"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/marketing" />
+
+                <TextView
+                    android:id="@+id/btn_Next_pagePozicije"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/next"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    android:textStyle="italic"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cb_ostalo" />
+
+             </LinearLayout>
+
+        </ScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -325,12 +350,15 @@
 
 
 
-        <Button
+        <TextView
             android:id="@+id/btn_Next_pageDestinacija"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/next"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="italic"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -479,8 +507,6 @@
                     android:layout_width="409dp"
                     android:layout_height="wrap_content"
                     android:text="@string/csharp" />
-
-
 
                 <CheckBox
                     android:id="@+id/cb_php"

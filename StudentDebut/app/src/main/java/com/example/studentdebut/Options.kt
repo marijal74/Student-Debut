@@ -15,7 +15,7 @@ import com.example.studentdebut.Model.RSSObject
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import kotlinx.android.synthetic.main.activity_options.*
-
+import java.lang.IllegalStateException
 
 
 class Options() : AppCompatActivity() {
@@ -76,14 +76,14 @@ class Options() : AppCompatActivity() {
     }
 
 
-    private suspend fun loadRSS(result: String): RSSObject {
+    private suspend fun loadRSS(result: String): RSSObject{
 
 
-        lateinit var rssObject: RSSObject
+       lateinit var rssObject: RSSObject
 
         withContext(Dispatchers.Default) {
 
-            rssObject = Gson().fromJson<RSSObject>(result, RSSObject::class.java)
+                rssObject = Gson().fromJson<RSSObject>(result, RSSObject::class.java)
 
         }
         return rssObject
@@ -108,7 +108,7 @@ class Options() : AppCompatActivity() {
                 handler1.postDelayed({
                     val intent = Intent(this@Options, ListOfJobs::class.java)
                     startActivity(intent)
-                },2000)
+                },200)
             },3000)
 
             //val i = Intent(this, ListOfJobs::class.java)
@@ -153,31 +153,31 @@ class Options() : AppCompatActivity() {
 
 
                 //iz rss u job item
-                withContext(Dispatchers.Default) {
-                    rssObject.items.forEach {
-                        // TODO ova fja filterContent vadi tekst iz html-a
-                        // samim tim ovaj kod pod komentarima u sledecem TODO-u vrvt nece biti potreban
-                        // ako se odlucimo da fiksiramo duzinu bubble-a
-                        it.filterContent()
-                        val ajob = jobItem(
-                            0,
-                            it.title,
-                            it.pubDate,
-                            it.link,
-                            it.description,
-                            it.content,
-                            "",
-                            "",
-                            "",
-                            ""
-                        )
+                    withContext(Dispatchers.Default) {
+                        rssObject.items.forEach {
+                            // TODO ova fja filterContent vadi tekst iz html-a
+                            // samim tim ovaj kod pod komentarima u sledecem TODO-u vrvt nece biti potreban
+                            // ako se odlucimo da fiksiramo duzinu bubble-a
+                            it.filterContent()
+                            val ajob = jobItem(
+                                0,
+                                it.title,
+                                it.pubDate,
+                                it.link,
+                                it.description,
+                                it.content,
+                                "",
+                                "",
+                                "",
+                                ""
+                            )
 
-                        // d("item", ajob.toString())
-                        MyApp.ListOfJobItems.add(ajob)
+                            // d("item", ajob.toString())
+                            MyApp.ListOfJobItems.add(ajob)
+
+                        }
 
                     }
-
-                }
             }
             MyApp.done =true
         }

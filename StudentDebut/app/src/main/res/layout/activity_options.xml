@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="26dp"
             android:text="@string/posao"
-            app:layout_constraintBottom_toTopOf="@+id/btn_Next_page1"
+            app:layout_constraintBottom_toTopOf="@+id/holder2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,12 +83,25 @@
             android:id="@+id/cb_praksa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:text="@string/praksa"
-            app:layout_constraintBottom_toTopOf="@+id/btn_Next_page1"
+            app:layout_constraintBottom_toTopOf="@+id/holder2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cb_posao"
-            app:layout_constraintVertical_bias="0.45" />
+            app:layout_constraintVertical_bias="0.30" />
+
+
+        <CheckBox
+            android:id="@+id/cb_stipendija"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Stipendija"
+            app:layout_constraintBottom_toTopOf="@+id/holder2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_praksa"
+            app:layout_constraintVertical_bias="0.99"/>
 
 
 
@@ -106,7 +119,35 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_praksa" />
+            app:layout_constraintTop_toBottomOf="@+id/cb_stipendija" />
+
+
+        <TextView
+            android:id="@+id/holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Za ovu opciju ne postoje dodatni filteri"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_stipendija" />
+
+        <TextView
+            android:id="@+id/holder2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_stipendija" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

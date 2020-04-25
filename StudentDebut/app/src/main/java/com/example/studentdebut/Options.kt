@@ -6,6 +6,7 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.studentdebut.Common.HTTPDataHandler
@@ -13,9 +14,8 @@ import com.example.studentdebut.Database.JobsViewModel
 import com.example.studentdebut.Database.jobItem
 import com.example.studentdebut.Model.RSSObject
 import com.google.gson.Gson
-import kotlinx.coroutines.*
 import kotlinx.android.synthetic.main.activity_options.*
-import java.lang.IllegalStateException
+import kotlinx.coroutines.*
 
 
 class Options() : AppCompatActivity() {
@@ -40,9 +40,7 @@ class Options() : AppCompatActivity() {
     "https://startit.rs/poslovi/feed/?paged=5",
     "https://www.helloworld.rs/rss/"*/
 
-    //TODO dodati za stipendije link kod matfa
-    //http://oglasi.matf.bg.ac.rs/?tag=stipendije&feed=rss2
-    val rsslinks = mutableListOf(
+   val rsslinks = mutableListOf(
         "https://startit.rs/poslovi/feed/?paged=2",
         "https://startit.rs/poslovi/feed/?paged=3",
         "https://startit.rs/poslovi/feed/?paged=4",
@@ -52,6 +50,7 @@ class Options() : AppCompatActivity() {
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=3",
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=4",
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=5",
+        "http://oglasi.matf.bg.ac.rs/?tag=stipendije%26feed=rss2",
         "http://www.sljaka.com/rss/itposlovi/",
         "https://fonis.rs/category/posao/feed/",
         "https://fonis.rs/category/praksa/feed/",
@@ -91,12 +90,25 @@ class Options() : AppCompatActivity() {
 
     lateinit var view : View
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_options)
 
+        val mStipendija: CheckBox = findViewById(R.id.cb_stipendija)
+        val mSledece: TextView = findViewById(R.id.btn_Next_page1)
+        val mHolder : TextView = findViewById(R.id.holder)
+
+        //mStipendija = findViewById(R.id.cb_stipendija)
+        //mSledece = findViewById(R.id.btn_Next_page1)
+
+
+
         view = findViewById(R.id.myProgressButton)
         Posao_ili_praksa.visibility = View.VISIBLE
+        mHolder.visibility = View.GONE
+
         view.setOnClickListener() {
             // UbaciFiltereJezici()
             val progressButton = ProgressButton(this@Options, view)
@@ -125,6 +137,15 @@ class Options() : AppCompatActivity() {
 
             UbaciFiltereMesto()
         }
+
+        mStipendija.setOnClickListener(View.OnClickListener { if(mStipendija.isChecked){
+                                                                mSledece.visibility = View.GONE
+                                                                mHolder.visibility = View.VISIBLE}
+                                                            else{
+            mSledece.visibility = View.VISIBLE
+            mHolder.visibility = View.GONE
+
+        }})
 
 
         val uiScope = CoroutineScope(Dispatchers.IO)

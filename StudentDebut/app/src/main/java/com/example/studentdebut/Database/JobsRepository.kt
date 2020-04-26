@@ -8,7 +8,9 @@ import androidx.lifecycle.LiveData
 // i pojam komunikacije izmedju baze i ViewModel-a
 class JobsRepository(private val jobsDao: DataAccessObject) {
 
+
     val allJobs: LiveData<List<jobItem>> = jobsDao.getAllJobs()
+
 
     suspend fun insert(job : jobItem) {
         jobsDao.insert(job)

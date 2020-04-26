@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.studentdebut.Common.HTTPDataHandler
+import com.example.studentdebut.Database.JobsDatabase
 import com.example.studentdebut.Database.JobsViewModel
 import com.example.studentdebut.Database.jobItem
 import com.example.studentdebut.Model.RSSObject
@@ -62,38 +63,13 @@ class Options() : AppCompatActivity() {
      */
 
    val rsslinks = mutableListOf(
-       "https://startit.rs/poslovi/feed/",
-        "https://startit.rs/poslovi/feed/?paged=2",
-        "https://startit.rs/poslovi/feed/?paged=3",
-        "https://startit.rs/poslovi/feed/?paged=4",
-        "https://startit.rs/poslovi/feed/?paged=5",
-        "https://www.helloworld.rs/rss/",
-        "http://oglasi.matf.bg.ac.rs/?feed=rss2",
-        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=2",
-        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=3",
-        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=4",
-        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=5",
-        "http://oglasi.matf.bg.ac.rs/?tag=stipendije%26feed=rss2",
-        "http://www.sljaka.com/rss/itposlovi/",
-        "https://fonis.rs/category/posao/feed/",
-        "https://fonis.rs/category/praksa/feed/",
-        "https://fonis.rs/category/praksa/feed/?paged=2",
-        "http://www.itposlovi.info/rss/programeri/",
-        "http://www.itposlovi.info/rss/dizajneri/"
+
+       "http://www.itposlovi.info/rss/programeri/",
+       "http://www.itposlovi.info/rss/dizajneri/"
    )
-
-
-
-
-
-
 
     //viewModel
     private lateinit var viewModel: JobsViewModel
-
-
-
-
     private fun makeConnection(link: String): String {
 
         val result: String
@@ -104,10 +80,10 @@ class Options() : AppCompatActivity() {
     }
 
 
-    private suspend fun loadRSS(result: String): RSSObject{
+    private suspend fun loadRSS(result: String): RSSObject?{
 
 
-         lateinit var rssObject: RSSObject
+        var rssObject: RSSObject?=null
 
         withContext(Dispatchers.Default) {
 
@@ -162,8 +138,8 @@ class Options() : AppCompatActivity() {
                 handler1.postDelayed({
                     val intent = Intent(this@Options, ListOfJobs::class.java)
                     startActivity(intent)
-                },200)
-            },3000)
+                },100)
+            },6000)
 
             //val i = Intent(this, ListOfJobs::class.java)
             //startActivity(i)
@@ -195,7 +171,7 @@ class Options() : AppCompatActivity() {
         uiScope.launch {
 
 
-            var rssObject: RSSObject
+            var rssObject: RSSObject?
 
 
             rsslinks.forEach {
@@ -214,47 +190,50 @@ class Options() : AppCompatActivity() {
 
                 }.await()
 
-                 var link=it
+                var link = it
                 //iz rss u job item
-                if(rssObject.items!=null)
-                    d("done",MyApp.done.toString())
+               d("rssobject",rssObject.toString())
+                if (rssObject != null) {
+                    d("done", MyApp.done.toString())
+                    if (!rssObject!!.items.isEmpty()) {
+                        withContext(Dispatchers.Default) {
+                            rssObject!!.items.forEach {
+                                // TODO ova fja filterContent vadi tekst iz html-a
+                                // samim tim ovaj kod pod komentarima u sledecem TODO-u vrvt nece biti potreban
+                                // ako se odlucimo da fiksiramo duzinu bubble-a
 
-                    withContext(Dispatchers.Default) {
-                        rssObject.items.forEach {
-                            // TODO ova fja filterContent vadi tekst iz html-a
-                            // samim tim ovaj kod pod komentarima u sledecem TODO-u vrvt nece biti potreban
-                            // ako se odlucimo da fiksiramo duzinu bubble-a
+                                d("linkk", link)
+                                it.filterContent(link)
+                                val positionf = addPosition(it.title)
+                                val languagef = addLanguages(it.content)
+                                val jobf = addJob(it.title)
 
-                            d("linkk",link)
-                            it.filterContent(link)
-                            val positionf=addPosition(it.title)
-                            val languagef= addLanguages(it.content)
-                            val jobf=addJob(it.title)
+                                it.filterContent(link)
 
-                            it.filterContent(link)
-
-                            val ajob = jobItem(
-                                0,
-                                it.title,
-                                it.pubDate,
-                                it.link,
-                                it.description,
-                                it.content,
-                                jobf,
-                                "",
-                                positionf,
-                                languagef
-                            )
-                            d("jobic",ajob.toString())
+                                val ajob = jobItem(
+                                    0,
+                                    it.title,
+                                    it.pubDate,
+                                    it.link,
+                                    it.description,
+                                    it.content,
+                                    jobf,
+                                    "",
+                                    positionf,
+                                    languagef
+                                )
+                                d("jobic", ajob.toString())
 
 
-                            // d("item", ajob.toString())
-                            MyApp.ListOfJobItems.add(ajob)
+                                // d("item", ajob.toString())
+                                MyApp.ListOfJobItems.add(ajob)
+
+                            }
 
                         }
-
                     }
                 }
+            }
 
             }
             MyApp.done=true

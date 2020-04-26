@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF5252</color>
     <color name="colorTextPrimary">#212121</color>
     <color name="colorTextSecondary">#757575</color>
+    <color name="dark_background">#ff202020</color>
+    <color name="light_background">#fffafafa</color>
+    <color name="shadow_end_color">#03000000</color>
+    <color name="start_color">#37000000</color>
+
 </resources>

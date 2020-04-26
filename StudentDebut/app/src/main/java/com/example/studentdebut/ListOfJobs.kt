@@ -51,9 +51,7 @@ class ListOfJobs : AppCompatActivity() {
         // bi se uopste napravila instanca ViewModel-a
         viewModel =
             ViewModelProvider(this, ViewModelFactory(application)).get(JobsViewModel::class.java)
-
         //pravimo observer koji obavestava UI da je doslo do izmena
-
         viewModel.allJobs.observe(this, Observer { jobs ->
             // Update the cached copy of the words in the adapter.
             jobs?.let { adapter.setJobs(it) }

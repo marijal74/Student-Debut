@@ -14,13 +14,14 @@ import com.example.studentdebut.Database.jobItem
 import com.example.studentdebut.Interface.ItemClickListener
 import com.example.studentdebut.Model.Item
 import com.example.studentdebut.R
+import com.ms.square.android.expandabletextview.ExpandableTextView
 
 
 class FeedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
     var txtTitle: TextView
     var txtPubdate: TextView
-    var txtContent: TextView
+    var txtContent: ExpandableTextView
 
     private var itemClickListener : ItemClickListener?=null
 
@@ -28,7 +29,7 @@ class FeedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.On
 
         txtTitle = itemView.findViewById(R.id.txtTitle) as TextView
         txtPubdate = itemView.findViewById(R.id.txtPubDate) as TextView
-        txtContent = itemView.findViewById(R.id.txtContent) as TextView
+        txtContent = itemView.findViewById(R.id.txtContent) as ExpandableTextView
 
          itemView.setOnClickListener(this)
     }

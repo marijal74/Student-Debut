@@ -6,7 +6,7 @@ import com.example.studentdebut.Database.jobItem
 class MyApp: Application() {
 
     companion object {
-        var done = false
+        var done= false
 
         val ListOfJobItems = ArrayList<jobItem>()
 

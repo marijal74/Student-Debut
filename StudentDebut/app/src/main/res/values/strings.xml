@@ -45,5 +45,7 @@
     <string name="bash">Bash</string>
     <string name="preskoci">PRESKOCI</string>
     <string name="nastavi">NASTAVI</string>
+    <string name="title">Title</string>
+    <string name="_2020_04_04_12_30_00">2020-04-04 12:30:00</string>
 
 </resources>

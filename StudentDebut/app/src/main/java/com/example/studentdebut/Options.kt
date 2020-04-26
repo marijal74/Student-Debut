@@ -9,6 +9,7 @@ import android.util.Log.d
 import android.view.View
 import android.widget.CheckBox
 import androidx.annotation.RequiresApi
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.studentdebut.Common.HTTPDataHandler
@@ -38,8 +39,10 @@ class Options() : AppCompatActivity() {
     private val RSS_to_JSON_API = "https://api.rss2json.com/v1/api.json?rss_url="
     /*
 
+
     "https://startit.rs/poslovi/feed/",
     "https://startit.rs/poslovi/feed/?paged=2",
+      "https://startit.rs/poslovi/feed/?paged=2",
         "https://startit.rs/poslovi/feed/?paged=3",
         "https://startit.rs/poslovi/feed/?paged=4",
         "https://startit.rs/poslovi/feed/?paged=5",
@@ -49,24 +52,41 @@ class Options() : AppCompatActivity() {
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=3",
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=4",
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=5",
+        "http://oglasi.matf.bg.ac.rs/?tag=stipendije%26feed=rss2",
         "http://www.sljaka.com/rss/itposlovi/",
         "https://fonis.rs/category/posao/feed/",
         "https://fonis.rs/category/praksa/feed/",
         "https://fonis.rs/category/praksa/feed/?paged=2",
         "http://www.itposlovi.info/rss/programeri/",
         "http://www.itposlovi.info/rss/dizajneri/"
+     */
+
+   val rsslinks = mutableListOf(
+       "https://startit.rs/poslovi/feed/",
+        "https://startit.rs/poslovi/feed/?paged=2",
+        "https://startit.rs/poslovi/feed/?paged=3",
+        "https://startit.rs/poslovi/feed/?paged=4",
+        "https://startit.rs/poslovi/feed/?paged=5",
+        "https://www.helloworld.rs/rss/",
+        "http://oglasi.matf.bg.ac.rs/?feed=rss2",
+        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=2",
+        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=3",
+        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=4",
+        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=5",
+        "http://oglasi.matf.bg.ac.rs/?tag=stipendije%26feed=rss2",
+        "http://www.sljaka.com/rss/itposlovi/",
+        "https://fonis.rs/category/posao/feed/",
+        "https://fonis.rs/category/praksa/feed/",
+        "https://fonis.rs/category/praksa/feed/?paged=2",
+        "http://www.itposlovi.info/rss/programeri/",
+        "http://www.itposlovi.info/rss/dizajneri/"
+   )
 
 
 
 
-    */
 
-    //TODO dodati za stipendije link kod matfa
-    //http://oglasi.matf.bg.ac.rs/?tag=stipendije&feed=rss2
-    val rsslinks = mutableListOf(
-        "http://oglasi.matf.bg.ac.rs/?feed=rss2"
 
-    )
 
     //viewModel
     private lateinit var viewModel: JobsViewModel
@@ -84,7 +104,7 @@ class Options() : AppCompatActivity() {
     }
 
 
-    private suspend fun loadRSS(result: String): RSSObject {
+    private suspend fun loadRSS(result: String): RSSObject{
 
 
          lateinit var rssObject: RSSObject
@@ -120,9 +140,17 @@ class Options() : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_options)
 
+        val mStipendija: CheckBox = findViewById(R.id.cb_stipendija)
+        val mSledece: TextView = findViewById(R.id.btn_Next_page1)
+        val mHolder : TextView = findViewById(R.id.holder)
+
+        //mStipendija = findViewById(R.id.cb_stipendija)
+        //mSledece = findViewById(R.id.btn_Next_page1)
 
         view = findViewById(R.id.myProgressButton)
         Posao_ili_praksa.visibility = View.VISIBLE
+        mHolder.visibility = View.GONE
+
         view.setOnClickListener() {
             UbaciFiltereJezici()
             val progressButton = ProgressButton(this@Options, view)
@@ -134,7 +162,7 @@ class Options() : AppCompatActivity() {
                 handler1.postDelayed({
                     val intent = Intent(this@Options, ListOfJobs::class.java)
                     startActivity(intent)
-                },2000)
+                },200)
             },3000)
 
             //val i = Intent(this, ListOfJobs::class.java)
@@ -151,6 +179,15 @@ class Options() : AppCompatActivity() {
 
             UbaciFiltereMesto()
         }
+
+        mStipendija.setOnClickListener(View.OnClickListener { if(mStipendija.isChecked){
+                                                                mSledece.visibility = View.GONE
+                                                                mHolder.visibility = View.VISIBLE}
+                                                            else{
+            mSledece.visibility = View.VISIBLE
+            mHolder.visibility = View.GONE
+
+        }})
 
 
         val uiScope = CoroutineScope(Dispatchers.IO)
@@ -181,16 +218,20 @@ class Options() : AppCompatActivity() {
                 //iz rss u job item
                 if(rssObject.items!=null)
                     d("done",MyApp.done.toString())
+
                     withContext(Dispatchers.Default) {
                         rssObject.items.forEach {
                             // TODO ova fja filterContent vadi tekst iz html-a
                             // samim tim ovaj kod pod komentarima u sledecem TODO-u vrvt nece biti potreban
                             // ako se odlucimo da fiksiramo duzinu bubble-a
+
                             d("linkk",link)
                             it.filterContent(link)
                             val positionf=addPosition(it.title)
                             val languagef= addLanguages(it.content)
                             val jobf=addJob(it.title)
+
+                            it.filterContent(link)
 
                             val ajob = jobItem(
                                 0,
@@ -206,6 +247,7 @@ class Options() : AppCompatActivity() {
                             )
                             d("jobic",ajob.toString())
 
+
                             // d("item", ajob.toString())
                             MyApp.ListOfJobItems.add(ajob)
 
@@ -213,6 +255,7 @@ class Options() : AppCompatActivity() {
 
                     }
                 }
+
             }
             MyApp.done=true
 

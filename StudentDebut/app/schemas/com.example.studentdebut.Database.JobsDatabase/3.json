@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "7024801e1e2349bd626fa1a3738fa4b3",
+    "version": 3,
+    "identityHash": "74ebba9a15b7caadbce8bc5ea0d08391",
     "entities": [
       {
         "tableName": "jobs_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `pubDate` TEXT NOT NULL, `link` TEXT NOT NULL, `description` TEXT NOT NULL, `content` TEXT NOT NULL, `job` TEXT, `stationed` TEXT, `position` TEXT, `language` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `pubDate` TEXT NOT NULL, `link` TEXT NOT NULL, `description` TEXT NOT NULL, `content` TEXT NOT NULL, `job` TEXT, `stationed` TEXT, `position` TEXT, `language` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -66,7 +66,7 @@
             "fieldPath": "language",
             "columnName": "language",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -82,7 +82,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7024801e1e2349bd626fa1a3738fa4b3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '74ebba9a15b7caadbce8bc5ea0d08391')"
     ]
   }
 }

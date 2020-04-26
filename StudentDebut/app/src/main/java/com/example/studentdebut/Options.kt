@@ -1,21 +1,24 @@
 package com.example.studentdebut
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.util.Log.d
 import android.view.View
 import android.widget.CheckBox
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.studentdebut.Common.HTTPDataHandler
 import com.example.studentdebut.Database.JobsViewModel
 import com.example.studentdebut.Database.jobItem
 import com.example.studentdebut.Model.RSSObject
+import com.example.studentdebut.Model.Translator
 import com.google.gson.Gson
-import kotlinx.coroutines.*
 import kotlinx.android.synthetic.main.activity_options.*
-
+import kotlinx.coroutines.*
 
 
 class Options() : AppCompatActivity() {
@@ -33,20 +36,14 @@ class Options() : AppCompatActivity() {
     }
 
     private val RSS_to_JSON_API = "https://api.rss2json.com/v1/api.json?rss_url="
-    /* FUCKKKKKKKKKKKKKKKKKKKKKK YOUUUUUUUUUUUUUUUU I HATEEEEEEEEEEEE YOUUUU DIEEEEEEEEEEEEEEEEEE (shine) https://startit.rs/poslovi/feed/",
-    "https://startit.rs/poslovi/feed/?paged=2",
-    "https://startit.rs/poslovi/feed/?paged=3",
-    "https://startit.rs/poslovi/feed/?paged=4",
-    "https://startit.rs/poslovi/feed/?paged=5",
-    "https://www.helloworld.rs/rss/"*/
+    /*
 
-    //TODO dodati za stipendije link kod matfa
-    //http://oglasi.matf.bg.ac.rs/?tag=stipendije&feed=rss2
-    val rsslinks = mutableListOf(
-        "https://startit.rs/poslovi/feed/?paged=2",
+    "https://startit.rs/poslovi/feed/",
+    "https://startit.rs/poslovi/feed/?paged=2",
         "https://startit.rs/poslovi/feed/?paged=3",
         "https://startit.rs/poslovi/feed/?paged=4",
         "https://startit.rs/poslovi/feed/?paged=5",
+        "https://www.helloworld.rs/rss/",
         "http://oglasi.matf.bg.ac.rs/?feed=rss2",
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=2",
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=3",
@@ -58,6 +55,17 @@ class Options() : AppCompatActivity() {
         "https://fonis.rs/category/praksa/feed/?paged=2",
         "http://www.itposlovi.info/rss/programeri/",
         "http://www.itposlovi.info/rss/dizajneri/"
+
+
+
+
+    */
+
+    //TODO dodati za stipendije link kod matfa
+    //http://oglasi.matf.bg.ac.rs/?tag=stipendije&feed=rss2
+    val rsslinks = mutableListOf(
+        "http://oglasi.matf.bg.ac.rs/?feed=rss2"
+
     )
 
     //viewModel
@@ -79,26 +87,44 @@ class Options() : AppCompatActivity() {
     private suspend fun loadRSS(result: String): RSSObject {
 
 
-        lateinit var rssObject: RSSObject
+         lateinit var rssObject: RSSObject
 
         withContext(Dispatchers.Default) {
 
-            rssObject = Gson().fromJson<RSSObject>(result, RSSObject::class.java)
+            try {
+                rssObject = Gson().fromJson<RSSObject>(result, RSSObject::class.java)
+                //d("nullic","nije")
+            }
+            catch(e:Exception){
 
+                //d("nullic","jeste")
+                e.printStackTrace()
+            }
+
+            /*   try {
+                    rssObject = Gson().fromJson<RSSObject>(result, RSSObject::class.java)
+                }
+
+                catch (e: IllegalStateException){
+                 rssObject=null
+                }*/
         }
+
         return rssObject
     }
 
     lateinit var view : View
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_options)
 
+
         view = findViewById(R.id.myProgressButton)
         Posao_ili_praksa.visibility = View.VISIBLE
         view.setOnClickListener() {
-            // UbaciFiltereJezici()
+            UbaciFiltereJezici()
             val progressButton = ProgressButton(this@Options, view)
             progressButton.buttonActivated()
             val handler = Handler()
@@ -151,36 +177,45 @@ class Options() : AppCompatActivity() {
 
                 }.await()
 
-
+                 var link=it
                 //iz rss u job item
-                withContext(Dispatchers.Default) {
-                    rssObject.items.forEach {
-                        // TODO ova fja filterContent vadi tekst iz html-a
-                        // samim tim ovaj kod pod komentarima u sledecem TODO-u vrvt nece biti potreban
-                        // ako se odlucimo da fiksiramo duzinu bubble-a
-                        it.filterContent()
-                        val ajob = jobItem(
-                            0,
-                            it.title,
-                            it.pubDate,
-                            it.link,
-                            it.description,
-                            it.content,
-                            "",
-                            "",
-                            "",
-                            ""
-                        )
+                if(rssObject.items!=null)
+                    d("done",MyApp.done.toString())
+                    withContext(Dispatchers.Default) {
+                        rssObject.items.forEach {
+                            // TODO ova fja filterContent vadi tekst iz html-a
+                            // samim tim ovaj kod pod komentarima u sledecem TODO-u vrvt nece biti potreban
+                            // ako se odlucimo da fiksiramo duzinu bubble-a
+                            d("linkk",link)
+                            it.filterContent(link)
+                            val positionf=addPosition(it.title)
+                            val languagef= addLanguages(it.content)
+                            val jobf=addJob(it.title)
 
-                        // d("item", ajob.toString())
-                        MyApp.ListOfJobItems.add(ajob)
+                            val ajob = jobItem(
+                                0,
+                                it.title,
+                                it.pubDate,
+                                it.link,
+                                it.description,
+                                it.content,
+                                jobf,
+                                "",
+                                positionf,
+                                languagef
+                            )
+                            d("jobic",ajob.toString())
+
+                            // d("item", ajob.toString())
+                            MyApp.ListOfJobItems.add(ajob)
+
+                        }
 
                     }
-
                 }
             }
-            MyApp.done =true
-        }
+            MyApp.done=true
+
         Log.d(
             "done",
             "DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOONEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
@@ -211,8 +246,10 @@ class Options() : AppCompatActivity() {
         layout.visibility = View.VISIBLE
         val check_boxes = listOf(
             findViewById<CheckBox>(R.id.cb_praksa),
-            findViewById<CheckBox>(R.id.cb_posao)
-        )
+            findViewById<CheckBox>(R.id.cb_posao),
+            findViewById<CheckBox>(R.id.cb_stipendija)
+
+            )
         addInFilters(check_boxes)
         // d("filteri", filters.toString())
     }
@@ -226,17 +263,17 @@ class Options() : AppCompatActivity() {
         val check_boxes = listOf(
             findViewById<CheckBox>(R.id.cb_senior_developer),
             findViewById<CheckBox>(R.id.cb_junior_developer),
-            findViewById<CheckBox>(R.id.cd_developer),
+            findViewById<CheckBox>(R.id.cb_developer),
             findViewById<CheckBox>(R.id.cb_analyst),
-            findViewById<CheckBox>(R.id.graphic_designer),
-            findViewById<CheckBox>(R.id.web_designer),
-            findViewById<CheckBox>(R.id.tutor),
-            findViewById<CheckBox>(R.id.technical_lead),
-            findViewById<CheckBox>(R.id.backend_engineer),
-            findViewById<CheckBox>(R.id.frontend_engineer),
-            findViewById<CheckBox>(R.id.mobile_engineer),
-            findViewById<CheckBox>(R.id.software_engineer),
-            findViewById<CheckBox>(R.id.marketing),
+            findViewById<CheckBox>(R.id.cb_graphic_designer),
+            findViewById<CheckBox>(R.id.cb_web_designer),
+            findViewById<CheckBox>(R.id.cb_tutor),
+            findViewById<CheckBox>(R.id.cb_technical_lead),
+            findViewById<CheckBox>(R.id.cb_backend_engineer),
+            findViewById<CheckBox>(R.id.cb_frontend_engineer),
+            findViewById<CheckBox>(R.id.cb_mobile_engineer),
+            findViewById<CheckBox>(R.id.cb_software_engineer),
+            findViewById<CheckBox>(R.id.cb_marketing),
             findViewById<CheckBox>(R.id.cb_ostalo)
         )
         addInFilters(check_boxes)
@@ -275,4 +312,55 @@ class Options() : AppCompatActivity() {
 
 
     }
+    fun containsWord(inputString: String, items: List<String?>): String {
+        var found = false
+        var thing:String=" "
+        for (item in items) {
+            if (inputString.contains(item!!,true)) {
+                thing=item
+            }
+        }
+        return thing
+    }
+    fun containsWordsForLanguages(inputString: String, items: List<String?>): MutableList<String> {
+        var found = false
+        val yourArray: List<String> = inputString.split(" ")
+        val things = mutableListOf<String>()
+        for (item in items) {
+            if (yourArray.contains(item!!)) {
+                things.add(item)
+            }
+        }
+        return things
+    }
+    private fun addPosition(input:String):String{
+
+        val listofpositions= mutableListOf<String>(cb_senior_developer.text.toString(),cb_junior_developer.text.toString(),cb_developer.text.toString(),cb_analyst.text.toString(),
+                                                  cb_graphic_designer.text.toString(),cb_web_designer.text.toString(),cb_tutor.text.toString(),cb_technical_lead.text.toString(),
+                                                   cb_backend_engineer.text.toString(),cb_frontend_engineer.text.toString(),cb_mobile_engineer.text.toString(),cb_marketing.text.toString()
+            )
+        var position=containsWord(input,listofpositions)
+      return position
+    }
+    private fun addLanguages(input:String):MutableList<String>{
+
+        val listoflanguages= mutableListOf<String>(cb_javascript.text.toString(),cb_net.text.toString(),cb_python.text.toString(),  cb_mysql.text.toString(), cb_mysql.text.toString(),
+            cb_vue.text.toString(),cb_jquery.text.toString(),cb_wordpress.text.toString(), cb_c.text.toString(), cb_csharp.text.toString(),
+            cb_nodejs.text.toString() , cb_kotlin.text.toString(), cb_htmlcss.text.toString() , cb_htmlcss.text.toString(), cb_scala.text.toString(), cb_java.text.toString(),
+            cb_php.text.toString(), cb_XML.text.toString(), cb_bash.text.toString()
+        )
+        var languages=containsWordsForLanguages(input,listoflanguages)
+        return languages
+    }
+    private fun addJob(input:String):String{
+
+        val listofpositions= mutableListOf<String>(cb_praksa.text.toString(),cb_posao.text.toString(),cb_stipendija.text.toString())
+        var job=containsWord(input,listofpositions)
+        return job
+    }
+
+
+
+
+
 }

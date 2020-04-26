@@ -11,11 +11,12 @@
     <!--TOOLBAR-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@android:color/holo_blue_dark"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Student Debut"
@@ -82,6 +83,16 @@
 
         <CheckBox
             android:id="@+id/cb_praksa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/praksa"
+            app:layout_constraintBottom_toTopOf="@+id/btn_Next_page1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_posao"
+            app:layout_constraintVertical_bias="0.45" />
+        <CheckBox
+            android:id="@+id/cb_stipendija"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/praksa"
@@ -160,7 +171,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cb_senior_developer" />
 
         <CheckBox
-            android:id="@+id/cd_developer"
+            android:id="@+id/cb_developer"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:text="@string/developer"
@@ -173,10 +184,10 @@
             android:layout_height="wrap_content"
             android:text="@string/analyst"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cd_developer" />
+            app:layout_constraintTop_toBottomOf="@+id/cb_developer" />
 
         <CheckBox
-            android:id="@+id/graphic_designer"
+            android:id="@+id/cb_graphic_designer"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:text="@string/graphic_designer"
@@ -184,76 +195,76 @@
             app:layout_constraintTop_toBottomOf="@+id/cb_analyst" />
 
         <CheckBox
-            android:id="@+id/web_designer"
+            android:id="@+id/cb_web_designer"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:text="@string/web_designer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/graphic_designer" />
+            app:layout_constraintTop_toBottomOf="@+id/cb_graphic_designer" />
 
         <CheckBox
-            android:id="@+id/tutor"
+            android:id="@+id/cb_tutor"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:text="@string/turor"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/web_designer" />
+            app:layout_constraintTop_toBottomOf="@+id/cb_web_designer" />
 
 
         <CheckBox
-            android:id="@+id/technical_lead"
+            android:id="@+id/cb_technical_lead"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:text="@string/technical_lead"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tutor" />
+            app:layout_constraintTop_toBottomOf="@+id/cb_tutor" />
 
         <CheckBox
-            android:id="@+id/backend_engineer"
+            android:id="@+id/cb_backend_engineer"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:text="@string/backend_engineer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/technical_lead" />
+            app:layout_constraintTop_toBottomOf="@+id/cb_technical_lead" />
 
         <CheckBox
-            android:id="@+id/frontend_engineer"
+            android:id="@+id/cb_frontend_engineer"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:text="@string/frontend_engineer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/backend_engineer" />
+            app:layout_constraintTop_toBottomOf="@+id/cb_backend_engineer" />
 
         <CheckBox
-            android:id="@+id/mobile_engineer"
+            android:id="@+id/cb_mobile_engineer"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:text="@string/mobile_engineer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frontend_engineer" />
+            app:layout_constraintTop_toBottomOf="@+id/cb_frontend_engineer" />
 
         <CheckBox
-            android:id="@+id/software_engineer"
+            android:id="@+id/cb_software_engineer"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:text="@string/software_engineer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mobile_engineer" />
+            app:layout_constraintTop_toBottomOf="@+id/cb_mobile_engineer" />
 
         <CheckBox
-            android:id="@+id/marketing"
+            android:id="@+id/cb_marketing"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:text="@string/marketing"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/software_engineer" />
+            app:layout_constraintTop_toBottomOf="@+id/cb_software_engineer" />
         <CheckBox
             android:id="@+id/cb_ostalo"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:text="Druge pozicije"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/marketing" />
+            app:layout_constraintTop_toBottomOf="@+id/cb_marketing" />
 
         <Button
             android:id="@+id/btn_Next_pagePozicije"

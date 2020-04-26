@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.studentdebut.MyApp.Companion.ListOfJobItems
 import com.example.studentdebut.MyApp.Companion.done
@@ -16,7 +17,8 @@ import kotlinx.coroutines.withContext
 
 
 //pravi se baza, koja je singlton
-@Database (entities = arrayOf(jobItem::class), version = 1)
+@Database (entities = arrayOf(jobItem::class), version = 3)
+@TypeConverters(Converters::class)
 public abstract class JobsDatabase: RoomDatabase() {
 
     val dbCreated=MutableLiveData<Boolean>()
@@ -42,8 +44,8 @@ public abstract class JobsDatabase: RoomDatabase() {
                 val roomInstance = Room.databaseBuilder(
                     context.applicationContext,
                     JobsDatabase::class.java,
-                    "jobs_database"
-                ).addCallback(JobsDatabaseCallback(scope,context)).build()
+                    "jobs_database"                            //zbog greske
+                ).addCallback(JobsDatabaseCallback(scope,context)).fallbackToDestructiveMigration().build()
                 instance = roomInstance
                 return roomInstance
             }
@@ -55,27 +57,31 @@ public abstract class JobsDatabase: RoomDatabase() {
     // pp da mogu razlicite stvari da se implementiraju ovde, ja sam samo ostavila kod koji puni bazu
     // po njenom otvaranju
     private class JobsDatabaseCallback(private val scope: CoroutineScope,val appContext: Context):RoomDatabase.Callback() {
-        override fun onCreate(db: SupportSQLiteDatabase) {
-                super.onCreate(db)
+        override fun onOpen(db: SupportSQLiteDatabase) {
+                super.onOpen(db)
                 scope.launch {
                     //TODO maybe neka obrada ovde
                     // Generate the data for pre-population
                     withContext(IO) {
                         val database: JobsDatabase = JobsDatabase.getDatabase(appContext, scope)
                         if (done) {
+                            //database.jobDao().deleteEverything()
                             var products = ListOfJobItems
-                            database.jobDao().insert(products)
-
+                            products.forEach() {
+                            database.jobDao().insert(it)
+                             }
                         }
-                        // notify that the database was created and it's ready to be used
-
+                        // obavestenje da je baza kreirana i da je spremna za koriscenje
                         database.dbCreated.postValue(true)
                     }
                 }
             }
 
+      /*  override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)*/
         }
 }
+
 
 
 

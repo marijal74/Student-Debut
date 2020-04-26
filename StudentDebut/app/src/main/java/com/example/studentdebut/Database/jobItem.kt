@@ -21,13 +21,13 @@ data class jobItem(
     //item polja end
     // kategorije
     // posao ili praksa
-    var job: String,
+    var job: String?,
     // inostrantsvo/Srbija
-    var stationed: String,
+    var stationed: String?,
     // pozicija
-    var position:String,
+    var position:String?,
     //language
-    var language:String){
+    var language:List<String>?){
 
     //procitala negde da ako se id postavi na null ili 0 a primarni je kljuc, da to ne smeta autoGenerate opciji
     // ovaj konstruktor bi vrvt mogao da se izbrise, ili samo da se ostavi id we shall see

@@ -85,7 +85,7 @@ class Options() : AppCompatActivity() {
        "https://fonis.rs/category/praksa/feed/",
        "https://fonis.rs/category/praksa/feed/?paged=2",
        "http://www.itposlovi.info/rss/programeri/",
-       "http://www.itposlovi.info/rss/dizajneri/"
+       "http://oglasi123.matf.bg.ac.rs/?feed=rss2"
    )
 
     //viewModel
@@ -94,7 +94,7 @@ class Options() : AppCompatActivity() {
 
         val result: String
         val http = HTTPDataHandler()
-        result = http.GetHTTPDataHandler(link).toString()
+        result = http.GetHTTPDataHandler(link, this.applicationContext).toString()
 
         return result
     }

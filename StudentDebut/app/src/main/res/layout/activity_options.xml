@@ -244,7 +244,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cb_graphic_designer" />
 
-        <CheckBox
+                 <CheckBox
                     android:id="@+id/cb_tutor"
                     android:layout_width="409dp"
                     android:layout_height="wrap_content"

@@ -6,6 +6,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/try_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pokusaj ponovo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textSkipIntro"
         android:layout_width="wrap_content"

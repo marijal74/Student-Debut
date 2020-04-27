@@ -1,15 +1,17 @@
 package com.example.studentdebut
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Path
 import android.media.Image
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.util.Log.d
 import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -53,25 +55,47 @@ class MainActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        done=false
+        //done=false
 
-        introSliderViewPager.adapter = introSliderAdapter
-        setupIndicators()
-        setCurrentIndicator(0)
-        introSliderViewPager.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback(){
 
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                setCurrentIndicator(position)
+        val TryAgain = findViewById<TextView>(R.id.try_again)
+        if (!isNetworkAvailable) {
+
+            TryAgain.visibility = View.VISIBLE
+            textSkipIntro.visibility = View.GONE
+            buttonNext.visibility = View.GONE
+            Toast.makeText(this, "Niste povezani na internet", Toast.LENGTH_LONG).show()
+            TryAgain.setOnClickListener { recreate() }
+
+        } else {
+            TryAgain.visibility = View.GONE
+            //Toast.makeText(this, "Niste povezani na internet", Toast.LENGTH_LONG).show()
+
+            introSliderViewPager.adapter = introSliderAdapter
+            setupIndicators()
+            setCurrentIndicator(0)
+            introSliderViewPager.registerOnPageChangeCallback(object :
+                ViewPager2.OnPageChangeCallback() {
+
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    setCurrentIndicator(position)
+                }
+
+            })
+
+            buttonNext.setOnClickListener {
+                if (introSliderViewPager.currentItem + 1 < introSliderAdapter.itemCount) {
+                    introSliderViewPager.currentItem += 1
+                } else {
+                    Intent(applicationContext, Options::class.java).also {
+                        startActivity(it)
+                        //TODO: probajte da skinete komentar sa finish pa vidite hocemo li da zadrzimo ponasanje ili ne
+                        //finish()
+                    }
+                }
             }
-
-        })
-
-        buttonNext.setOnClickListener{
-            if(introSliderViewPager.currentItem + 1 < introSliderAdapter.itemCount){
-                introSliderViewPager.currentItem += 1
-            }else{
+            textSkipIntro.setOnClickListener() {
                 Intent(applicationContext, Options::class.java).also {
                     startActivity(it)
                     //TODO: probajte da skinete komentar sa finish pa vidite hocemo li da zadrzimo ponasanje ili ne
@@ -79,14 +103,39 @@ class MainActivity() : AppCompatActivity() {
                 }
             }
         }
-        textSkipIntro.setOnClickListener() {
-            Intent(applicationContext, Options::class.java).also {
-                startActivity(it)
-                //TODO: probajte da skinete komentar sa finish pa vidite hocemo li da zadrzimo ponasanje ili ne
-                //finish()
-            }
-        }
     }
+
+
+    private val isNetworkAvailable: Boolean
+        get() {
+            var result = false
+            val connectivityManager = (applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val networkCapabilities = connectivityManager.activeNetwork ?: return false
+                val actNw =
+                    connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+                result = when {
+                    actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                    actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                    actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                    else -> false
+                }
+            }else {
+                connectivityManager.run {
+                    connectivityManager.activeNetworkInfo?.run {
+                        result = when (type) {
+                            ConnectivityManager.TYPE_WIFI -> true
+                            ConnectivityManager.TYPE_MOBILE -> true
+                            ConnectivityManager.TYPE_ETHERNET -> true
+                            else -> false
+                        }
+
+                    }
+                }
+            }
+
+            return result
+        }
 
     private fun setupIndicators(){
         val indicators = arrayOfNulls<ImageView>(introSliderAdapter.itemCount)

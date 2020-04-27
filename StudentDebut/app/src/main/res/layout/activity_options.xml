@@ -124,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Za ovu opciju ne postoje dodatni filteri"
+            android:text="@string/za_ovu_opciju_ne_postoje_dodatni_filteri"
             android:textColor="@color/colorAccent"
             android:textSize="14sp"
             android:textStyle="italic"
@@ -308,22 +308,39 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/marketing" />
 
-                <TextView
-                    android:id="@+id/btn_Next_pagePozicije"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/next"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="20sp"
-                    android:textStyle="italic"
-                    android:gravity="center_horizontal"
-                    android:textAlignment="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cb_ostalo" />
 
-             </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/LinearLayout02"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+                    <TextView
+                        android:id="@+id/btn_Previous_pagePozicije"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Previous"
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="20sp"
+                        android:textStyle="italic">
+
+                    </TextView>
+                    <TextView
+                        android:id="@+id/btn_Next_pagePozicije"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal"
+                        android:text="@string/next"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="20sp"
+                        android:textStyle="italic">
+                    </TextView>
+                </LinearLayout>
+
+
+            </LinearLayout>
 
         </ScrollView>
 
@@ -331,77 +348,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <!--DRUGI LAYOUT DESTINACIJA-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Destinacija"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/myProgressButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.0">
-
-
-
-        <TextView
-            android:id="@+id/tv_destinacija"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            android:text="@string/gde_zelite_da_radite"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <CheckBox
-            android:id="@+id/cb_inostranstvo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="26dp"
-            android:text="@string/inostranstvo"
-            app:layout_constraintBottom_toTopOf="@+id/btn_Next_pageDestinacija"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_destinacija"
-            app:layout_constraintVertical_bias="0.258" />
-
-        <CheckBox
-            android:id="@+id/cb_Srbija"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/srbija"
-            app:layout_constraintBottom_toTopOf="@+id/btn_Next_pageDestinacija"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_inostranstvo"
-            app:layout_constraintVertical_bias="0.45" />
-
-
-
-
-        <TextView
-            android:id="@+id/btn_Next_pageDestinacija"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/next"
-            android:textColor="@color/colorAccent"
-            android:textSize="20sp"
-            android:textStyle="italic"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_Srbija"/>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
@@ -567,19 +513,23 @@
                     android:text="Drugi jezici"/>
 
 
-                <!--   <Button
-                       android:id="@+id/btn_Next_pageJezici"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:gravity="center_horizontal"
-                       android:text="@string/next"
-                       android:textAlignment="center"
-                       app:layout_constraintBottom_toBottomOf="parent"
-                       app:layout_constraintEnd_toEndOf="parent"
-                       app:layout_constraintStart_toStartOf="parent"
-                       app:layout_constraintTop_toBottomOf="@+id/cb_bash" />
 
-                 -->
+                <TextView
+                    android:id="@+id/btn_Previous_pageJezici"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Previous"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    android:textStyle="italic"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cb_ostalo" />
+
+
             </LinearLayout>
 
         </ScrollView>

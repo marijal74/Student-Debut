@@ -21,20 +21,23 @@ import com.example.studentdebut.Model.Translator
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_options.*
 import kotlinx.coroutines.*
+import com.example.studentdebut.MyApp.Companion.filtersJob
+import com.example.studentdebut.MyApp.Companion.filtersLanguage
+import com.example.studentdebut.MyApp.Companion.filtersPosition
 
 
 class Options() : AppCompatActivity() {
 
 
     //Lista za cuvanje reci po kojima filtriramo
-    val filters = mutableListOf<CharSequence>()
+
 
     //Funkcija koja cuva u listi filters sve checkboxove koji su obelezeni
-    fun addInFilters(niz: List<CheckBox>) {
+    fun addInFilters(list:MutableList<CharSequence>, checkboxoes: List<CheckBox>) {
 
-        for (i in niz)
+        for (i in checkboxoes)
             if (i.isChecked)
-                filters.add(i.text)
+                list.add(i.text)
     }
 
     private val RSS_to_JSON_API = "https://api.rss2json.com/v1/api.json?rss_url="
@@ -64,6 +67,23 @@ class Options() : AppCompatActivity() {
 
    val rsslinks = mutableListOf(
 
+       "https://startit.rs/poslovi/feed/",
+       "https://startit.rs/poslovi/feed/?paged=2",
+       "https://startit.rs/poslovi/feed/?paged=2",
+       "https://startit.rs/poslovi/feed/?paged=3",
+       "https://startit.rs/poslovi/feed/?paged=4",
+       "https://startit.rs/poslovi/feed/?paged=5",
+       "https://www.helloworld.rs/rss/",
+       "http://oglasi.matf.bg.ac.rs/?feed=rss2",
+       "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=2",
+       "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=3",
+       "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=4",
+       "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=5",
+       "http://oglasi.matf.bg.ac.rs/?tag=stipendije%26feed=rss2",
+       "http://www.sljaka.com/rss/itposlovi/",
+       "https://fonis.rs/category/posao/feed/",
+       "https://fonis.rs/category/praksa/feed/",
+       "https://fonis.rs/category/praksa/feed/?paged=2",
        "http://www.itposlovi.info/rss/programeri/",
        "http://www.itposlovi.info/rss/dizajneri/"
    )
@@ -87,15 +107,15 @@ class Options() : AppCompatActivity() {
 
         withContext(Dispatchers.Default) {
 
-            try {
+         //   try {
                 rssObject = Gson().fromJson<RSSObject>(result, RSSObject::class.java)
                 //d("nullic","nije")
-            }
-            catch(e:Exception){
+          //  }
+          //  catch(e:Exception){
 
                 //d("nullic","jeste")
-                e.printStackTrace()
-            }
+            //    e.printStackTrace()
+           // }
 
             /*   try {
                     rssObject = Gson().fromJson<RSSObject>(result, RSSObject::class.java)
@@ -151,10 +171,21 @@ class Options() : AppCompatActivity() {
         btn_Next_pagePozicije.setOnClickListener() {
             UbaciFilterePozicija()
         }
-        btn_Next_pageDestinacija.setOnClickListener() {
 
-            UbaciFiltereMesto()
+        btn_Previous_pageJezici.setOnClickListener(){
+            val nolayout: ConstraintLayout = findViewById(R.id.Jezici)
+            nolayout.visibility = View.INVISIBLE
+            val layout: ConstraintLayout = findViewById(R.id.Pozicija)
+            layout.visibility = View.VISIBLE
         }
+        btn_Previous_pagePozicije.setOnClickListener(){
+            val nolayout: ConstraintLayout = findViewById(R.id.Pozicija)
+            nolayout.visibility = View.INVISIBLE
+            val layout: ConstraintLayout = findViewById(R.id.Posao_ili_praksa)
+            layout.visibility = View.VISIBLE
+        }
+
+
 
         mStipendija.setOnClickListener(View.OnClickListener { if(mStipendija.isChecked){
                                                                 mSledece.visibility = View.GONE
@@ -178,11 +209,12 @@ class Options() : AppCompatActivity() {
 
                 val url_get_data = StringBuilder(RSS_to_JSON_API)
                 url_get_data.append(it)
-                //  d("url_get_data",url_get_data.toString())
-                val result = async {
+                d("url_get_data",url_get_data.toString())
+                var result = async {
                     makeConnection(url_get_data.toString())
                 }.await()
 
+                d("resultic",result)
 
                 rssObject = async {
 
@@ -246,25 +278,12 @@ class Options() : AppCompatActivity() {
     }
 
 
-    private fun UbaciFiltereMesto() {
 
-        Destinacija.visibility = View.INVISIBLE
-
-        val layout: ConstraintLayout = findViewById(R.id.Pozicija)
-        layout.visibility = View.VISIBLE
-        val check_boxes = listOf(
-            findViewById<CheckBox>(R.id.cb_Srbija),
-            findViewById<CheckBox>(R.id.cb_inostranstvo)
-        )
-
-        addInFilters(check_boxes)
-        // d("filteri", filters.toString())
-    }
     private fun UbaciFilterePocetna() {
 
         Posao_ili_praksa.visibility = View.INVISIBLE
 
-        val layout: ConstraintLayout = findViewById(R.id.Destinacija)
+        val layout: ConstraintLayout = findViewById(R.id.Pozicija)
         layout.visibility = View.VISIBLE
         val check_boxes = listOf(
             findViewById<CheckBox>(R.id.cb_praksa),
@@ -272,7 +291,7 @@ class Options() : AppCompatActivity() {
             findViewById<CheckBox>(R.id.cb_stipendija)
 
             )
-        addInFilters(check_boxes)
+        addInFilters(filtersJob, check_boxes)
         // d("filteri", filters.toString())
     }
     private fun UbaciFilterePozicija() {
@@ -298,7 +317,7 @@ class Options() : AppCompatActivity() {
             findViewById<CheckBox>(R.id.cb_marketing),
             findViewById<CheckBox>(R.id.cb_ostalo)
         )
-        addInFilters(check_boxes)
+        addInFilters(filtersPosition,check_boxes)
         //  d("filteri", filters.toString())
 
 
@@ -307,8 +326,6 @@ class Options() : AppCompatActivity() {
 
     private fun UbaciFiltereJezici() {
         Jezici.visibility = View.INVISIBLE
-
-
         val check_boxes = listOf(
             findViewById<CheckBox>(R.id.cb_javascript),
             findViewById<CheckBox>(R.id.cb_net),
@@ -330,7 +347,7 @@ class Options() : AppCompatActivity() {
             findViewById<CheckBox>(R.id.cb_bash),
             findViewById<CheckBox>(R.id.cb_ostalo2)
         )
-        addInFilters(check_boxes)
+        addInFilters(filtersLanguage,check_boxes)
 
 
     }

@@ -1,7 +1,6 @@
 package com.example.studentdebut.Adapter
 
 import android.content.Context
-import android.content.Entity
 import android.content.Intent
 import android.net.Uri
 import android.util.Log.d
@@ -12,24 +11,24 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentdebut.Database.jobItem
 import com.example.studentdebut.Interface.ItemClickListener
-import com.example.studentdebut.Model.Item
 import com.example.studentdebut.R
-import com.ms.square.android.expandabletextview.ExpandableTextView
 
 
 class FeedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
     var txtTitle: TextView
     var txtPubdate: TextView
-    var txtContent: ExpandableTextView
-
+    var txtContent: TextView
+    var txtSeeMore: TextView=itemView.findViewById(R.id.txtSeeMore)
     private var itemClickListener : ItemClickListener?=null
 
     init{
 
         txtTitle = itemView.findViewById(R.id.txtTitle) as TextView
         txtPubdate = itemView.findViewById(R.id.txtPubDate) as TextView
-        txtContent = itemView.findViewById(R.id.txtContent) as ExpandableTextView
+        txtContent = itemView.findViewById(R.id.txtContent) as TextView
+
+
 
          itemView.setOnClickListener(this)
     }
@@ -84,8 +83,22 @@ class FeedAdapter internal constructor( private val mContext :Context): Recycler
         holder.txtContent.text = jobs[position].content
         // TODO: filtrirati po tome da li je vec zavrsena prijava
         holder.txtPubdate.text = jobs[position].pubDate
-        d("itemContent", jobs[position].content)
+        //d("itemContent", jobs[position].content)
+      if(holder.txtContent.lineCount<=4)
+             holder.txtSeeMore.visibility=View.INVISIBLE
+        else holder.txtSeeMore.visibility=View.VISIBLE
 
+        holder.txtSeeMore.setOnClickListener(View.OnClickListener {
+           if(holder.txtContent.maxLines==4){
+               holder.txtSeeMore.setText("See less")
+            holder.txtContent.setMaxLines(100)
+           }
+            else {
+               holder.txtSeeMore.setText("See more")
+               holder.txtContent.maxLines=4
+           }
+
+        })
 
         holder.setItemClickListener(object : ItemClickListener { //anonymus object
             override fun onClick(view: View?, position: Int, isLongClick: Boolean) {

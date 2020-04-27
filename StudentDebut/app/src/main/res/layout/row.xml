@@ -7,65 +7,49 @@
     android:layout_width="match_parent"
     CardView:cardCornerRadius="8dp"
     CardView:cardElevation="8dp"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <LinearLayout
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Title"
+            android:id="@+id/txtTitle"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="2020-04-04 12:30:00"
+            android:id="@+id/txtPubDate"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+        android:text="Content"
+        android:id="@+id/txtContent"
+        android:textSize="14sp"
+        android:textStyle="normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@color/light_background"
-        android:orientation="vertical">
+        android:maxLines="4"/>
 
         <TextView
-            android:id="@+id/txtTitle"
+            android:id="@+id/txtSeeMore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title"
+            android:maxLines="4"
+            android:text="See More"
+            android:textColor="@color/design_default_color_secondary_variant"
             android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtPubDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/_2020_04_04_12_30_00"
-            android:textSize="12sp"
-            android:textStyle="italic" />
-
-
-        <com.ms.square.android.expandabletextview.ExpandableTextView
-            android:id="@+id/txtContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            CardView:animDuration="200"
-            CardView:maxCollapsedLines="2">
-
-
-            <TextView
-                android:id="@id/expandable_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textColor="#666666"
-                android:textSize="16sp" />
-
-            <ImageButton
-                android:id="@+id/expand_collapse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:background="@android:color/transparent"
-                android:contentDescription="TODO"
-                android:padding="16dp">
-
-            </ImageButton>
-
-
-        </com.ms.square.android.expandabletextview.ExpandableTextView>
-
-
+            android:textStyle="normal" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

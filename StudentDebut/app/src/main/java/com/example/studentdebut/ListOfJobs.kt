@@ -7,6 +7,7 @@ import android.util.Log.d
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_list_of_jobs.*
 import kotlinx.coroutines.*
 import com.example.studentdebut.MyApp.Companion.done
 import com.example.studentdebut.MyApp.Companion.ListOfJobItems
+import kotlinx.android.synthetic.main.activity_options.*
 
 
 // uvodna pricica kako sve ovo funkcionise na : https://codelabs.developers.google.com/codelabs/android-room-with-a-view-kotlin/#0
@@ -34,6 +36,8 @@ class ListOfJobs : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_of_jobs)
+
+
 
         toolbar_listofjobs.title = "NEWS"
         setSupportActionBar(toolbar_listofjobs)
@@ -63,10 +67,11 @@ class ListOfJobs : AppCompatActivity() {
                 //TODO ??? mozda , mozda ne, ovo je lista svih itema iz baze, mozda raditi na njima ovde, mozda je skroz nepotrebno
 
 
-                    }
-                }
-
             }
+        }
+
+    }
+
 }
 
 

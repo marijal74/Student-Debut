@@ -159,12 +159,13 @@ class Options() : AppCompatActivity() {
                     val intent = Intent(this@Options, ListOfJobs::class.java)
                     startActivity(intent)
 
-                },100)
+                },0)
             },6000)
 
             //val i = Intent(this, ListOfJobs::class.java)
             //startActivity(i)
         }
+
 
         btn_Next_page1.setOnClickListener() {
             UbaciFilterePocetna()
@@ -326,9 +327,6 @@ class Options() : AppCompatActivity() {
 
 
     private fun UbaciFiltereJezici() {
-        Posao_ili_praksa.visibility=View.INVISIBLE
-        Pozicija.visibility=View.INVISIBLE
-        Jezici.visibility = View.INVISIBLE
         val check_boxes = listOf(
             findViewById<CheckBox>(R.id.cb_javascript),
             findViewById<CheckBox>(R.id.cb_net),

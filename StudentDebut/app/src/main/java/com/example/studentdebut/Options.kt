@@ -144,7 +144,7 @@ class Options() : AppCompatActivity() {
         //mSledece = findViewById(R.id.btn_Next_page1)
 
         view = findViewById(R.id.myProgressButton)
-        Posao_ili_praksa.visibility = View.VISIBLE
+        //Posao_ili_praksa.visibility = View.VISIBLE
         mHolder.visibility = View.GONE
 
         view.setOnClickListener() {
@@ -158,6 +158,7 @@ class Options() : AppCompatActivity() {
                 handler1.postDelayed({
                     val intent = Intent(this@Options, ListOfJobs::class.java)
                     startActivity(intent)
+
                 },100)
             },6000)
 
@@ -325,6 +326,8 @@ class Options() : AppCompatActivity() {
 
 
     private fun UbaciFiltereJezici() {
+        Posao_ili_praksa.visibility=View.INVISIBLE
+        Pozicija.visibility=View.INVISIBLE
         Jezici.visibility = View.INVISIBLE
         val check_boxes = listOf(
             findViewById<CheckBox>(R.id.cb_javascript),

@@ -1,7 +1,5 @@
 package com.example.studentdebut.Database
 
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -27,7 +25,8 @@ data class jobItem(
     // pozicija
     var position:String?,
     //language
-    var language:List<String>?){
+    var language: String?
+){
 
     //procitala negde da ako se id postavi na null ili 0 a primarni je kljuc, da to ne smeta autoGenerate opciji
     // ovaj konstruktor bi vrvt mogao da se izbrise, ili samo da se ostavi id we shall see

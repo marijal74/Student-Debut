@@ -30,7 +30,7 @@ class HTTPDataHandler {
             if (urlConnection.responseCode == HttpURLConnection.HTTP_OK) {
 
 
-                Handler(Looper.getMainLooper()).post(object : Runnable {
+               Handler(Looper.getMainLooper()).post(object : Runnable {
                     override fun run() {
                         Toast.makeText(c, "Uspesno dohvatanje stranice", Toast.LENGTH_LONG).show()
                     }

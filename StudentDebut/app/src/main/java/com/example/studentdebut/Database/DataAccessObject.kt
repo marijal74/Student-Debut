@@ -31,7 +31,16 @@ interface DataAccessObject {
 
 
     //TODO dodati Query fje za filtriranje i dodatne opcije
-    @Query("SELECT * FROM jobs_table WHERE job IN (:filtersJob) " + "OR position IN (:filtersPosition) " + "OR language IN (:filtersLanguage)")
+   // @Query("SELECT * FROM jobs_table WHERE job IN (:filtersJob) " + "OR position IN (:filtersPosition) " + "OR EXISTS (SELECT * " +
+           // "FROM STRING_SPLIT(languages, '_') " + "WHERE value IN (:filtersLanguage))")
+
+    @Query("WITH split(word, str) AS ( " +
+                 "SELECT '', language FROM jobs_table " +
+                 "UNION ALL " +
+                 "SELECT substr(str, 0, instr(str, '_')), substr(str, instr(str, '_')+1) " +
+                 "FROM split WHERE str!='') " +
+                 "SELECT * FROM jobs_table WHERE job IN (:filtersJob) " + "AND position IN (:filtersPosition) " + "AND EXISTS (SELECT * "+
+                      "FROM split " + "WHERE word!='' AND word IN (:filtersLanguage))")
     fun applyFilters(filtersJob: MutableList<String>, filtersPosition: MutableList<String>, filtersLanguage: MutableList<String>): LiveData<List<jobItem>>
 
 }

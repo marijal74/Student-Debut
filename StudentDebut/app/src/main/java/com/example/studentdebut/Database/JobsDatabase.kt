@@ -14,6 +14,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import android.util.Log
+import android.util.Log.d
 
 
 //pravi se baza, koja je singlton
@@ -67,9 +69,11 @@ public abstract class JobsDatabase: RoomDatabase() {
                         if (done) {
                             database.jobDao().deleteEverything()
                             var products = ListOfJobItems
+
                             products.forEach() {
                             database.jobDao().insert(it)
                              }
+                            d("ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", "ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
                         }
                         // obavestenje da je baza kreirana i da je spremna za koriscenje
                         database.dbCreated.postValue(true)

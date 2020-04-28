@@ -13,11 +13,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.studentdebut.Common.HTTPDataHandler
-import com.example.studentdebut.Database.JobsDatabase
 import com.example.studentdebut.Database.JobsViewModel
 import com.example.studentdebut.Database.jobItem
 import com.example.studentdebut.Model.RSSObject
-import com.example.studentdebut.Model.Translator
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_options.*
 import kotlinx.coroutines.*
@@ -91,9 +89,8 @@ class Options() : AppCompatActivity() {
 
    val rsslinks = mutableListOf(
 
-       "https://fonis.rs/category/posao/feed/",
-       "https://fonis.rs/category/praksa/feed/",
-       "https://fonis.rs/category/praksa/feed/?paged=2"
+       "http://www.itposlovi.info/rss/programeri/",
+       "http://www.itposlovi.info/rss/dizajneri/"
    )
 
     //viewModel
@@ -152,7 +149,7 @@ class Options() : AppCompatActivity() {
         //mSledece = findViewById(R.id.btn_Next_page1)
 
         view = findViewById(R.id.myProgressButton)
-        Posao_ili_praksa.visibility = View.VISIBLE
+        //Posao_ili_praksa.visibility = View.VISIBLE
         mHolder.visibility = View.GONE
 
         view.setOnClickListener() {
@@ -166,12 +163,14 @@ class Options() : AppCompatActivity() {
                 handler1.postDelayed({
                     val intent = Intent(this@Options, ListOfJobs::class.java)
                     startActivity(intent)
-                },100)
+
+                },0)
             },6000)
 
             //val i = Intent(this, ListOfJobs::class.java)
             //startActivity(i)
         }
+
 
         btn_Next_page1.setOnClickListener() {
             UbaciFilterePocetna()
@@ -333,7 +332,6 @@ class Options() : AppCompatActivity() {
 
 
     private fun UbaciFiltereJezici() {
-        Jezici.visibility = View.INVISIBLE
         val check_boxes = listOf(
             findViewById<CheckBox>(R.id.cb_javascript),
             findViewById<CheckBox>(R.id.cb_net),
@@ -369,16 +367,17 @@ class Options() : AppCompatActivity() {
         }
         return thing
     }
-    fun containsWordsForLanguages(inputString: String, items: List<String?>): MutableList<String> {
+    fun containsWordsForLanguages(inputString: String, items: List<String?>): String {
         var found = false
         val yourArray: List<String> = inputString.split(" ")
-        val things = mutableListOf<String>()
+        val things = StringBuilder()
         for (item in items) {
             if (yourArray.contains(item!!)) {
-                things.add(item)
+                things.append(item)
+                      .append("_")
             }
         }
-        return things
+        return things.toString()
     }
     private fun addPosition(input:String):String{
 
@@ -389,7 +388,7 @@ class Options() : AppCompatActivity() {
         var position=containsWord(input,listofpositions)
       return position
     }
-    private fun addLanguages(input:String):MutableList<String>{
+    private fun addLanguages(input:String): String {
 
         val listoflanguages= mutableListOf<String>(cb_javascript.text.toString(),cb_net.text.toString(),cb_python.text.toString(),  cb_mysql.text.toString(), cb_mysql.text.toString(),
             cb_vue.text.toString(),cb_jquery.text.toString(),cb_wordpress.text.toString(), cb_c.text.toString(), cb_csharp.text.toString(),

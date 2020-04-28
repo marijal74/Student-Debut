@@ -1,45 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:CardView="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardView"
-    android:padding="8dp"
-    android:layout_marginBottom="8dp"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+
+    android:padding="8dp"
     CardView:cardCornerRadius="8dp"
-    CardView:cardElevation="8dp"
-    android:layout_height="wrap_content">
+    CardView:cardElevation="8dp">
 
     <LinearLayout
-        android:layout_margin="8dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="Title"
-            android:id="@+id/txtTitle"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="2020-04-04 12:30:00"
-            android:id="@+id/txtPubDate"
-            android:textSize="12sp"
-            android:textStyle="italic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-        <TextView
-        android:text="Content"
-        android:id="@+id/txtContent"
-        android:textSize="14sp"
-        android:textStyle="normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLines="4"/>
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtPubDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2020-04-04 12:30:00"
+            android:textSize="12sp"
+            android:textStyle="italic" />
+
+
+        <TextView
+            android:id="@+id/txtContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="4"
+            android:text="Content"
+            android:textSize="14sp"
+            android:textStyle="normal" />
 
         <TextView
             android:id="@+id/txtSeeMore"
@@ -52,4 +53,4 @@
             android:textStyle="normal" />
     </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

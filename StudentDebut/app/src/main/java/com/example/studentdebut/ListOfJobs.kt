@@ -1,10 +1,14 @@
 package com.example.studentdebut
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
+import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +24,7 @@ import com.example.studentdebut.MyApp.Companion.ListOfJobItems
 import com.example.studentdebut.MyApp.Companion.filtersJob
 import com.example.studentdebut.MyApp.Companion.filtersLanguage
 import com.example.studentdebut.MyApp.Companion.filtersPosition
+import kotlinx.android.synthetic.main.activity_options.*
 
 
 // uvodna pricica kako sve ovo funkcionise na : https://codelabs.developers.google.com/codelabs/android-room-with-a-view-kotlin/#0
@@ -37,9 +42,10 @@ class ListOfJobs : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_of_jobs)
 
+
+
         toolbar_listofjobs.title = "NEWS"
         setSupportActionBar(toolbar_listofjobs)
-
         //postavlja RecyclerView
         // ovo nam je inicijalno radila showResult fja i msm da je zbg toga bio onaj bug da se recycler view
         // vraca na pocetak, jer se vise puta postavljao adapter u forEach petlji
@@ -81,7 +87,10 @@ class ListOfJobs : AppCompatActivity() {
             }
         }
     }
-}
+
+    }
+
+
 
 
 

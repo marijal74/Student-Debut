@@ -89,8 +89,26 @@ class Options() : AppCompatActivity() {
 
    val rsslinks = mutableListOf(
 
+
+       "https://startit.rs/poslovi/feed/",
+       "https://startit.rs/poslovi/feed/?paged=2",
+       "https://startit.rs/poslovi/feed/?paged=3",
+       "https://startit.rs/poslovi/feed/?paged=4",
+       "https://startit.rs/poslovi/feed/?paged=5",
+       "https://www.helloworld.rs/rss/",
+       "http://oglasi.matf.bg.ac.rs/?feed=rss2",
+       "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=2",
+       "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=3",
+       "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=4",
+       "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=5",
+       "http://oglasi.matf.bg.ac.rs/?tag=stipendije%26feed=rss2",
+       "http://www.sljaka.com/rss/itposlovi/",
+       "https://fonis.rs/category/posao/feed/",
+       "https://fonis.rs/category/praksa/feed/",
+       "https://fonis.rs/category/praksa/feed/?paged=2",
        "http://www.itposlovi.info/rss/programeri/",
-       "http://www.itposlovi.info/rss/dizajneri/"
+       "http://www.itposlovi.info/rss/dizajneri/",
+       "http://oglasi123.matf.bg.ac.rs/?feed=rss2"
    )
 
     //viewModel
@@ -313,10 +331,12 @@ class Options() : AppCompatActivity() {
             findViewById<CheckBox>(R.id.cb_junior_developer),
             findViewById<CheckBox>(R.id.cb_developer),
             findViewById<CheckBox>(R.id.cb_analyst),
-            findViewById<CheckBox>(R.id.cb_graphic_designer),
+            findViewById<CheckBox>(R.id.cb_menager),
+            findViewById<CheckBox>(R.id.cb_designer),
             findViewById<CheckBox>(R.id.cb_web_designer),
             findViewById<CheckBox>(R.id.cb_tutor),
             findViewById<CheckBox>(R.id.cb_technical_lead),
+            findViewById<CheckBox>(R.id.cb_engineer),
             findViewById<CheckBox>(R.id.cb_backend_engineer),
             findViewById<CheckBox>(R.id.cb_frontend_engineer),
             findViewById<CheckBox>(R.id.cb_mobile_engineer),
@@ -340,6 +360,7 @@ class Options() : AppCompatActivity() {
             findViewById<CheckBox>(R.id.cb_angular),
             findViewById<CheckBox>(R.id.cb_vue),
             findViewById<CheckBox>(R.id.cb_jquery),
+            findViewById<CheckBox>(R.id.cb_cpp),
             findViewById<CheckBox>(R.id.cb_wordpress),
             findViewById<CheckBox>(R.id.cb_c),
             findViewById<CheckBox>(R.id.cb_csharp),
@@ -382,8 +403,9 @@ class Options() : AppCompatActivity() {
     private fun addPosition(input:String):String{
 
         val listofpositions= mutableListOf<String>(cb_senior_developer.text.toString(),cb_junior_developer.text.toString(),cb_developer.text.toString(),cb_analyst.text.toString(),
-                                                  cb_graphic_designer.text.toString(),cb_web_designer.text.toString(),cb_tutor.text.toString(),cb_technical_lead.text.toString(),
-                                                   cb_backend_engineer.text.toString(),cb_frontend_engineer.text.toString(),cb_mobile_engineer.text.toString(),cb_marketing.text.toString()
+                                                    cb_designer.text.toString(),cb_web_designer.text.toString(),cb_tutor.text.toString(),cb_technical_lead.text.toString(),
+                                                  cb_engineer.text.toString(), cb_backend_engineer.text.toString(),cb_frontend_engineer.text.toString(),cb_mobile_engineer.text.toString(),
+                                                 cb_menager.text.toString(),  cb_marketing.text.toString()
             )
         var position=containsWord(input,listofpositions)
       return position
@@ -393,7 +415,7 @@ class Options() : AppCompatActivity() {
         val listoflanguages= mutableListOf<String>(cb_javascript.text.toString(),cb_net.text.toString(),cb_python.text.toString(),  cb_mysql.text.toString(), cb_mysql.text.toString(),
             cb_vue.text.toString(),cb_jquery.text.toString(),cb_wordpress.text.toString(), cb_c.text.toString(), cb_csharp.text.toString(),
             cb_nodejs.text.toString() , cb_kotlin.text.toString(), cb_htmlcss.text.toString() , cb_htmlcss.text.toString(), cb_scala.text.toString(), cb_java.text.toString(),
-            cb_php.text.toString(), cb_XML.text.toString(), cb_bash.text.toString()
+            cb_php.text.toString(), cb_XML.text.toString(), cb_bash.text.toString(), cb_cpp.text.toString()
         )
         var languages=containsWordsForLanguages(input,listoflanguages)
         return languages

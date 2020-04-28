@@ -23,7 +23,7 @@ data class jobItem(
     // posao ili praksa
     var job: String?,
     // inostrantsvo/Srbija
-    var stationed: String?,
+    //var stationed: String?,
     // pozicija
     var position:String?,
     //language

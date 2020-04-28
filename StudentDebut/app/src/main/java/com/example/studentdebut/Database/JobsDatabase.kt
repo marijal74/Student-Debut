@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 
 
 //pravi se baza, koja je singlton
-@Database (entities = arrayOf(jobItem::class), version = 3)
+@Database (entities = arrayOf(jobItem::class), version = 4)
 @TypeConverters(Converters::class)
 public abstract class JobsDatabase: RoomDatabase() {
 

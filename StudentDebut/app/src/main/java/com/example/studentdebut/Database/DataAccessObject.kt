@@ -31,4 +31,7 @@ interface DataAccessObject {
 
 
     //TODO dodati Query fje za filtriranje i dodatne opcije
+    @Query("SELECT * FROM jobs_table WHERE job IN (:filtersJob) " + "OR position IN (:filtersPosition) " + "OR language IN (:filtersLanguage)")
+    fun applyFilters(filtersJob: MutableList<String>, filtersPosition: MutableList<String>, filtersLanguage: MutableList<String>): LiveData<List<jobItem>>
+
 }

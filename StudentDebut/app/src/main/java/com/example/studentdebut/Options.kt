@@ -33,11 +33,11 @@ class Options() : AppCompatActivity() {
 
 
     //Funkcija koja cuva u listi filters sve checkboxove koji su obelezeni
-    fun addInFilters(list:MutableList<CharSequence>, checkboxoes: List<CheckBox>) {
+    fun addInFilters(list:MutableList<String>, checkboxoes: List<CheckBox>) {
 
         for (i in checkboxoes)
             if (i.isChecked)
-                list.add(i.text)
+                list.add(i.text.toString())
     }
 
     private val RSS_to_JSON_API = "https://api.rss2json.com/v1/api.json?rss_url="
@@ -63,12 +63,12 @@ class Options() : AppCompatActivity() {
         "https://fonis.rs/category/praksa/feed/?paged=2",
         "http://www.itposlovi.info/rss/programeri/",
         "http://www.itposlovi.info/rss/dizajneri/"
-     */
 
-   val rsslinks = mutableListOf(
 
-       "https://startit.rs/poslovi/feed/",
-       "https://startit.rs/poslovi/feed/?paged=2",
+
+
+
+        "https://startit.rs/poslovi/feed/",
        "https://startit.rs/poslovi/feed/?paged=2",
        "https://startit.rs/poslovi/feed/?paged=3",
        "https://startit.rs/poslovi/feed/?paged=4",
@@ -85,7 +85,15 @@ class Options() : AppCompatActivity() {
        "https://fonis.rs/category/praksa/feed/",
        "https://fonis.rs/category/praksa/feed/?paged=2",
        "http://www.itposlovi.info/rss/programeri/",
+       "http://www.itposlovi.info/rss/dizajneri/",
        "http://oglasi123.matf.bg.ac.rs/?feed=rss2"
+     */
+
+   val rsslinks = mutableListOf(
+
+       "https://fonis.rs/category/posao/feed/",
+       "https://fonis.rs/category/praksa/feed/",
+       "https://fonis.rs/category/praksa/feed/?paged=2"
    )
 
     //viewModel
@@ -236,9 +244,9 @@ class Options() : AppCompatActivity() {
 
                                 d("linkk", link)
                                 it.filterContent(link)
-                                val positionf = addPosition(it.title)
-                                val languagef = addLanguages(it.content)
-                                val jobf = addJob(it.title)
+                                val positionf = addPosition(it.title + " " + it.content + " " + it.description)
+                                val languagef = addLanguages(it.title + " " + it.content + " " + it.description)
+                                val jobf = addJob(it.title + " " + it.content + " " + it.description)
 
                                 it.filterContent(link)
 
@@ -250,12 +258,12 @@ class Options() : AppCompatActivity() {
                                     it.description,
                                     it.content,
                                     jobf,
-                                    "",
                                     positionf,
                                     languagef
                                 )
                                 d("jobic", ajob.toString())
-
+                                println("POSITOOOOOOOOOOOON $positionf")
+                                println("LANGUAGGGGGGGGG $languagef")
 
                                 // d("item", ajob.toString())
                                 MyApp.ListOfJobItems.add(ajob)

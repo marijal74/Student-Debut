@@ -14,7 +14,6 @@ class JobsRepository(private val jobsDao: DataAccessObject) {
 
 
     //val allJobs: LiveData<List<jobItem>> = jobsDao.getAllJobs()
-
     val applyAllFilters : LiveData<List<jobItem>> = jobsDao.applyFilters(filtersJob, filtersPosition, filtersLanguage)
 
     suspend fun insert(job : jobItem) {

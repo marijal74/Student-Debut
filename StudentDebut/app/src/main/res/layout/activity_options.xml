@@ -230,10 +230,10 @@
                     app:layout_constraintTop_toBottomOf="@+id/cb_developer" />
 
                 <CheckBox
-                    android:id="@+id/cb_graphic_designer"
+                    android:id="@+id/cb_designer"
                     android:layout_width="409dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/graphic_designer"
+                    android:text="Designer"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cb_analyst" />
                 <CheckBox
@@ -260,6 +260,14 @@
                     android:text="@string/technical_lead"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cb_tutor" />
+
+                <CheckBox
+                    android:id="@+id/cb_engineer"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="Engineer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cb_technical_lead" />
 
                 <CheckBox
                     android:id="@+id/cb_backend_engineer"
@@ -289,6 +297,14 @@
                     android:layout_width="409dp"
                     android:layout_height="wrap_content"
                     android:text="@string/software_engineer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cb_mobile_engineer" />
+
+                <CheckBox
+                    android:id="@+id/cb_menager"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="Manager"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cb_mobile_engineer" />
 
@@ -436,6 +452,12 @@
                     android:text="@string/vue" />
 
                 <CheckBox
+                    android:id="@+id/cb_cpp"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="C++" />
+
+                <CheckBox
                     android:id="@+id/cb_jquery"
                     android:layout_width="409dp"
                     android:layout_height="wrap_content"
@@ -469,7 +491,7 @@
                     android:id="@+id/cb_htmlcss"
                     android:layout_width="409dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/html_css" />
+                    android:text="HTML" />
 
                 <CheckBox
                     android:id="@+id/cb_scala"

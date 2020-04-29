@@ -3,6 +3,7 @@ package com.example.studentdebut.Database
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.*
+import com.example.studentdebut.MyApp.Companion.filtersLanguage
 
 
 // interfejs za komunikaciju izmedju repozitorijuma i same baze
@@ -25,7 +26,8 @@ interface DataAccessObject {
     // prosledite mu sql upit
 
     @Query("SELECT * from jobs_table")
-    fun getAllJobs(): LiveData<List<jobItem>>
+    fun getAllJobs(): MutableList<jobItem>
+
 
     @Query("DELETE FROM jobs_table")
     fun deleteEverything()
@@ -45,7 +47,27 @@ interface DataAccessObject {
     fun applyFilters(filtersJob: MutableList<String>, filtersPosition: MutableList<String>, filtersLanguage: MutableList<String>): LiveData<List<jobItem>>*/
 
 
+    //TODO ispraviti upit
     @Query("SELECT * FROM jobs_table WHERE  instr(language, (:lang)) > 0 ")
-    fun filterThroughLanguages(lang : String) : LiveData<List<jobItem>>
+    fun singleLanguage(lang : String) : MutableList<jobItem>
+
+
+
+    fun filterThroughLanguages() : MutableList<jobItem>{
+
+        var list = mutableListOf<jobItem>()
+
+        if(filtersLanguage.isEmpty()){
+            list = getAllJobs()
+        }
+        else{
+            filtersLanguage.forEach {
+                list.addAll(singleLanguage(it))
+            }
+        }
+
+
+        return list
+    }
 
 }

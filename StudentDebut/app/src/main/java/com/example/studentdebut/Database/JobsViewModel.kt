@@ -3,8 +3,11 @@ package com.example.studentdebut.Database
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.studentdebut.MyApp.Companion.filtersLanguage
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.Main
 
 
 // ViewModel je korisna stvarcica koja pazi na sve promene u bazi i komunicira sa UI-om
@@ -16,24 +19,43 @@ class JobsViewModel( application: Application) :AndroidViewModel(application)  {
 
     private val repo : JobsRepository
     // za kesiranje svih poslova
-    var allJobs : LiveData<List<jobItem>>
+    var allJobs: MutableLiveData<List<jobItem>> = MutableLiveData()
+    //val result: LiveData<List<jobItem>>
 
     //konstruktor
     init {
         val jobsDao = JobsDatabase.getDatabase(application, viewModelScope).jobDao()
         repo = JobsRepository(jobsDao)
-        allJobs = repo.allJobs
     }
+
 
     //wrapper za insert radi enkapsulacije od UI-a
     // poziva novu korutinu da ne bi blokirala UI
-  /*  fun insert(job: List<jobItem>) = viewModelScope.launch(Dispatchers.IO) {
-        repo.insert()
+
+    fun getResult(): LiveData<List<jobItem>>{
+        return allJobs
+
     }
-*/
-    /*fun filterThroughLanguages(lang : String) = viewModelScope.launch(Dispatchers.IO) {
-       allJobs = repo.filterThroughLanguages(lang)
-    }*/
+    fun loadData(){
+
+
+        CoroutineScope(Dispatchers.IO).launch{
+            val list =async {
+                repo.filterThroughLanguages()
+            } .await()
+            withContext(Main){
+                allJobs.setValue(list)
+            }
+
+        }
+
+
+    }
+    fun getAllJobs() = viewModelScope.launch(Dispatchers.IO) {
+        allJobs.value = repo.getAllJobs()
+    }
+
+
 
 }
 

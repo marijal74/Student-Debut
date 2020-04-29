@@ -56,14 +56,10 @@ public abstract class JobsDatabase: RoomDatabase() {
     }
 
     // implementira callback fju
-    // pp da mogu razlicite stvari da se implementiraju ovde, ja sam samo ostavila kod koji puni bazu
-    // po njenom otvaranju
     private class JobsDatabaseCallback(private val scope: CoroutineScope,val appContext: Context):RoomDatabase.Callback() {
         override fun onOpen(db: SupportSQLiteDatabase) {
                 super.onOpen(db)
                 scope.launch {
-                    //TODO maybe neka obrada ovde
-                    // Generate the data for pre-population
                     withContext(IO) {
                         val database: JobsDatabase = JobsDatabase.getDatabase(appContext, scope)
                         if (done) {

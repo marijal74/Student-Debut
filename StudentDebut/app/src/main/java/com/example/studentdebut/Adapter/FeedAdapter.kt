@@ -49,7 +49,8 @@ class FeedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.On
 class FeedAdapter internal constructor( private val mContext :Context): RecyclerView.Adapter<FeedViewHolder>(){
 
     private  val inflater: LayoutInflater
-    private val jobs = mutableListOf<jobItem>()
+    //private val jobs = mutableListOf<jobItem>()
+    private var jobs = emptyList<jobItem>()
 
      init{
 
@@ -66,7 +67,8 @@ class FeedAdapter internal constructor( private val mContext :Context): Recycler
     }
 
     internal fun setJobs(jobs: List<jobItem>) {
-        this.jobs.addAll(jobs)
+        //this.jobs.addAll(jobs)
+        this.jobs = jobs
         notifyDataSetChanged()
     }
 

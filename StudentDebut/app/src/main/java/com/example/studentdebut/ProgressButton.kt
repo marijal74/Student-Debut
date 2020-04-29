@@ -1,14 +1,17 @@
 package com.example.studentdebut
 
 import android.content.Context
+import android.speech.RecognitionListener
 import android.view.View
 import android.view.animation.Animation
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 
-internal class ProgressButton(ct: Context?, view: View) {
+internal class ProgressButton(private val ct: Context, view: View) {
+
     private val cardView: CardView
     private val layout: ConstraintLayout
     private val progressBar: ProgressBar
@@ -20,7 +23,8 @@ internal class ProgressButton(ct: Context?, view: View) {
     }
 
     fun buttonFinished() {
-        layout.setBackgroundColor(cardView.resources.getColor(R.color.colorPrimary))
+        //layout.setBackgroundColor(cardView.resources.getColor(R.color.colorPrimary))
+        layout.setBackgroundColor(ContextCompat.getColor(ct ,R.color.colorPrimary))
         progressBar.visibility = View.GONE
         textView.text = "Gotovo"
     }

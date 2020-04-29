@@ -261,6 +261,7 @@ class Options() : AppCompatActivity() {
                                     languagef
                                 )
                                 d("jobic", ajob.toString())
+                                println("JOOOOOOOOOOOOOOB $jobf")
                                 println("POSITOOOOOOOOOOOON $positionf")
                                 println("LANGUAGGGGGGGGG $languagef")
 

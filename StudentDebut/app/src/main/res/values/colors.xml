@@ -9,5 +9,6 @@
     <color name="light_background">#fffafafa</color>
     <color name="shadow_end_color">#03000000</color>
     <color name="start_color">#37000000</color>
+    <color name="logo_color">#104126</color>
 
 </resources>

@@ -1,9 +1,9 @@
 package com.example.studentdebut.Database
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.studentdebut.MyApp.Companion.filtersLanguage
+import com.example.studentdebut.MyApp.Companion.filtersJob
+import com.example.studentdebut.MyApp.Companion.filtersPosition
 
 
 // interfejs za komunikaciju izmedju repozitorijuma i same baze
@@ -25,8 +25,11 @@ interface DataAccessObject {
     // sve ostale potrebne fje za izvlacenje podataka iz tabele koristie @Query anotaciju i
     // prosledite mu sql upit
 
-    @Query("SELECT * from jobs_table")
-    fun getAllJobs(): MutableList<jobItem>
+    @Query("SELECT DISTINCT * from jobs_table WHERE job IN (:filtersJob) AND position IN (:filtersPosition)")
+    fun getAllJobs(
+        filtersJob: MutableList<String>,
+        filtersPosition: MutableList<String>
+    ): MutableList<jobItem>
 
 
     @Query("DELETE FROM jobs_table")
@@ -48,21 +51,33 @@ interface DataAccessObject {
 
 
     //TODO ispraviti upit
-    @Query("SELECT * FROM jobs_table WHERE  instr(language, (:lang)) > 0 ")
-    fun singleLanguage(lang : String) : MutableList<jobItem>
+    @Query("SELECT DISTINCT * FROM jobs_table WHERE  job IN (:filtersJob) AND position IN (:filtersPosition) AND instr(language, (:lang)) > 0 ")
+    fun singleLanguage(
+        lang: String,
+        filtersJob: MutableList<String>,
+        filtersPosition: MutableList<String>
+    ) : MutableList<jobItem>
 
+    @Query("SELECT DISTINCT * FROM jobs_table WHERE job IN (:filtersJob)")
+    fun getWithoutPositon(filtersJob: MutableList<String>) : MutableList<jobItem>
 
 
     fun filterThroughLanguages() : MutableList<jobItem>{
 
         var list = mutableListOf<jobItem>()
 
-        if(filtersLanguage.isEmpty()){
-            list = getAllJobs()
-        }
-        else{
+
+        if(filtersPosition.isEmpty() && filtersLanguage.isEmpty()){
+
+            list = getWithoutPositon(filtersJob)
+
+        }else if(filtersLanguage.isEmpty()){
+
+            list = getAllJobs(filtersJob, filtersPosition)
+        }else{
             filtersLanguage.forEach {
-                list.addAll(singleLanguage(it))
+                println("JEZZZZZZZZZZZZZZZZZZZ $it")
+                list.addAll(singleLanguage(it, filtersJob, filtersPosition))
             }
         }
 

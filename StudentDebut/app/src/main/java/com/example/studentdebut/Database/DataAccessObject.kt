@@ -1,6 +1,7 @@
 package com.example.studentdebut.Database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 
 
@@ -34,13 +35,17 @@ interface DataAccessObject {
    // @Query("SELECT * FROM jobs_table WHERE job IN (:filtersJob) " + "OR position IN (:filtersPosition) " + "OR EXISTS (SELECT * " +
            // "FROM STRING_SPLIT(languages, '_') " + "WHERE value IN (:filtersLanguage))")
 
-    @Query("WITH split(word, str) AS ( " +
-                 "SELECT '', language FROM jobs_table " +
+   /* @Query("WITH split(word, str) AS ( " +
+                 "SELECT '', language FROM jobs_table " + "WHERE job IN (:filtersJob) " + "AND position IN (:filtersPosition) " +
                  "UNION ALL " +
                  "SELECT substr(str, 0, instr(str, '_')), substr(str, instr(str, '_')+1) " +
-                 "FROM split WHERE str!='') " +
+                 "FROM split WHERE str!='' AND ) " +
                  "SELECT * FROM jobs_table WHERE job IN (:filtersJob) " + "AND position IN (:filtersPosition) " + "AND EXISTS (SELECT * "+
                       "FROM split " + "WHERE word!='' AND word IN (:filtersLanguage))")
-    fun applyFilters(filtersJob: MutableList<String>, filtersPosition: MutableList<String>, filtersLanguage: MutableList<String>): LiveData<List<jobItem>>
+    fun applyFilters(filtersJob: MutableList<String>, filtersPosition: MutableList<String>, filtersLanguage: MutableList<String>): LiveData<List<jobItem>>*/
+
+
+    @Query("SELECT * FROM jobs_table WHERE  instr(language, (:lang)) > 0 ")
+    fun filterThroughLanguages(lang : String) : LiveData<List<jobItem>>
 
 }

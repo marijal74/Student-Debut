@@ -73,7 +73,7 @@ public abstract class JobsDatabase: RoomDatabase() {
                             products.forEach() {
                             database.jobDao().insert(it)
                              }
-                            d("ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", "ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+                           // d("ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", "ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
                         }
                         // obavestenje da je baza kreirana i da je spremna za koriscenje
                         database.dbCreated.postValue(true)

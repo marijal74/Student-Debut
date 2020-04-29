@@ -66,28 +66,28 @@ class ListOfJobs : AppCompatActivity() {
         println("JESI LIIIIIIII PRAZAN ${filtersJob}")
         println("JESI LIIIIIIII PRAZAN ${filtersPosition}")
         println("JESI LIIIIIIII PRAZAN ${filtersLanguage}")
-       /* if(filtersJob.isEmpty()|| filtersPosition.isEmpty() || filtersLanguage.isEmpty()) {
+
             //pravimo observer koji obavestava UI da je doslo do izmena
             viewModel.allJobs.observe(this, Observer { jobs ->
                 // Update the cached copy of the words in the adapter.
                 jobs?.let { adapter.setJobs(it) }
             })
-        }else {*/
+
 
 
             //println("ISPIIIIIIIIIIIS ${}")
-            viewModel.applyAllFilters.observe(
+          /*  viewModel.applyAllFilters.observe(
                 this,
                 Observer { jobs -> jobs?.let { adapter.setJobs(it) } })
-       // }
+       // }*/
 
-        uiScope.launch {
-            ListOfJobItems.forEach() {
+        //uiScope.launch {
+           /* filtersLanguage.forEach() {
                 //TODO ??? mozda , mozda ne, ovo je lista svih itema iz baze, mozda raditi na njima ovde, mozda je skroz nepotrebno
+                    viewModel.filterThroughLanguages(it)
 
-
-            }
-        }
+            }*/
+        //}
     }
 
     }

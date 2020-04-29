@@ -1,6 +1,7 @@
 package com.example.studentdebut.Database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.studentdebut.MyApp.Companion.filtersJob
 import com.example.studentdebut.MyApp.Companion.filtersLanguage
 import com.example.studentdebut.MyApp.Companion.filtersPosition
@@ -10,14 +11,17 @@ import com.example.studentdebut.MyApp.Companion.filtersPosition
 // i pojam komunikacije izmedju baze i ViewModel-a
 class JobsRepository(private val jobsDao: DataAccessObject) {
 
-   // lateinit var allJobs: LiveData<List<jobItem>>
+    var allJobs: LiveData<List<jobItem>> = jobsDao.filterThroughLanguages(lang = "PHP")
 
-
-    //val allJobs: LiveData<List<jobItem>> = jobsDao.getAllJobs()
-    val applyAllFilters : LiveData<List<jobItem>> = jobsDao.applyFilters(filtersJob, filtersPosition, filtersLanguage)
+    //val applyAllFilters : LiveData<List<jobItem>> = jobsDao.applyFilters(filtersJob, filtersPosition, filtersLanguage)
 
     suspend fun insert(job : jobItem) {
         jobsDao.insert(job)
     }
+
+    /*suspend fun filterThroughLanguages(lang : String) : LiveData<List<jobItem>> {
+        println("ULAZIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+       return jobsDao.filterThroughLanguages(lang)
+    }*/
 
 }

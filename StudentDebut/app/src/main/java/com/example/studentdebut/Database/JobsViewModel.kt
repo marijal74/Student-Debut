@@ -16,14 +16,13 @@ class JobsViewModel( application: Application) :AndroidViewModel(application)  {
 
     private val repo : JobsRepository
     // za kesiranje svih poslova
-    //val allJobs : LiveData<List<jobItem>>
-    val applyAllFilters : LiveData<List<jobItem>>
+    var allJobs : LiveData<List<jobItem>>
+
     //konstruktor
     init {
         val jobsDao = JobsDatabase.getDatabase(application, viewModelScope).jobDao()
         repo = JobsRepository(jobsDao)
-       // allJobs = repo.allJobs
-        applyAllFilters = repo.applyAllFilters
+        allJobs = repo.allJobs
     }
 
     //wrapper za insert radi enkapsulacije od UI-a
@@ -32,6 +31,9 @@ class JobsViewModel( application: Application) :AndroidViewModel(application)  {
         repo.insert()
     }
 */
+    /*fun filterThroughLanguages(lang : String) = viewModelScope.launch(Dispatchers.IO) {
+       allJobs = repo.filterThroughLanguages(lang)
+    }*/
 
 }
 

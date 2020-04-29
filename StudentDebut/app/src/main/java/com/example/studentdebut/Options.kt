@@ -89,26 +89,8 @@ class Options() : AppCompatActivity() {
 
    val rsslinks = mutableListOf(
 
-
-       "https://startit.rs/poslovi/feed/",
-       "https://startit.rs/poslovi/feed/?paged=2",
-       "https://startit.rs/poslovi/feed/?paged=3",
-       "https://startit.rs/poslovi/feed/?paged=4",
-       "https://startit.rs/poslovi/feed/?paged=5",
-       "https://www.helloworld.rs/rss/",
-       "http://oglasi.matf.bg.ac.rs/?feed=rss2",
-       "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=2",
-       "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=3",
-       "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=4",
-       "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=5",
-       "http://oglasi.matf.bg.ac.rs/?tag=stipendije%26feed=rss2",
-       "http://www.sljaka.com/rss/itposlovi/",
-       "https://fonis.rs/category/posao/feed/",
-       "https://fonis.rs/category/praksa/feed/",
-       "https://fonis.rs/category/praksa/feed/?paged=2",
        "http://www.itposlovi.info/rss/programeri/",
-       "http://www.itposlovi.info/rss/dizajneri/",
-       "http://oglasi123.matf.bg.ac.rs/?feed=rss2"
+       "http://www.itposlovi.info/rss/dizajneri/"
    )
 
     //viewModel

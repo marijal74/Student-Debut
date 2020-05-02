@@ -1,47 +1,42 @@
 package com.example.studentdebut.Adapter
 
+import android.animation.ObjectAnimator
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentdebut.Database.jobItem
 import com.example.studentdebut.Interface.ItemClickListener
+import com.example.studentdebut.ListOfJobs
 import com.example.studentdebut.R
+import com.example.studentdebut.R.*
+import com.ms.square.android.expandabletextview.ExpandableTextView
 
 
-class FeedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
+class FeedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     var txtTitle: TextView
     var txtPubdate: TextView
-    var txtContent: TextView
-    var txtSeeMore: TextView=itemView.findViewById(R.id.txtSeeMore)
-    private var itemClickListener : ItemClickListener?=null
+    var txtContent: ExpandableTextView
+    private var itemClickListener: ItemClickListener? = null
 
-    init{
+    init {
 
-        txtTitle = itemView.findViewById(R.id.txtTitle) as TextView
-        txtPubdate = itemView.findViewById(R.id.txtPubDate) as TextView
-        txtContent = itemView.findViewById(R.id.txtContent) as TextView
-
+        txtTitle = itemView.findViewById(id.txtTitle) as TextView
+        txtPubdate = itemView.findViewById(id.txtPubDate) as TextView
+        txtContent = itemView.findViewById(id.txtContent) as ExpandableTextView
 
 
-         itemView.setOnClickListener(this)
     }
-
-    fun setItemClickListener(itemClickListener: ItemClickListener){
-
-        this.itemClickListener = itemClickListener
-    }
-    override fun onClick(v: View?){
-        itemClickListener!!.onClick(v, absoluteAdapterPosition, false)
-    }
-
-
 }
 // XXX
 // promenjen items na var da bi bilo moguce menjanje njegovih polja, dodato polje url na osnovu koga
@@ -57,7 +52,7 @@ class FeedAdapter internal constructor( private val mContext :Context): Recycler
         inflater = LayoutInflater.from(mContext)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
-        val itemView = inflater.inflate(R.layout.row, parent, false)
+        val itemView = inflater.inflate(layout.row, parent, false)
         return FeedViewHolder(itemView)
     }
 
@@ -78,39 +73,23 @@ class FeedAdapter internal constructor( private val mContext :Context): Recycler
         //TODO: filter po zvanju
         holder.txtTitle.text = jobs[position].title
         //ovde je potrebno lepo transformisati tekst
-        // TODO: filter po sadrzaju (istraziti sta sve moze tu da bude i da li mozemo da iskoristimo
-        //        za jos neko vid filtriranja)
+
 
 
         holder.txtContent.text = jobs[position].content
         // TODO: filtrirati po tome da li je vec zavrsena prijava
         holder.txtPubdate.text = jobs[position].pubDate
-        //d("itemContent", jobs[position].content)
-      if(holder.txtContent.lineCount<=4)
-             holder.txtSeeMore.visibility=View.INVISIBLE
-        else holder.txtSeeMore.visibility=View.VISIBLE
 
-        holder.txtSeeMore.setOnClickListener(View.OnClickListener {
-           if(holder.txtContent.maxLines==4){
-               holder.txtSeeMore.setText("See less")
-            holder.txtContent.setMaxLines(100)
-           }
-            else {
-               holder.txtSeeMore.setText("See more")
-               holder.txtContent.maxLines=4
-           }
 
-        })
+        holder.txtTitle.setOnClickListener(){
+            holder.txtTitle.setTextColor((Color.parseColor("#663366")))
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(jobs[position].link))
+                        mContext.startActivity(browserIntent)
 
-        holder.setItemClickListener(object : ItemClickListener { //anonymus object
-            override fun onClick(view: View?, position: Int, isLongClick: Boolean) {
-                if (!isLongClick) {
 
-                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(jobs[position].link))
-                    mContext.startActivity(browserIntent)
-                }
-            }
-        })
+
+                    }
+
     }
 
 }

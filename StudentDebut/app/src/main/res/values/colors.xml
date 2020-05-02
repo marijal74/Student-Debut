@@ -9,5 +9,8 @@
     <color name="light_background">#fffafafa</color>
     <color name="shadow_end_color">#03000000</color>
     <color name="start_color">#37000000</color>
+    <color name="darker_blue">#1950E7</color>
+    <color name="link_blue">#0645AD</color>
+    <color name="link_purple">#663366</color>
 
 </resources>

@@ -470,12 +470,6 @@
                     android:text="@string/wordpress" />
 
                 <CheckBox
-                    android:id="@+id/cb_c"
-                    android:layout_width="409dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/c" />
-
-                <CheckBox
                     android:id="@+id/cb_nodejs"
                     android:layout_width="409dp"
                     android:layout_height="wrap_content"
@@ -492,6 +486,12 @@
                     android:layout_width="409dp"
                     android:layout_height="wrap_content"
                     android:text="HTML" />
+
+                <CheckBox
+                    android:id="@+id/cb_adobe"
+                    android:layout_width="409dp"
+                    android:layout_height="wrap_content"
+                    android:text="Adobe" />
 
                 <CheckBox
                     android:id="@+id/cb_scala"

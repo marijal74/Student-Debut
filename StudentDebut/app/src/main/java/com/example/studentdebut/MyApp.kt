@@ -8,9 +8,9 @@ class MyApp: Application() {
     companion object {
         var done= false
         val ListOfJobItems = ArrayList<jobItem>()
-        val filtersJob = mutableListOf<String>()
-        val filtersPosition = mutableListOf<String>()
-        val filtersLanguage = mutableListOf<String>()
+        var filtersJob = mutableListOf<String>()
+        var filtersPosition = mutableListOf<String>()
+        var filtersLanguage = mutableListOf<String>()
 
     }
 

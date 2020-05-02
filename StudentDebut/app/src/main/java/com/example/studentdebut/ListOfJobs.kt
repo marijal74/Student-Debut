@@ -1,14 +1,10 @@
 package com.example.studentdebut
 
-
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
 import android.view.View
-import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,15 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.studentdebut.Adapter.FeedAdapter
 import com.example.studentdebut.Database.JobsViewModel
 import com.example.studentdebut.Database.ViewModelFactory
-import com.example.studentdebut.Database.jobItem
-import kotlinx.android.synthetic.main.activity_list_of_jobs.*
-import kotlinx.coroutines.*
-import com.example.studentdebut.MyApp.Companion.done
-import com.example.studentdebut.MyApp.Companion.ListOfJobItems
 import com.example.studentdebut.MyApp.Companion.filtersJob
 import com.example.studentdebut.MyApp.Companion.filtersLanguage
 import com.example.studentdebut.MyApp.Companion.filtersPosition
-import kotlinx.android.synthetic.main.activity_options.*
+import kotlinx.android.synthetic.main.activity_list_of_jobs.*
+import kotlinx.android.synthetic.main.row.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 
 // uvodna pricica kako sve ovo funkcionise na : https://codelabs.developers.google.com/codelabs/android-room-with-a-view-kotlin/#0
@@ -33,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_options.*
 class ListOfJobs : AppCompatActivity() {
 
 
-
+    private  var brojLayota:Int=0
 
     //viewModel
     private lateinit var viewModel: JobsViewModel
@@ -41,10 +35,10 @@ class ListOfJobs : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_of_jobs)
+        val mIntent = intent
+        val broj = mIntent.getIntExtra("Visibilty",50)
+        d("extraaaaaaaaaa",broj.toString())
 
-
-
-        toolbar_listofjobs.title = "NEWS"
         setSupportActionBar(toolbar_listofjobs)
         //postavlja RecyclerView
         // ovo nam je inicijalno radila showResult fja i msm da je zbg toga bio onaj bug da se recycler view
@@ -53,6 +47,7 @@ class ListOfJobs : AppCompatActivity() {
         val adapter = FeedAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        brojLayota=broj;
 
         val uiScope = CoroutineScope(Dispatchers.IO)
 
@@ -63,9 +58,9 @@ class ListOfJobs : AppCompatActivity() {
         viewModel =
             ViewModelProvider(this, ViewModelFactory(application)).get(JobsViewModel::class.java)
 
-        println("JESI LIIIIIIII PRAZAN ${filtersJob}")
-        println("JESI LIIIIIIII PRAZAN ${filtersPosition}")
-        println("JESI LIIIIIIII PRAZAN ${filtersLanguage}")
+        println("JESI LIIIIIIII PRAZAN JOB ${filtersJob}")
+        println("JESI LIIIIIIII PRAZAN POS ${filtersPosition}")
+        println("JESI LIIIIIIII PRAZAN LANG ${filtersLanguage}")
 
         /*if(filtersLanguage.isNotEmpty()){
             viewModel.filterThroughLanguages()
@@ -83,11 +78,45 @@ class ListOfJobs : AppCompatActivity() {
         })
 
         viewModel.loadData()
+       // txtContent.addTextChangedListener(this);
+
+
 
 
     }
+    /*
+    fun SeeMoreClick(v: View) {
+        val tb = v as ToggleButton
+        txtContent.setMaxLines(if (tb.isChecked) 10 else 4)
+    }
 
+    override fun afterTextChanged(s: Editable?) {
+        if (txtContent.getLineCount() >= 4) {
 
+            txtSeeMore.visibility = View.VISIBLE
+        }
+    }
+    override fun onTextChanged(
+        s: CharSequence?,
+        start: Int,
+        before: Int,
+        count: Int
+    ) {
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int,count: Int, after: Int) {}
+*/
+    override fun onBackPressed() {
+        super.onBackPressed()
+        println("JESI LIIIIIIII PRAZAN $brojLayota")
+        if(brojLayota==3)
+            filtersLanguage.clear()
+        else if (brojLayota==2)
+            filtersPosition.clear()
+        else
+            filtersJob.clear()
+
+    }
 }
 
 

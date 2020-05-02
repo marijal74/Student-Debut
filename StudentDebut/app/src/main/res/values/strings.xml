@@ -3,7 +3,7 @@
     <string name="primeni_filtere">Primeni filtere</string>
     <string name="posao">Posao</string>
     <string name="praksa">Praksa</string>
-    <string name="da_li_trazite_posao_ili_praksu">Da li trazite posao ili praksu?</string>
+    <string name="da_li_trazite_posao_ili_praksu">Da li trazite posao ili praksu ili stipendiju?</string>
     <string name="next">Next</string>
     <string name="sve">Sve</string>
     <string name="senior_developer">Senior developer</string>
@@ -19,12 +19,12 @@
     <string name="backend_engineer">Backend engineer</string>
     <string name="software_engineer">Software engineer</string>
     <string name="marketing">Marketing</string>
-    <string name="izaberite_poziciju">Izaberite poziciju?</string>
+    <string name="izaberite_poziciju">Izaberite poziciju:</string>
     <string name="gde_zelite_da_radite">Gde zelite da radite?</string>
     <string name="inostranstvo">Inostranstvo</string>
     <string name="srbija">Srbija</string>
     <string name="prikazi_sve">Prikazi sve</string>
-    <string name="izaberite_programske_jezike">Izaberite programske jezike</string>
+    <string name="izaberite_programske_jezike">Izaberite tehnologiju:</string>
     <string name="javascript">JavaScript</string>
     <string name="net">.NET</string>
     <string name="python">Python</string>
@@ -48,5 +48,8 @@
     <string name="title">Title</string>
     <string name="_2020_04_04_12_30_00">2020-04-04 12:30:00</string>
     <string name="za_ovu_opciju_ne_postoje_dodatni_filteri">Za ovu opciju ne postoje dodatni filteri</string>
+    <string name="showmore">Show more</string>
+    <string name="seeless">Show less</string>
+    <string name="exoandicon">ExoandIcon</string>
 
 </resources>

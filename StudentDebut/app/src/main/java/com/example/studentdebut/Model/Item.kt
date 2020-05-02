@@ -17,25 +17,32 @@ data class Item (var title:String, val pubDate:String, var link:String, val guid
 
     @RequiresApi(Build.VERSION_CODES.Q)
     fun filterContent(url:String){
-        var con=Translator()
+        var tra=Translator()
         var des:String
+        var conte:String
         var name:String
         val jsoup = Jsoup.parse(this.content)
+        val jsoupd= Jsoup.parse(this.description)
+
         if(url.contains("matf")){
-            des=con.trans(jsoup.text())
-            name=con.trans(this.title)
+            conte=tra.trans(jsoup.text())
+            des=tra.trans(jsoupd.text())
+            name=tra.trans(this.title)
             d("matf","HelloFromMatf")
             }
         else {
-             des = jsoup.text()
+            conte = jsoup.text()
+            des=jsoupd.text()
             name=this.title
         }
+
         title=name
-        content = des
+        content = conte
+        description=des
       //  Log.d("tekst", jsoup.text())
 
     }
-    fun startitContent(){
+  /*  fun startitContent(){
         val jsoup = Jsoup.parse(this.content)
         //Log.d("tekst", this.description)
 
@@ -111,7 +118,7 @@ data class Item (var title:String, val pubDate:String, var link:String, val guid
         this.content=sb.toString()
     }
 
-
+*/
     /*private  fun presentContent( item: Item, url:String) : Item{
 
         val jsoup = Jsoup.parse(item.content)

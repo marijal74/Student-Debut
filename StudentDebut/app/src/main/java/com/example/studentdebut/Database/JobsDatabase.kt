@@ -62,10 +62,9 @@ public abstract class JobsDatabase: RoomDatabase() {
                 scope.launch {
                     withContext(IO) {
                         val database: JobsDatabase = JobsDatabase.getDatabase(appContext, scope)
+                        database.jobDao().deleteEverything()
                         if (done) {
-                            database.jobDao().deleteEverything()
                             var products = ListOfJobItems
-
                             products.forEach() {
                             database.jobDao().insert(it)
                              }

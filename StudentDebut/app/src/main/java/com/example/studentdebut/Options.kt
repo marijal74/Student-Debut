@@ -390,8 +390,14 @@ class Options() : AppCompatActivity() {
 
         if(filtersJob.isEmpty()) {
             for (i in check_boxes)
-                if (i.isChecked)
+                if (i.isChecked) {
+                    if (i.text.toString().equals("Praksa", true)) {
+                        filtersJob.add("Praksi")
+                        filtersJob.add("Praksu")
+                        filtersJob.add("Internship")
+                    }
                     filtersJob.add(i.text.toString())
+                }
         }
 
     }

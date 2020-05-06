@@ -71,7 +71,7 @@ class ListOfJobs : AppCompatActivity() {
         }*/
         //viewModel.getAllJobs()
         //pravimo observer koji obavestava UI da je doslo do izmena
-        viewModel.allJobs.observe(this, Observer { jobs ->
+       viewModel.allJobs.observe(this, Observer { jobs ->
             // Update the cached copy of the words in the adapter.
                 jobs?.let { adapter.setJobs(it) }
 
@@ -115,7 +115,6 @@ class ListOfJobs : AppCompatActivity() {
             filtersPosition.clear()
         else
             filtersJob.clear()
-
     }
 }
 

@@ -50,9 +50,9 @@ class JobsViewModel( application: Application) :AndroidViewModel(application)  {
 
 
     }
-    fun getAllJobs() = viewModelScope.launch(Dispatchers.IO) {
+    /*fun getAllJobs() = viewModelScope.launch(Dispatchers.IO) {
         allJobs.value = repo.getAllJobs()
-    }
+    }*/
 
 
 

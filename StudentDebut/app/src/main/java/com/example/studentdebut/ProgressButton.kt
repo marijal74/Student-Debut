@@ -24,9 +24,10 @@ internal class ProgressButton(private val ct: Context, view: View) {
 
     fun buttonFinished() {
         //layout.setBackgroundColor(cardView.resources.getColor(R.color.colorPrimary))
-        layout.setBackgroundColor(ContextCompat.getColor(ct ,R.color.colorPrimary))
+        layout.setBackgroundColor(ContextCompat.getColor(ct, R.color.colorPrimary))
         progressBar.visibility = View.GONE
-        textView.text = "Gotovo"
+        //textView.text = "Gotovo"
+        textView.text = "Primeni filtere"
     }
 
     init {

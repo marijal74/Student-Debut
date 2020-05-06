@@ -25,11 +25,11 @@ interface DataAccessObject {
     // sve ostale potrebne fje za izvlacenje podataka iz tabele koristie @Query anotaciju i
     // prosledite mu sql upit
 
-    @Query("SELECT DISTINCT * from jobs_table WHERE job IN (:filtersJob) AND position IN (:filtersPosition)")
+    /*@Query("SELECT DISTINCT * from jobs_table WHERE job IN (:filtersJob) AND position IN (:filtersPosition)")
     fun getAllJobs(
         filtersJob: MutableList<String>,
         filtersPosition: MutableList<String>
-    ): MutableList<jobItem>
+    ): MutableList<jobItem>*/
 
 
     @Query("DELETE FROM jobs_table")
@@ -59,7 +59,35 @@ interface DataAccessObject {
     ) : MutableList<jobItem>
 
     @Query("SELECT DISTINCT * FROM jobs_table WHERE job IN (:filtersJob)")
-    fun getWithoutPositon(filtersJob: MutableList<String>) : MutableList<jobItem>
+    fun getOnlyJobs(filtersJob: MutableList<String>) : MutableList<jobItem>
+
+    @Query("SELECT DISTINCT * FROM jobs_table WHERE position IN (:filtersPosition)")
+    fun getOnlyPosition(filtersPosition: MutableList<String>) : MutableList<jobItem>
+
+    @Query("SELECT DISTINCT * FROM jobs_table WHERE instr(language, (:lang)) > 0 ")
+    fun getOnlyLanguage(lang: String) : MutableList<jobItem>
+
+    @Query("SELECT DISTINCT * FROM jobs_table")
+    fun getWithoutFilters() : MutableList<jobItem>
+
+
+    @Query("SELECT DISTINCT * from jobs_table WHERE job IN (:filtersJob) AND position IN (:filtersPosition)")
+    fun getWithoutLanguage(
+        filtersJob: MutableList<String>,
+        filtersPosition: MutableList<String>
+    ): MutableList<jobItem>
+
+    @Query("SELECT DISTINCT * FROM jobs_table WHERE position IN (:filtersPosition) AND instr(language, (:lang)) > 0 ")
+    fun getWithoutJob(
+        lang: String,
+        filtersPosition: MutableList<String>
+    ) : MutableList<jobItem>
+
+    @Query("SELECT DISTINCT * FROM jobs_table WHERE job IN (:filtersJob) AND instr(language, (:lang)) > 0 ")
+    fun getWithoutPosition(
+        lang: String,
+        filtersJob: MutableList<String>
+    ) : MutableList<jobItem>
 
 
     fun filterThroughLanguages() : MutableList<jobItem>{
@@ -67,13 +95,44 @@ interface DataAccessObject {
         var list = mutableListOf<jobItem>()
 
 
-        if(filtersPosition.isEmpty() && filtersLanguage.isEmpty()){
+        if(filtersJob.isEmpty() && filtersPosition.isEmpty() && filtersLanguage.isEmpty()){
 
-            list = getWithoutPositon(filtersJob)
+            list = getWithoutFilters()
+        }
+        else if(filtersPosition.isEmpty() && filtersLanguage.isEmpty()){
+
+            list = getOnlyJobs(filtersJob)
+
+        }
+        else if(filtersJob.isEmpty() && filtersPosition.isEmpty()){
+            filtersLanguage.forEach{
+
+                list.addAll(getOnlyLanguage(it))
+            }
+        }
+        else if(filtersJob.isEmpty() && filtersLanguage.isEmpty()){
+
+            list = getOnlyPosition(filtersPosition)
+
+        }
+        else if(filtersJob.isEmpty()){
+
+            filtersLanguage.forEach{
+
+                list.addAll(getWithoutJob(it, filtersPosition))
+            }
+        }
+        else if(filtersPosition.isEmpty()){
+
+            filtersLanguage.forEach{
+
+                list.addAll(getWithoutPosition(it, filtersJob))
+            }
 
         }else if(filtersLanguage.isEmpty()){
 
-            list = getAllJobs(filtersJob, filtersPosition)
+            list = getWithoutLanguage(filtersJob, filtersPosition)
+
         }else{
             filtersLanguage.forEach {
                 println("JEZZZZZZZZZZZZZZZZZZZ $it")

@@ -43,17 +43,32 @@ class Options() : AppCompatActivity() {
         "https://startit.rs/poslovi/feed/?paged=3",
         "https://startit.rs/poslovi/feed/?paged=4",
         "https://startit.rs/poslovi/feed/?paged=5",
+
         "https://www.helloworld.rs/rss/",
-        "http://oglasi.matf.bg.ac.rs/?feed=rss2",
+
+        "http://oglasi.matf.bg.ac.rs/?feed=rss2", -- ovo nam nije potrebno
+
+        http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=2",
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=3",
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=4",
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=5",
+
+        -------------zaboravile smo linkove za prakse!!!!-----------------------
+        "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2"
+        "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2%26paged=2",
+        "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2%26paged=3",
+        "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2%26paged=4",
+        "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2%26paged=5",
+        ------------------------------------------------------------------------
         "http://oglasi.matf.bg.ac.rs/?tag=stipendije%26feed=rss2",
+
         "http://www.sljaka.com/rss/itposlovi/",
+
         "https://fonis.rs/category/posao/feed/",
         "https://fonis.rs/category/praksa/feed/",
         "https://fonis.rs/category/praksa/feed/?paged=2",
+
         "http://www.itposlovi.info/rss/programeri/",
         "http://www.itposlovi.info/rss/dizajneri/"
 
@@ -61,8 +76,11 @@ class Options() : AppCompatActivity() {
 
    val rsslinks = mutableListOf(
 
-       "http://www.itposlovi.info/rss/programeri/",
-       "http://www.itposlovi.info/rss/dizajneri/"
+       "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2",
+       "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2%26paged=2",
+       "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2%26paged=3",
+       "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2%26paged=4",
+       "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2%26paged=5"
    )
 
     //viewModel
@@ -227,8 +245,8 @@ class Options() : AppCompatActivity() {
             val handler = Handler()
             handler.postDelayed({
                 progressButton.buttonFinished()
-                val handler1 = Handler()
-                handler1.postDelayed({
+               // val handler1 = Handler()
+               // handler1.postDelayed({
                     val intent = Intent(this@Options, ListOfJobs::class.java)
                     val pp=findViewById<ConstraintLayout>(R.id.Posao_ili_praksa)
                     val po=findViewById<ConstraintLayout>(R.id.Pozicija)
@@ -242,7 +260,7 @@ class Options() : AppCompatActivity() {
                     intent.putExtra("Visibilty",visi)
                     startActivity(intent)
 
-                },0)
+              //  },0)
             },6000)
 
             //val i = Intent(this, ListOfJobs::class.java)
@@ -331,8 +349,8 @@ class Options() : AppCompatActivity() {
 
                                 println("JOOOOOOOOOOOOOOB $jobf")
 
-                                println("POSITOOOOOOOOOOOON $positionf")
-                                println("LANGUAGGGGGGGGG $languagef")
+                                println("          POSITOOOOOOOOOON $positionf")
+                                println("          LANGUAGGGGGGGGGG $languagef")
 
                                 // d("item", ajob.toString())
                                 MyApp.ListOfJobItems.add(ajob)

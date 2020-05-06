@@ -10,9 +10,9 @@ class JobsRepository(private val jobsDao: DataAccessObject) {
 
 
 
-    suspend fun getAllJobs(): MutableList<jobItem>? {
+    /*suspend fun getAllJobs(): MutableList<jobItem>? {
         return jobsDao.getAllJobs(filtersJob, filtersPosition)
-    }
+    }*/
      suspend fun filterThroughLanguages() : List<jobItem>{
          return jobsDao.filterThroughLanguages()
      }

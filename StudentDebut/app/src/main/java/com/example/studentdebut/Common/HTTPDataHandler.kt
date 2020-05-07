@@ -30,11 +30,11 @@ class HTTPDataHandler {
             if (urlConnection.responseCode == HttpURLConnection.HTTP_OK) {
 
 
-               Handler(Looper.getMainLooper()).post(object : Runnable {
+              /* Handler(Looper.getMainLooper()).post(object : Runnable {
                     override fun run() {
                         Toast.makeText(c, "Uspesno dohvatanje stranice", Toast.LENGTH_LONG).show()
                     }
-                })
+                })*/
 
                 val inputStream: InputStream = BufferedInputStream(urlConnection.inputStream)
                 val r = BufferedReader(InputStreamReader(inputStream))
@@ -54,7 +54,7 @@ class HTTPDataHandler {
 
                 urlConnection.disconnect()
             }
-            else if(urlConnection.responseCode==429){
+           /* else if(urlConnection.responseCode==429){
 
                 d("429response", urlConnection.getHeaderField("Retry-After"))
             }
@@ -64,7 +64,7 @@ class HTTPDataHandler {
                         Toast.makeText(c, "Neuspesno dohvatanje stranice", Toast.LENGTH_LONG).show()
                     }
                 })
-            }
+            }*/
         } catch (e: Exception) {
             return null
         }

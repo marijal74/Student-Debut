@@ -27,7 +27,7 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="NEWS"
+        app:title="Rezultat pretrage"
         app:titleMargin="4dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

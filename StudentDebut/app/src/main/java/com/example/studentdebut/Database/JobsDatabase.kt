@@ -57,8 +57,8 @@ public abstract class JobsDatabase: RoomDatabase() {
 
     // implementira callback fju
     private class JobsDatabaseCallback(private val scope: CoroutineScope,val appContext: Context):RoomDatabase.Callback() {
-        override fun onOpen(db: SupportSQLiteDatabase) {
-                super.onOpen(db)
+        override fun onCreate(db: SupportSQLiteDatabase) {
+                super.onCreate(db)
                 scope.launch {
                     withContext(IO) {
                         val database: JobsDatabase = JobsDatabase.getDatabase(appContext, scope)
@@ -69,7 +69,7 @@ public abstract class JobsDatabase: RoomDatabase() {
                             //products.forEach() {
                            // database.jobDao().insert(it)
                             // }
-                           // d("ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", "ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+                            println("ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
                         }
                         // obavestenje da je baza kreirana i da je spremna za koriscenje
                         database.dbCreated.postValue(true)

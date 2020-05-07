@@ -12,7 +12,7 @@ interface DataAccessObject {
 
     // ignorise ako vec postoji u tabeli
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(job : jobItem)
+    suspend fun insert(job : List<jobItem>)
 
     // update i delete nigde nije korisceno, ostavila sam ako zatreba
     // insert, update i delete su podrazumevane fje, ne treba im telo

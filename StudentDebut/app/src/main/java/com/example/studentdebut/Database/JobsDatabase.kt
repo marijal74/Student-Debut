@@ -62,12 +62,13 @@ public abstract class JobsDatabase: RoomDatabase() {
                 scope.launch {
                     withContext(IO) {
                         val database: JobsDatabase = JobsDatabase.getDatabase(appContext, scope)
-                        database.jobDao().deleteEverything()
+                       // database.jobDao().deleteEverything()
                         if (done) {
-                            var products = ListOfJobItems
-                            products.forEach() {
-                            database.jobDao().insert(it)
-                             }
+                            //var products = ListOfJobItems
+                            database.jobDao().insert(ListOfJobItems)
+                            //products.forEach() {
+                           // database.jobDao().insert(it)
+                            // }
                            // d("ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", "ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
                         }
                         // obavestenje da je baza kreirana i da je spremna za koriscenje

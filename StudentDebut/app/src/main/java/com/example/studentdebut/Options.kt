@@ -75,7 +75,6 @@ class Options() : AppCompatActivity() {
      */
 
    val rsslinks = mutableListOf(
-
      "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2",
     "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=2",
     "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=3",
@@ -335,7 +334,7 @@ class Options() : AppCompatActivity() {
                                     languagef
                                 )
                                 d("jobic", ajob.toString())
-
+                               println("COOOOOONTEEENT")
                                 println("JOOOOOOOOOOOOOOB $jobf")
 
                                 println("          POSITOOOOOOOOOON $positionf")
@@ -462,7 +461,7 @@ class Options() : AppCompatActivity() {
         var position="Druge pozicije"
         val designer=mutableListOf(cb_designer.text.toString(),"Dizajner","Dizajneru","Dizajnera")
         val administrator=mutableListOf(cb_administrator.text.toString(),"Administratora","Administratoru")
-        val programmer= mutableListOf(cb_programmer.text.toString(),"Programer","Programeru","Programera")
+        val programmer= mutableListOf(cb_programmer.text.toString(),"programer","Programeru","Programera")
         val tutor= mutableListOf(cb_tutor.text.toString(),"Saradnika","Saradniku","Saradnik","Predavač","Predavaču","Predavača")
 
         val listofpositions= mutableListOf<String>(cb_developer.text.toString(),cb_analyst.text.toString(),

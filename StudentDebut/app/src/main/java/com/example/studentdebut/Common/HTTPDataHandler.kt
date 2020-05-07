@@ -54,6 +54,10 @@ class HTTPDataHandler {
 
                 urlConnection.disconnect()
             }
+            else if(urlConnection.responseCode==429){
+
+                d("429response", urlConnection.getHeaderField("Retry-After"))
+            }
             else{
                 Handler(Looper.getMainLooper()).post(object : Runnable {
                     override fun run() {

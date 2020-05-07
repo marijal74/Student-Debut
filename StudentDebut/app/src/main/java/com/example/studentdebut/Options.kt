@@ -76,11 +76,11 @@ class Options() : AppCompatActivity() {
 
    val rsslinks = mutableListOf(
 
-       "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2",
-       "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2%26paged=2",
-       "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2%26paged=3",
-       "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2%26paged=4",
-       "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2%26paged=5"
+     "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2",
+    "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=2",
+    "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=3",
+    "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=4",
+    "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=5"
    )
 
     //viewModel
@@ -146,20 +146,17 @@ class Options() : AppCompatActivity() {
         )
 
         val check_boxesPositions = mutableListOf<CheckBox>(
-            findViewById(R.id.cb_senior_developer),
-            findViewById(R.id.cb_junior_developer),
+
             findViewById(R.id.cb_developer),
             findViewById(R.id.cb_analyst),
             findViewById(R.id.cb_menager),
             findViewById(R.id.cb_designer),
-            findViewById(R.id.cb_web_designer),
             findViewById(R.id.cb_tutor),
             findViewById(R.id.cb_technical_lead),
             findViewById(R.id.cb_engineer),
-            findViewById(R.id.cb_backend_engineer),
-            findViewById(R.id.cb_frontend_engineer),
-            findViewById(R.id.cb_mobile_engineer),
-            findViewById(R.id.cb_software_engineer),
+            findViewById(R.id.cb_programmer),
+            findViewById(R.id.cb_scientist),
+            findViewById(R.id.cb_administrator),
             findViewById(R.id.cb_marketing),
             findViewById(R.id.cb_ostalo)
         )
@@ -168,7 +165,7 @@ class Options() : AppCompatActivity() {
             findViewById(R.id.cb_javascript),
             findViewById(R.id.cb_net),
             findViewById(R.id.cb_python),
-            findViewById(R.id.cb_mysql),
+            findViewById(R.id.cb_sql),
             findViewById(R.id.cb_angular),
             findViewById(R.id.cb_vue),
             findViewById(R.id.cb_adobe),
@@ -181,6 +178,8 @@ class Options() : AppCompatActivity() {
             findViewById(R.id.cb_htmlcss),
             findViewById(R.id.cb_scala),
             findViewById(R.id.cb_java),
+            findViewById(R.id.cb_react),
+            findViewById(R.id.cb_matlab),
             findViewById(R.id.cb_php),
             findViewById(R.id.cb_XML),
             findViewById(R.id.cb_bash),
@@ -212,12 +211,6 @@ class Options() : AppCompatActivity() {
             }
 
         }
-
-
-
-
-
-
 
         cb_prikazi_sve_pageJezici.setOnClickListener(){
 
@@ -317,7 +310,6 @@ class Options() : AppCompatActivity() {
                     loadRSS(result)
 
                 }.await()
-
                 var link = it
                 //iz rss u job item
                 if (rssObject != null) {
@@ -325,14 +317,11 @@ class Options() : AppCompatActivity() {
                     if (!rssObject!!.items.isEmpty()) {
                         withContext(Dispatchers.Default) {
                             rssObject!!.items.forEach {
-
-
-
                                 d("linkk", link)
                                 //fja filterContent vadi tekst iz html-a
                                 it.filterContent(link)
                                 val positionf = addPosition(it.title + " " + it.content + " " + it.description)
-                                val languagef = addLanguages(it.title + " " + it.content + " " + it.description)
+                                val languagef = addLanguages(it.title + " " + it.content + " " + it.description+ " "+it.categories)
                                 var jobf=addJob(link,it.title + " " + it.content + " " + it.description)
                                 val ajob = jobItem(
                                     0,
@@ -356,7 +345,6 @@ class Options() : AppCompatActivity() {
                                 MyApp.ListOfJobItems.add(ajob)
 
                             }
-
                         }
                     }
                 }
@@ -458,7 +446,7 @@ class Options() : AppCompatActivity() {
         var found=false
         val things = StringBuilder()
         for (item in items) {
-            if (inputString.contains(item!!)) {
+            if (inputString.contains(item!!,true)) {
                 things.append(item)
                       .append("_")
                 found=true
@@ -472,21 +460,44 @@ class Options() : AppCompatActivity() {
     private fun addPosition(input:String):String{
 
         var position="Druge pozicije"
-        val listofpositions= mutableListOf<String>(cb_senior_developer.text.toString(),cb_junior_developer.text.toString(),cb_developer.text.toString(),cb_analyst.text.toString(),
-                                                    cb_designer.text.toString(),cb_web_designer.text.toString(),cb_tutor.text.toString(),cb_technical_lead.text.toString(),
-                                                  cb_engineer.text.toString(), cb_backend_engineer.text.toString(),cb_frontend_engineer.text.toString(),cb_mobile_engineer.text.toString(),
-                                                 cb_menager.text.toString(),  cb_marketing.text.toString()
-            )
-        if(containsWord(input,listofpositions)!=" ")
-            position=containsWord(input,listofpositions)
+        val designer=mutableListOf(cb_designer.text.toString(),"Dizajner","Dizajneru","Dizajnera")
+        val administrator=mutableListOf(cb_administrator.text.toString(),"Administratora","Administratoru")
+        val programmer= mutableListOf(cb_programmer.text.toString(),"Programer","Programeru","Programera")
+        val tutor= mutableListOf(cb_tutor.text.toString(),"Saradnika","Saradniku","Saradnik","Predavač","Predavaču","Predavača")
+
+        val listofpositions= mutableListOf<String>(cb_developer.text.toString(),cb_analyst.text.toString(),
+                                                    cb_technical_lead.text.toString(),
+                                                  cb_engineer.text.toString(),cb_menager.text.toString(),  cb_marketing.text.toString(), "Scientist"
+
+        )
+        listofpositions.addAll(designer)
+        listofpositions.addAll(administrator)
+        listofpositions.addAll(programmer)
+        listofpositions.addAll(tutor)
+
+
+        val found_value=containsWord(input,listofpositions)
+        if(found_value!=" ") {
+            if (designer.contains(found_value))
+                position = cb_designer.text.toString()
+            else if (administrator.contains(found_value))
+                position = cb_administrator.text.toString()
+            else if (programmer.contains(found_value))
+                position = cb_programmer.text.toString()
+            else if (tutor.contains(found_value))
+                position = cb_tutor.text.toString()
+            else if (found_value == "Scientist")
+                   position="Data/Research scientist"
+            else position = found_value
+        }
       return position
     }
     private fun addLanguages(input:String): String {
         var languages="Drugi jezici"
-        val listoflanguages= mutableListOf<String>(cb_javascript.text.toString(),cb_net.text.toString(),cb_python.text.toString(),  cb_mysql.text.toString(),
+        val listoflanguages= mutableListOf<String>(cb_javascript.text.toString(),cb_net.text.toString(),cb_python.text.toString(),  cb_sql.text.toString(),
             cb_vue.text.toString(),cb_jquery.text.toString(),cb_wordpress.text.toString(), cb_csharp.text.toString(),
             cb_nodejs.text.toString() , cb_kotlin.text.toString(), cb_htmlcss.text.toString() , cb_scala.text.toString(), cb_java.text.toString(),
-            cb_php.text.toString(), cb_XML.text.toString(), cb_bash.text.toString(), cb_cpp.text.toString(),cb_adobe.text.toString()
+            cb_php.text.toString(), cb_XML.text.toString(), cb_bash.text.toString(), cb_cpp.text.toString(),cb_adobe.text.toString(),cb_matlab.text.toString(),cb_react.text.toString()
         )
         if(containsWordsForLanguages(input,listoflanguages)!=" ")
             languages=containsWordsForLanguages(input,listoflanguages)
@@ -505,11 +516,6 @@ class Options() : AppCompatActivity() {
             job=jobfound
         return job
     }
-
-
-
-
-
 }
 /*  for(c in check_boxesLanguages) {
        c.setOnClickListener() {

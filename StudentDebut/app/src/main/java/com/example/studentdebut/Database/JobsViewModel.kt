@@ -2,8 +2,13 @@ package com.example.studentdebut.Database
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
+import android.util.Log.d
 import androidx.lifecycle.*
+import com.example.studentdebut.MyApp.Companion.ListOfJobItems
+import com.example.studentdebut.MyApp.Companion.filtersJob
 import com.example.studentdebut.MyApp.Companion.filtersLanguage
+import com.example.studentdebut.MyApp.Companion.filtersPosition
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
@@ -16,43 +21,62 @@ import kotlinx.coroutines.Dispatchers.Main
 //
 class JobsViewModel( application: Application) :AndroidViewModel(application)  {
 
-    private val repo : JobsRepository
+    val repo : JobsRepository
     // za kesiranje svih poslova
-    var allJobs: MutableLiveData<List<jobItem>> = MutableLiveData()
-    //val result: LiveData<List<jobItem>>
+    var  allJobs: List<jobItem>
 
-    //konstruktor
+    //kostruktor
     init {
         val jobsDao = JobsDatabase.getDatabase(application, viewModelScope).jobDao()
         repo = JobsRepository(jobsDao)
+        allJobs=emptyList()//ListOfJobItems
+        d("KONSTRUKTOR", allJobs.toString())
+
     }
+    public fun emptyFilters() : Boolean{
+        if(filtersLanguage.isEmpty() && filtersJob.isEmpty() && filtersPosition.isEmpty()){
+            return true
+        }
+        else
+            return false
+    }
+    /*fun getData() : List<jobItem>{
+        //result = allJobs
+        return result
+    }*/
+    /*fun initializeDb() : List<jobItem>{
+        return repo.initializeDb()
+    }*/
 
 
     //wrapper za insert radi enkapsulacije od UI-a
     // poziva novu korutinu da ne bi blokirala UI
 
-    fun getResult(): LiveData<List<jobItem>>{
-        return allJobs
-
+    fun velicinaBaze():Double{
+        var velicina:Double = -5.0
+        viewModelScope.launch(Dispatchers.IO){
+            velicina = repo.velicinaBaze()
+        }
+        return velicina
     }
-    fun loadData(){
+    fun loadData() {
 
+        d("LOADUJEM", "ASAAAAAAAAAAAAAAAAAAAAAAAAA")
 
-        CoroutineScope(Dispatchers.IO).launch{
-            val list =async {
-                repo.filterThroughLanguages()
-            } .await()
-            withContext(Main){
-                allJobs.setValue(list)
-            }
+        viewModelScope.launch(Dispatchers.IO){
+            allJobs= async{
+                repo.initializeDb()//filterThroughLanguages()
+
+            }.await()
+            d("VRACAMMMMM", allJobs.toString())
 
         }
-
+        d("VRACAMMM", allJobs.toString())
 
     }
-    /*fun getAllJobs() = viewModelScope.launch(Dispatchers.IO) {
-        allJobs.value = repo.getAllJobs()
-    }*/
+    fun insert() = viewModelScope.launch(Dispatchers.IO) {
+        repo.insert()
+    }
 
 
 

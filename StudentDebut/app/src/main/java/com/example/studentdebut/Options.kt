@@ -12,23 +12,22 @@ import androidx.annotation.RequiresApi
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.studentdebut.Common.HTTPDataHandler
+import androidx.lifecycle.ViewModelProvider
 import com.example.studentdebut.Database.JobsViewModel
-import com.example.studentdebut.Database.jobItem
-import com.example.studentdebut.Model.RSSObject
-import com.google.gson.Gson
+import com.example.studentdebut.Database.ViewModelFactory
+import com.example.studentdebut.MyApp.Companion.ListOfJobItems
+import com.example.studentdebut.MyApp.Companion.done
 import kotlinx.android.synthetic.main.activity_options.*
-import kotlinx.coroutines.*
 import com.example.studentdebut.MyApp.Companion.filtersJob
 import com.example.studentdebut.MyApp.Companion.filtersLanguage
 import com.example.studentdebut.MyApp.Companion.filtersPosition
-import kotlinx.android.synthetic.main.activity_options.view.*
 
 
 class Options() : AppCompatActivity() {
 
 
     lateinit var view : View
+    private lateinit var viewModel: JobsViewModel
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +37,16 @@ class Options() : AppCompatActivity() {
         val mStipendija: CheckBox = findViewById(R.id.cb_stipendija)
         val mSledece: TextView = findViewById(R.id.btn_Next_page1)
         val mHolder : TextView = findViewById(R.id.holder)
+
+        viewModel =
+            ViewModelProvider(this, ViewModelFactory(application)).get(JobsViewModel::class.java)
+
+        //DOBRO UBACUJE U BAZU
+        viewModel.insert()
+        d("OPTIONNNS", ListOfJobItems.toString())
+
+
+
 
         //mStipendija = findViewById(R.id.cb_stipendija)
         //mSledece = findViewById(R.id.btn_Next_page1)
@@ -171,7 +180,18 @@ class Options() : AppCompatActivity() {
                         visi=1
 
                     intent.putExtra("Visibilty",visi)
-                    startActivity(intent)
+                    //STIZE DA UBACI FILTERE
+                    if(done && !viewModel.emptyFilters()){
+                        //TODO vrati se iz loadData pre nego sto stigne da azurira allJobs, probamo bez povratne vrednosti
+                        viewModel.loadData()
+                        d("ALLLLLLLLLLLLLL", viewModel.allJobs.toString())
+                        ListOfJobItems = ArrayList(viewModel.allJobs)
+                        println("LISTAAAAA" + ListOfJobItems.toString())
+
+                    }
+                startActivity(intent)
+
+
 
               //  },0)
             },6000)

@@ -49,6 +49,7 @@ public abstract class JobsDatabase: RoomDatabase() {
                     "jobs_database"                            //zbog greske
                 ).addCallback(JobsDatabaseCallback(scope,context)).fallbackToDestructiveMigration().build()
                 instance = roomInstance
+
                 return roomInstance
             }
         }
@@ -57,8 +58,9 @@ public abstract class JobsDatabase: RoomDatabase() {
 
     // implementira callback fju
     private class JobsDatabaseCallback(private val scope: CoroutineScope,val appContext: Context):RoomDatabase.Callback() {
-        override fun onCreate(db: SupportSQLiteDatabase) {
-                super.onCreate(db)
+        override fun onOpen(db: SupportSQLiteDatabase) {
+                super.onOpen(db)
+                println("PRAVIM BAZUUUUU")
                 scope.launch {
                     withContext(IO) {
                         val database: JobsDatabase = JobsDatabase.getDatabase(appContext, scope)
@@ -66,13 +68,17 @@ public abstract class JobsDatabase: RoomDatabase() {
                         if (done) {
                             //var products = ListOfJobItems
                             database.jobDao().insert(ListOfJobItems)
+                            println("UBACUJEM U BAZU" + ListOfJobItems.toString())
                             //products.forEach() {
                            // database.jobDao().insert(it)
                             // }
                             println("ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+                            println("VELICINAAAA" + database.jobDao().velicinaBaze().toString())
+
                         }
                         // obavestenje da je baza kreirana i da je spremna za koriscenje
                         database.dbCreated.postValue(true)
+
                     }
                 }
             }

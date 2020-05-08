@@ -1,5 +1,8 @@
 package com.example.studentdebut.Database
 
+import android.util.Log.d
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.studentdebut.MyApp.Companion.filtersLanguage
 import com.example.studentdebut.MyApp.Companion.filtersJob
@@ -9,6 +12,10 @@ import com.example.studentdebut.MyApp.Companion.filtersPosition
 // interfejs za komunikaciju izmedju repozitorijuma i same baze
 @Dao
 interface DataAccessObject {
+
+
+    @Query("SELECT * FROM jobs_table")
+    fun initializeDb(): List<jobItem>
 
     // ignorise ako vec postoji u tabeli
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -48,7 +55,8 @@ interface DataAccessObject {
                  "SELECT * FROM jobs_table WHERE job IN (:filtersJob) " + "AND position IN (:filtersPosition) " + "AND EXISTS (SELECT * "+
                       "FROM split " + "WHERE word!='' AND word IN (:filtersLanguage))")
     fun applyFilters(filtersJob: MutableList<String>, filtersPosition: MutableList<String>, filtersLanguage: MutableList<String>): LiveData<List<jobItem>>*/
-
+    @Query("Select COUNT(*) from jobs_table")
+    fun velicinaBaze():Double
 
     //TODO ispraviti upit
     @Query("SELECT DISTINCT * FROM jobs_table WHERE  job IN (:filtersJob) AND position IN (:filtersPosition) AND instr(language, (:lang)) > 0 ")
@@ -139,6 +147,7 @@ interface DataAccessObject {
                 list.addAll(singleLanguage(it, filtersJob, filtersPosition))
             }
         }
+        d("FILTERTHROUGHHHH", list.toString())
 
 
         return list

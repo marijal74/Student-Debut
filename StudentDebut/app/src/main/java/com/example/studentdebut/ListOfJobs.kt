@@ -1,17 +1,20 @@
 package com.example.studentdebut
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Log.d
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentdebut.Adapter.FeedAdapter
 import com.example.studentdebut.Database.JobsViewModel
 import com.example.studentdebut.Database.ViewModelFactory
+import com.example.studentdebut.MyApp.Companion.ListOfJobItems
 import com.example.studentdebut.MyApp.Companion.filtersJob
 import com.example.studentdebut.MyApp.Companion.filtersLanguage
 import com.example.studentdebut.MyApp.Companion.filtersPosition
@@ -19,6 +22,8 @@ import kotlinx.android.synthetic.main.activity_list_of_jobs.*
 import kotlinx.android.synthetic.main.row.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 
 // uvodna pricica kako sve ovo funkcionise na : https://codelabs.developers.google.com/codelabs/android-room-with-a-view-kotlin/#0
@@ -30,7 +35,7 @@ class ListOfJobs : AppCompatActivity() {
     private  var brojLayota:Int=0
 
     //viewModel
-    private lateinit var viewModel: JobsViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +60,7 @@ class ListOfJobs : AppCompatActivity() {
         //postavljamo viewmodel
         //ovaj viewModelFactory necete naci u ofc dokumentaciji, nema ga iz nekog razloga, a neophodan je da
         // bi se uopste napravila instanca ViewModel-a
-        viewModel =
-            ViewModelProvider(this, ViewModelFactory(application)).get(JobsViewModel::class.java)
+
 
         println("JESI LIIIIIIII PRAZAN JOB ${filtersJob}")
         println("JESI LIIIIIIII PRAZAN POS ${filtersPosition}")
@@ -66,24 +70,32 @@ class ListOfJobs : AppCompatActivity() {
             viewModel.filterThroughLanguages()
         }*/
 
+
         /*ListOfJobItems.forEach{
             viewModel.insert(it)
         }*/
         //viewModel.getAllJobs()
         //pravimo observer koji obavestava UI da je doslo do izmena
-       viewModel.allJobs.observe(this, Observer { jobs ->
+        //viewModel.initializeDb()
+
+        adapter.setJobs(ListOfJobItems)
+        adapter.notifyDataSetChanged()/*.observe(this, Observer { jobs ->
             // Update the cached copy of the words in the adapter.
-                jobs?.let { adapter.setJobs(it) }
 
-        })
+            Log.d("VELICINAAAAAAAA", viewModel.velicinaBaze().toString())
 
-        viewModel.loadData()
+            jobs?.let { adapter.setJobs(it) }
+
+        })*/
+        //viewModel.loadData()
+
        // txtContent.addTextChangedListener(this);
 
 
 
 
     }
+
     /*
     fun SeeMoreClick(v: View) {
         val tb = v as ToggleButton

@@ -77,7 +77,9 @@ class JobsViewModel( application: Application) :AndroidViewModel(application)  {
     fun insert() = viewModelScope.launch(Dispatchers.IO) {
         repo.insert()
     }
-
+    fun deleteEverything() = viewModelScope.launch(Dispatchers.IO) {
+        repo.deleteEverything()
+    }
 
 
 }

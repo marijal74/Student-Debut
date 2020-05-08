@@ -21,6 +21,10 @@ import kotlinx.android.synthetic.main.activity_options.*
 import com.example.studentdebut.MyApp.Companion.filtersJob
 import com.example.studentdebut.MyApp.Companion.filtersLanguage
 import com.example.studentdebut.MyApp.Companion.filtersPosition
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 
 class Options() : AppCompatActivity() {
@@ -41,6 +45,7 @@ class Options() : AppCompatActivity() {
         viewModel =
             ViewModelProvider(this, ViewModelFactory(application)).get(JobsViewModel::class.java)
 
+        viewModel.deleteEverything()
         //DOBRO UBACUJE U BAZU
         viewModel.insert()
         d("OPTIONNNS", ListOfJobItems.toString())
@@ -182,13 +187,21 @@ class Options() : AppCompatActivity() {
                     intent.putExtra("Visibilty",visi)
                     //STIZE DA UBACI FILTERE
                     if(done && !viewModel.emptyFilters()){
-                        //TODO vrati se iz loadData pre nego sto stigne da azurira allJobs, probamo bez povratne vrednosti
-                        viewModel.loadData()
-                        d("ALLLLLLLLLLLLLL", viewModel.allJobs.toString())
-                        ListOfJobItems = ArrayList(viewModel.allJobs)
-                        println("LISTAAAAA" + ListOfJobItems.toString())
 
-                    }
+                //TODO vrati se iz loadData pre nego sto stigne da azurira allJobs, probamo bez povratne vrednosti
+
+                 CoroutineScope(Dispatchers.IO).launch {
+
+
+                     viewModel.allJobs= async{
+                         viewModel.repo.filterThroughLanguages()//initializeDb()
+
+                     }.await()
+                     d("ALLLLLLLLLLLLLL", viewModel.allJobs.toString())
+                     ListOfJobItems = ArrayList(viewModel.allJobs)
+                     println("LISTAAAAA" + ListOfJobItems.toString())
+                 }
+            }
                 startActivity(intent)
 
 

@@ -44,14 +44,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     val rsslinks = mutableListOf(
 
-        "https://www.helloworld.rs/rss/",
-        "https://startit.rs/poslovi/feed/",
-        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2",
-        "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2",
-        "https://startit.rs/poslovi/feed/?paged=2",
-        "http://oglasi.matf.bg.ac.rs/?tag=stipendije%26feed=rss2",
-        "http://www.sljaka.com/rss/itposlovi/",
-        "https://startit.rs/poslovi/feed/?paged=3",
+
         "http://www.itposlovi.info/rss/programeri/",
         "http://www.itposlovi.info/rss/dizajneri/"
     )

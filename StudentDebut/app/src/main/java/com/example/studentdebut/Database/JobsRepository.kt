@@ -22,6 +22,9 @@ class JobsRepository(private val jobsDao: DataAccessObject) {
         return jobsDao.getAllJobs(filtersJob, filtersPosition)
     }*/
 
+   suspend fun deleteEverything(){
+        jobsDao.deleteEverything()
+    }
     suspend fun initializeDb(): List<jobItem>{
         return jobsDao.initializeDb()
     }

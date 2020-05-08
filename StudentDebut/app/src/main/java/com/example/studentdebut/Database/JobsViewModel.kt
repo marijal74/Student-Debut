@@ -40,17 +40,6 @@ class JobsViewModel( application: Application) :AndroidViewModel(application)  {
         else
             return false
     }
-    /*fun getData() : List<jobItem>{
-        //result = allJobs
-        return result
-    }*/
-    /*fun initializeDb() : List<jobItem>{
-        return repo.initializeDb()
-    }*/
-
-
-    //wrapper za insert radi enkapsulacije od UI-a
-    // poziva novu korutinu da ne bi blokirala UI
 
     fun velicinaBaze():Double{
         var velicina:Double = -5.0
@@ -59,7 +48,7 @@ class JobsViewModel( application: Application) :AndroidViewModel(application)  {
         }
         return velicina
     }
-    fun loadData() {
+    /*fun loadData() {
 
         d("LOADUJEM", "ASAAAAAAAAAAAAAAAAAAAAAAAAA")
 
@@ -73,7 +62,7 @@ class JobsViewModel( application: Application) :AndroidViewModel(application)  {
         }
         d("VRACAMMM", allJobs.toString())
 
-    }
+    }*/
     fun insert() = viewModelScope.launch(Dispatchers.IO) {
         repo.insert()
     }

@@ -46,15 +46,11 @@ class Options() : AppCompatActivity() {
             ViewModelProvider(this, ViewModelFactory(application)).get(JobsViewModel::class.java)
 
         viewModel.deleteEverything()
-        //DOBRO UBACUJE U BAZU
-        viewModel.insert()
         d("OPTIONNNS", ListOfJobItems.toString())
 
 
 
 
-        //mStipendija = findViewById(R.id.cb_stipendija)
-        //mSledece = findViewById(R.id.btn_Next_page1)
 
         view = findViewById(R.id.myProgressButton)
         //Posao_ili_praksa.visibility = View.VISIBLE
@@ -172,8 +168,6 @@ class Options() : AppCompatActivity() {
             val handler = Handler()
             handler.postDelayed({
                 progressButton.buttonFinished()
-               // val handler1 = Handler()
-               // handler1.postDelayed({
                     val intent = Intent(this@Options, ListOfJobs::class.java)
                     val pp=findViewById<ConstraintLayout>(R.id.Posao_ili_praksa)
                     val po=findViewById<ConstraintLayout>(R.id.Pozicija)
@@ -186,9 +180,7 @@ class Options() : AppCompatActivity() {
 
                     intent.putExtra("Visibilty",visi)
                     //STIZE DA UBACI FILTERE
-                    if(done && !viewModel.emptyFilters()){
-
-                //TODO vrati se iz loadData pre nego sto stigne da azurira allJobs, probamo bez povratne vrednosti
+                if(done && !viewModel.emptyFilters()){
 
                  CoroutineScope(Dispatchers.IO).launch {
 
@@ -203,14 +195,7 @@ class Options() : AppCompatActivity() {
                  }
             }
                 startActivity(intent)
-
-
-
-              //  },0)
             },6000)
-
-            //val i = Intent(this, ListOfJobs::class.java)
-            //startActivity(i)
 
         }
 

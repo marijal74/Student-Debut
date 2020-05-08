@@ -18,14 +18,11 @@ class JobsRepository(private val jobsDao: DataAccessObject) {
 
 
 
-    /*suspend fun getAllJobs(): MutableList<jobItem>? {
-        return jobsDao.getAllJobs(filtersJob, filtersPosition)
-    }*/
 
-   suspend fun deleteEverything(){
+   fun deleteEverything(){
         jobsDao.deleteEverything()
     }
-    suspend fun initializeDb(): List<jobItem>{
+     fun initializeDb(): List<jobItem>{
         return jobsDao.initializeDb()
     }
     fun velicinaBaze():Double{

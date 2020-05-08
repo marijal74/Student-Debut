@@ -26,15 +26,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 
-// uvodna pricica kako sve ovo funkcionise na : https://codelabs.developers.google.com/codelabs/android-room-with-a-view-kotlin/#0
-// introduction deo
-
 class ListOfJobs : AppCompatActivity() {
 
 
     private  var brojLayota:Int=0
-
-    //viewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,31 +61,10 @@ class ListOfJobs : AppCompatActivity() {
         println("JESI LIIIIIIII PRAZAN POS ${filtersPosition}")
         println("JESI LIIIIIIII PRAZAN LANG ${filtersLanguage}")
 
-        /*if(filtersLanguage.isNotEmpty()){
-            viewModel.filterThroughLanguages()
-        }*/
 
-
-        /*ListOfJobItems.forEach{
-            viewModel.insert(it)
-        }*/
-        //viewModel.getAllJobs()
-        //pravimo observer koji obavestava UI da je doslo do izmena
-        //viewModel.initializeDb()
 
         adapter.setJobs(ListOfJobItems)
-        adapter.notifyDataSetChanged()/*.observe(this, Observer { jobs ->
-            // Update the cached copy of the words in the adapter.
-
-            Log.d("VELICINAAAAAAAA", viewModel.velicinaBaze().toString())
-
-            jobs?.let { adapter.setJobs(it) }
-
-        })*/
-        //viewModel.loadData()
-
-       // txtContent.addTextChangedListener(this);
-
+        adapter.notifyDataSetChanged()
 
 
 

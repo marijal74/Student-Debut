@@ -6,13 +6,13 @@ import android.util.Log.d
 import androidx.annotation.RequiresApi
 
 class Translator {
-    var SERBAIN_TO_LATIN = "Serbian-Latin/BGN"
+    var SERBIAN_TO_LATIN = "Serbian-Latin/BGN"
 
     @RequiresApi(Build.VERSION_CODES.Q)
     fun trans(words: String):String{
-        val bulgarianToLatin = Transliterator.getInstance(SERBAIN_TO_LATIN)
+        val bulgarianToLatin = Transliterator.getInstance(SERBIAN_TO_LATIN)
         val result = bulgarianToLatin.transliterate(words)
         return result
-        d("SERBAIN:",result)
+        d("SERBIAN:",result)
     }
 }

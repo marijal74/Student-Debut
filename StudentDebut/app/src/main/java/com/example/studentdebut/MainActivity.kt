@@ -55,7 +55,7 @@ class MainActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //done=false
+
 
 
         val TryAgain = findViewById<TextView>(R.id.try_again)
@@ -69,7 +69,6 @@ class MainActivity() : AppCompatActivity() {
 
         } else {
             TryAgain.visibility = View.GONE
-            //Toast.makeText(this, "Niste povezani na internet", Toast.LENGTH_LONG).show()
 
             introSliderViewPager.adapter = introSliderAdapter
             setupIndicators()
@@ -90,16 +89,14 @@ class MainActivity() : AppCompatActivity() {
                 } else {
                     Intent(applicationContext, Options::class.java).also {
                         startActivity(it)
-                        //TODO: probajte da skinete komentar sa finish pa vidite hocemo li da zadrzimo ponasanje ili ne
-                        //finish()
+
                     }
                 }
             }
             textSkipIntro.setOnClickListener() {
                 Intent(applicationContext, Options::class.java).also {
                     startActivity(it)
-                    //TODO: probajte da skinete komentar sa finish pa vidite hocemo li da zadrzimo ponasanje ili ne
-                    //finish()
+
                 }
             }
         }

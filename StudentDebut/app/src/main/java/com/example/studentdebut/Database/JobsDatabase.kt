@@ -20,7 +20,7 @@ import android.util.Log.d
 
 //pravi se baza, koja je singlton
 @Database (entities = arrayOf(jobItem::class), version = 4)
-@TypeConverters(Converters::class)
+
 public abstract class JobsDatabase: RoomDatabase() {
 
     val dbCreated=MutableLiveData<Boolean>()
@@ -47,7 +47,8 @@ public abstract class JobsDatabase: RoomDatabase() {
                     context.applicationContext,
                     JobsDatabase::class.java,
                     "jobs_database"                            //zbog greske
-                ).addCallback(JobsDatabaseCallback(scope,context)).fallbackToDestructiveMigration().build()
+                ).addCallback(JobsDatabaseCallback(scope,context)).fallbackToDestructiveMigration()
+                 .build()
                 instance = roomInstance
 
                 return roomInstance
@@ -64,27 +65,23 @@ public abstract class JobsDatabase: RoomDatabase() {
                 scope.launch {
                     withContext(IO) {
                         val database: JobsDatabase = JobsDatabase.getDatabase(appContext, scope)
-                       // database.jobDao().deleteEverything()
+                        //database.jobDao().deleteEverything()
                         if (done) {
-                            //var products = ListOfJobItems
+
                             database.jobDao().insert(ListOfJobItems)
                             println("UBACUJEM U BAZU" + ListOfJobItems.toString())
-                            //products.forEach() {
-                           // database.jobDao().insert(it)
-                            // }
                             println("ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
                             println("VELICINAAAA" + database.jobDao().velicinaBaze().toString())
 
                         }
-                        // obavestenje da je baza kreirana i da je spremna za koriscenje
+
                         database.dbCreated.postValue(true)
 
                     }
                 }
             }
 
-      /*  override fun onCreate(db: SupportSQLiteDatabase) {
-            super.onCreate(db)*/
+
         }
 }
 

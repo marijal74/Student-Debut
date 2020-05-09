@@ -45,7 +45,7 @@ class Options() : AppCompatActivity() {
         viewModel =
             ViewModelProvider(this, ViewModelFactory(application)).get(JobsViewModel::class.java)
 
-        viewModel.deleteEverything()
+        viewModel.startDB()
         d("OPTIONNNS", ListOfJobItems.toString())
 
 
@@ -266,6 +266,7 @@ class Options() : AppCompatActivity() {
                     if (i.text.toString().equals("Praksa", true)) {
                         filtersJob.add("Praksi")
                         filtersJob.add("Praksu")
+                        filtersJob.add("Prakse")
                         filtersJob.add("Internship")
                     }
                     filtersJob.add(i.text.toString())

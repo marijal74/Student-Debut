@@ -22,8 +22,8 @@ class JobsRepository(private val jobsDao: DataAccessObject) {
    fun deleteEverything(){
         jobsDao.deleteEverything()
     }
-     fun initializeDb(): List<jobItem>{
-        return jobsDao.initializeDb()
+     fun startDB(): List<jobItem>{
+        return jobsDao.startDB()
     }
     fun velicinaBaze():Double{
         return jobsDao.velicinaBaze()

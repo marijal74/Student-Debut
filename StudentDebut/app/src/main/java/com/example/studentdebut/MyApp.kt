@@ -9,6 +9,7 @@ class MyApp: Application() {
     companion object {
         var done= false
         var ListOfJobItems = ArrayList<jobItem>()
+        var ListToPopulateDB = ArrayList<jobItem>()
         var filtersJob = mutableListOf<String>()
         var filtersPosition = mutableListOf<String>()
         var filtersLanguage = mutableListOf<String>()

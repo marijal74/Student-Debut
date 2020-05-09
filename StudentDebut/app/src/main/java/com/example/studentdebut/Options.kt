@@ -46,7 +46,6 @@ class Options : AppCompatActivity() {
             ViewModelProvider(this, ViewModelFactory(application)).get(JobsViewModel::class.java)
 
         viewModel.startDB()
-        d("OPTIONNNS", ListOfJobItems.toString())
 
         view = findViewById(R.id.myProgressButton)
         //Posao_ili_praksa.visibility = View.VISIBLE
@@ -55,7 +54,8 @@ class Options : AppCompatActivity() {
 
         mStipendija.setOnClickListener { if(mStipendija.isChecked){
             mSledece.visibility = View.GONE
-            mHolder.visibility = View.VISIBLE} else{
+            mHolder.visibility = View.VISIBLE}
+        else{
             mSledece.visibility = View.VISIBLE
             mHolder.visibility = View.GONE
 
@@ -155,8 +155,10 @@ class Options : AppCompatActivity() {
 
         view.setOnClickListener {
             addFIltersForJobs(check_boxesJobs)
-            addInFilters(filtersPosition,check_boxesPositions,cb_prikazi_sve_pagePozicije)
-            addInFilters(filtersLanguage,check_boxesLanguages,cb_prikazi_sve_pageJezici)
+            if(!cb_stipendija.isChecked) {
+                addInFilters(filtersPosition, check_boxesPositions, cb_prikazi_sve_pagePozicije)
+                addInFilters(filtersLanguage, check_boxesLanguages, cb_prikazi_sve_pageJezici)
+            }
             val progressButton = ProgressButton(this@Options, view)
             progressButton.buttonActivated()
             val handler = Handler()
@@ -188,7 +190,7 @@ class Options : AppCompatActivity() {
                  }
             }
                 startActivity(intent)
-            },6000)
+            },3000)
 
         }
 
@@ -217,8 +219,15 @@ class Options : AppCompatActivity() {
 
     }
 
-    private fun allChecked(check_boxes:MutableList<CheckBox>):Boolean{
+    override fun onBackPressed() {
+        super.onBackPressed()
+       filtersLanguage.clear()
+       filtersPosition.clear()
+        filtersJob.clear()
+    }
 
+
+    private fun allChecked(check_boxes:MutableList<CheckBox>):Boolean{
 
         var all=true
         for(c in check_boxes) {
@@ -262,7 +271,6 @@ class Options : AppCompatActivity() {
 
         val layout: ConstraintLayout = findViewById(R.id.Pozicija)
         layout.visibility = View.VISIBLE
-
 
 
     }

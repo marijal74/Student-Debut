@@ -101,12 +101,12 @@ class SplashScreenActivity : AppCompatActivity() {
 
         //animacija koja treba da zamaskira vreme koje korisnik mora da ceka
         logo_text.alpha = 0f
-        logo_text.animate().setDuration(3000).alpha(1f)
+        logo_text.animate().setDuration(4000).alpha(1f)
 
         logo_pic.alpha = 0f
-        logo_pic.animate().setDuration(3000).alpha(1f).withEndAction{
+        logo_pic.animate().setDuration(4000).alpha(1f).withEndAction{
             val i = Intent(this, MainActivity::class.java)
-            startActivity(i)
+            startActivity(i) 
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }

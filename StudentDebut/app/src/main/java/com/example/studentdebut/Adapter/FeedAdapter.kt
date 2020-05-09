@@ -15,14 +15,22 @@ import com.example.studentdebut.Database.jobItem
 import com.example.studentdebut.R.*
 import com.ms.square.android.expandabletextview.ExpandableTextView
 
-
+//klasa koja prikazuje podatke u recyclew view
 class FeedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     var txtTitle: TextView = itemView.findViewById(id.txtTitle) as TextView
     var txtPubdate: TextView = itemView.findViewById(id.txtPubDate) as TextView
     var txtContent: ExpandableTextView = itemView.findViewById(id.txtContent) as ExpandableTextView
 
+   //vrsi inicijalizaciju
+    init {
 
+        txtTitle = itemView.findViewById(id.txtTitle) as TextView
+        txtPubdate = itemView.findViewById(id.txtPubDate) as TextView
+        txtContent = itemView.findViewById(id.txtContent) as ExpandableTextView
+
+
+    }
 }
 class FeedAdapter internal constructor( private val mContext :Context): RecyclerView.Adapter<FeedViewHolder>(){
 
@@ -33,11 +41,13 @@ class FeedAdapter internal constructor( private val mContext :Context): Recycler
         val itemView = inflater.inflate(layout.row, parent, false)
         return FeedViewHolder(itemView)
     }
-
+    //fja koja proverava da li recyclew view ima nesto da prikaze i ako nema izbacuje poruku
     override fun getItemCount(): Int {
         d("velicina", jobs.size.toString())
+
         if(jobs.isEmpty())
             Toast.makeText(mContext,"Ne postoje ovakvi zahtevi", Toast.LENGTH_LONG).show()
+
         return jobs.size
     }
 
@@ -47,7 +57,7 @@ class FeedAdapter internal constructor( private val mContext :Context): Recycler
         notifyDataSetChanged()
     }
 
-
+    //fja koja postavlja pronadjene podatke u polja recyclew viewa
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
 
 
@@ -57,16 +67,12 @@ class FeedAdapter internal constructor( private val mContext :Context): Recycler
 
         holder.txtPubdate.text = jobs[position].pubDate
 
+        //kada se klikne na naslov clanka vodi ka internetu(trazenoj objavi na sajtu)
+        holder.txtTitle.setOnClickListener {
 
-        holder.txtTitle.setOnClickListener{
             holder.txtTitle.setTextColor((Color.parseColor("#663366")))
                         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(jobs[position].link))
                         mContext.startActivity(browserIntent)
-
-
-
         }
-
     }
-
 }

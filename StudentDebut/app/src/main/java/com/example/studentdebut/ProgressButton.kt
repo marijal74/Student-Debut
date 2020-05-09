@@ -1,22 +1,20 @@
 package com.example.studentdebut
 
 import android.content.Context
-import android.speech.RecognitionListener
 import android.view.View
-import android.view.animation.Animation
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 
+//nakon pritiska na dugme Primeni filtere obavestavamo korisnika
+//da saceka par sekundi dok se ne pripreme podaci za njega
 internal class ProgressButton(private val ct: Context, view: View) {
 
-    private val cardView: CardView
-    private val layout: ConstraintLayout
-    private val progressBar: ProgressBar
-    private val textView: TextView
-    var fade_in: Animation? = null
+    private val layout: ConstraintLayout = view.findViewById(R.id.constraint_layout)
+    private val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
+    private val textView: TextView = view.findViewById(R.id.textView)
+
     fun buttonActivated() {
         progressBar.visibility = View.VISIBLE
         textView.text = "Molimo sacekajte..."
@@ -30,10 +28,4 @@ internal class ProgressButton(private val ct: Context, view: View) {
         textView.text = "Primeni filtere"
     }
 
-    init {
-        cardView = view.findViewById(R.id.cardView)
-        layout = view.findViewById(R.id.constraint_layout)
-        progressBar = view.findViewById(R.id.progressBar)
-        textView = view.findViewById(R.id.textView)
-    }
 }

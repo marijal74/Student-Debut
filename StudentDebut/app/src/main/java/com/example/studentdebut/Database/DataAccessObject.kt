@@ -1,15 +1,13 @@
 package com.example.studentdebut.Database
 
 import android.util.Log.d
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.studentdebut.MyApp.Companion.filtersLanguage
 import com.example.studentdebut.MyApp.Companion.filtersJob
 import com.example.studentdebut.MyApp.Companion.filtersPosition
 
 
-// interfejs za komunikaciju izmedju repozitorijuma i same baze
+//interfejs za komunikaciju izmedju repozitorijuma i same baze
 @Dao
 interface DataAccessObject {
 
@@ -17,48 +15,26 @@ interface DataAccessObject {
     @Query("SELECT * FROM jobs_table")
     fun initializeDb(): List<jobItem>
 
-    // ignorise ako vec postoji u tabeli
+    //ignorise ako vec postoji u tabeli
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(job : List<jobItem>)
 
-    // update i delete nigde nije korisceno, ostavila sam ako zatreba
-    // insert, update i delete su podrazumevane fje, ne treba im telo
+    //insert, update i delete su podrazumevane fje
     @Update
     fun update(job : jobItem)
 
     @Delete
     fun delete(job : jobItem)
 
-    // sve ostale potrebne fje za izvlacenje podataka iz tabele koristie @Query anotaciju i
-    // prosledite mu sql upit
-
-    /*@Query("SELECT DISTINCT * from jobs_table WHERE job IN (:filtersJob) AND position IN (:filtersPosition)")
-    fun getAllJobs(
-        filtersJob: MutableList<String>,
-        filtersPosition: MutableList<String>
-    ): MutableList<jobItem>*/
-
-
     @Query("DELETE FROM jobs_table")
     fun deleteEverything()
 
-
-    //TODO dodati Query fje za filtriranje i dodatne opcije
-   // @Query("SELECT * FROM jobs_table WHERE job IN (:filtersJob) " + "OR position IN (:filtersPosition) " + "OR EXISTS (SELECT * " +
-           // "FROM STRING_SPLIT(languages, '_') " + "WHERE value IN (:filtersLanguage))")
-
-   /* @Query("WITH split(word, str) AS ( " +
-                 "SELECT '', language FROM jobs_table " + "WHERE job IN (:filtersJob) " + "AND position IN (:filtersPosition) " +
-                 "UNION ALL " +
-                 "SELECT substr(str, 0, instr(str, '_')), substr(str, instr(str, '_')+1) " +
-                 "FROM split WHERE str!='' AND ) " +
-                 "SELECT * FROM jobs_table WHERE job IN (:filtersJob) " + "AND position IN (:filtersPosition) " + "AND EXISTS (SELECT * "+
-                      "FROM split " + "WHERE word!='' AND word IN (:filtersLanguage))")
-    fun applyFilters(filtersJob: MutableList<String>, filtersPosition: MutableList<String>, filtersLanguage: MutableList<String>): LiveData<List<jobItem>>*/
     @Query("Select COUNT(*) from jobs_table")
     fun velicinaBaze():Double
 
-    //TODO ispraviti upit
+    //upiti za filtriranje
+
+    //upit kada korisnik izabere opciju iz sva tri pitanja
     @Query("SELECT DISTINCT * FROM jobs_table WHERE  job IN (:filtersJob) AND position IN (:filtersPosition) AND instr(language, (:lang)) > 0 ")
     fun singleLanguage(
         lang: String,
@@ -66,31 +42,37 @@ interface DataAccessObject {
         filtersPosition: MutableList<String>
     ) : MutableList<jobItem>
 
+    //upit kada korisnik odabere samo opciju iz prvog pitanja
     @Query("SELECT DISTINCT * FROM jobs_table WHERE job IN (:filtersJob)")
     fun getOnlyJobs(filtersJob: MutableList<String>) : MutableList<jobItem>
 
+    //upit kada korisnik odabere samo opciju iz drugog pitanja
     @Query("SELECT DISTINCT * FROM jobs_table WHERE position IN (:filtersPosition)")
     fun getOnlyPosition(filtersPosition: MutableList<String>) : MutableList<jobItem>
 
+    //Upit kada korisnik odabere samo opciju iz treceg pitanja
     @Query("SELECT DISTINCT * FROM jobs_table WHERE instr(language, (:lang)) > 0 ")
     fun getOnlyLanguage(lang: String) : MutableList<jobItem>
 
+    //upit kada korisnik nista ne odabere
     @Query("SELECT DISTINCT * FROM jobs_table")
     fun getWithoutFilters() : MutableList<jobItem>
 
-
+    //upit kada korisnik odabere opciju iz prvog i drugog pitanja
     @Query("SELECT DISTINCT * from jobs_table WHERE job IN (:filtersJob) AND position IN (:filtersPosition)")
     fun getWithoutLanguage(
         filtersJob: MutableList<String>,
         filtersPosition: MutableList<String>
     ): MutableList<jobItem>
 
+    //upit kada korisnik odabere opciju iz drugog i treceg pitanja
     @Query("SELECT DISTINCT * FROM jobs_table WHERE position IN (:filtersPosition) AND instr(language, (:lang)) > 0 ")
     fun getWithoutJob(
         lang: String,
         filtersPosition: MutableList<String>
     ) : MutableList<jobItem>
 
+    //upit kada korisnik odabere opciju iz prvog i treceg pitanja
     @Query("SELECT DISTINCT * FROM jobs_table WHERE job IN (:filtersJob) AND instr(language, (:lang)) > 0 ")
     fun getWithoutPosition(
         lang: String,
@@ -147,8 +129,8 @@ interface DataAccessObject {
                 list.addAll(singleLanguage(it, filtersJob, filtersPosition))
             }
         }
-        d("FILTERTHROUGHHHH", list.toString())
 
+        d("FILTERTHROUGHHHH", list.toString())
 
         return list
     }

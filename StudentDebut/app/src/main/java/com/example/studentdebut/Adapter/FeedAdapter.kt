@@ -44,10 +44,6 @@ class FeedAdapter internal constructor( private val mContext :Context): Recycler
     //fja koja proverava da li recyclew view ima nesto da prikaze i ako nema izbacuje poruku
     override fun getItemCount(): Int {
         d("velicina", jobs.size.toString())
-
-        if(jobs.isEmpty())
-            Toast.makeText(mContext,"Ne postoje ovakvi zahtevi", Toast.LENGTH_LONG).show()
-
         return jobs.size
     }
 

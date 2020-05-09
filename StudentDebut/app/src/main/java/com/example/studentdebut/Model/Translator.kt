@@ -2,17 +2,16 @@ package com.example.studentdebut.Model
 
 import android.icu.text.Transliterator
 import android.os.Build
-import android.util.Log.d
 import androidx.annotation.RequiresApi
 
+//prebacuje cirilicu u latinicu zbog sajtova matfa
 class Translator {
-    var SERBIAN_TO_LATIN = "Serbian-Latin/BGN"
+    private var SERBIAN_TO_LATIN = "Serbian-Latin/BGN"
 
     @RequiresApi(Build.VERSION_CODES.Q)
     fun trans(words: String):String{
-        val bulgarianToLatin = Transliterator.getInstance(SERBIAN_TO_LATIN)
-        val result = bulgarianToLatin.transliterate(words)
-        return result
-        d("SERBIAN:",result)
+        val serbianToLatin = Transliterator.getInstance(SERBIAN_TO_LATIN)
+        return serbianToLatin.transliterate(words)
     }
+
 }

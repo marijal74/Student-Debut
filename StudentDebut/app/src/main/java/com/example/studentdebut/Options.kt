@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.util.Log.d
 import android.view.View
 import android.widget.CheckBox
@@ -27,10 +26,11 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 
-class Options() : AppCompatActivity() {
+//postavljanje ui za biranje filtera
+class Options : AppCompatActivity() {
 
 
-    lateinit var view : View
+    private lateinit var view : View
     private lateinit var viewModel: JobsViewModel
 
     @RequiresApi(Build.VERSION_CODES.Q)
@@ -48,29 +48,23 @@ class Options() : AppCompatActivity() {
         viewModel.startDB()
         d("OPTIONNNS", ListOfJobItems.toString())
 
-
-
-
-
         view = findViewById(R.id.myProgressButton)
         //Posao_ili_praksa.visibility = View.VISIBLE
         mHolder.visibility = View.GONE
 
 
-        mStipendija.setOnClickListener(View.OnClickListener { if(mStipendija.isChecked){
+        mStipendija.setOnClickListener { if(mStipendija.isChecked){
             mSledece.visibility = View.GONE
-            mHolder.visibility = View.VISIBLE}
-        else{
+            mHolder.visibility = View.VISIBLE} else{
             mSledece.visibility = View.VISIBLE
             mHolder.visibility = View.GONE
 
-        }})
+        }}
 
 
-
-       val check_boxesJobs = mutableListOf(
-            findViewById<CheckBox>(R.id.cb_praksa),
-            findViewById<CheckBox>(R.id.cb_posao),
+        val check_boxesJobs = mutableListOf(
+            findViewById(R.id.cb_praksa),
+            findViewById(R.id.cb_posao),
             findViewById<CheckBox>(R.id.cb_stipendija)
 
         )
@@ -120,16 +114,16 @@ class Options() : AppCompatActivity() {
         allChecked(check_boxesPositions)
         allChecked(check_boxesLanguages)
         for(c in check_boxesPositions)
-        c.setOnClickListener() {
+        c.setOnClickListener {
             cb_prikazi_sve_pagePozicije.isChecked = allChecked(check_boxesPositions)
         }
         for(c in check_boxesLanguages)
-            c.setOnClickListener() {
+            c.setOnClickListener {
                 cb_prikazi_sve_pageJezici.isChecked = allChecked(check_boxesLanguages)
         }
 
 
-        cb_prikazi_sve_pagePozicije.setOnClickListener(){
+        cb_prikazi_sve_pagePozicije.setOnClickListener {
 
             if(cb_prikazi_sve_pagePozicije.isChecked){
                 for(c in check_boxesPositions)
@@ -142,7 +136,7 @@ class Options() : AppCompatActivity() {
 
         }
 
-        cb_prikazi_sve_pageJezici.setOnClickListener(){
+        cb_prikazi_sve_pageJezici.setOnClickListener {
 
 
 
@@ -159,7 +153,7 @@ class Options() : AppCompatActivity() {
         }
 
 
-        view.setOnClickListener() {
+        view.setOnClickListener {
             addFIltersForJobs(check_boxesJobs)
             addInFilters(filtersPosition,check_boxesPositions,cb_prikazi_sve_pagePozicije)
             addInFilters(filtersLanguage,check_boxesLanguages,cb_prikazi_sve_pageJezici)
@@ -171,7 +165,6 @@ class Options() : AppCompatActivity() {
                     val intent = Intent(this@Options, ListOfJobs::class.java)
                     val pp=findViewById<ConstraintLayout>(R.id.Posao_ili_praksa)
                     val po=findViewById<ConstraintLayout>(R.id.Pozicija)
-                    val la=findViewById<ConstraintLayout>(R.id.Jezici)
                     var visi:Int=3
                     if(po.visibility==View.VISIBLE)
                         visi=2
@@ -191,7 +184,7 @@ class Options() : AppCompatActivity() {
                      }.await()
                      d("ALLLLLLLLLLLLLL", viewModel.allJobs.toString())
                      ListOfJobItems = ArrayList(viewModel.allJobs)
-                     println("LISTAAAAA" + ListOfJobItems.toString())
+                     println("LISTAAAAA$ListOfJobItems")
                  }
             }
                 startActivity(intent)
@@ -200,22 +193,21 @@ class Options() : AppCompatActivity() {
         }
 
 
-
-        btn_Next_page1.setOnClickListener() {
-            UbaciFilterePocetna(check_boxesJobs)
+        btn_Next_page1.setOnClickListener {
+            UbaciFilterePocetna()
         }
-        btn_Next_pagePozicije.setOnClickListener() {
-            UbaciFilterePozicija(check_boxesPositions)
+        btn_Next_pagePozicije.setOnClickListener {
+            UbaciFilterePozicija()
         }
 
-        btn_Previous_pageJezici.setOnClickListener(){
+        btn_Previous_pageJezici.setOnClickListener {
             val nolayout: ConstraintLayout = findViewById(R.id.Jezici)
             filtersPosition.clear()
             nolayout.visibility = View.INVISIBLE
             val layout: ConstraintLayout = findViewById(R.id.Pozicija)
             layout.visibility = View.VISIBLE
         }
-        btn_Previous_pagePozicije.setOnClickListener(){
+        btn_Previous_pagePozicije.setOnClickListener {
             val nolayout: ConstraintLayout = findViewById(R.id.Pozicija)
             filtersJob.clear()
             nolayout.visibility = View.INVISIBLE
@@ -225,7 +217,7 @@ class Options() : AppCompatActivity() {
 
     }
 
-    fun allChecked(check_boxes:MutableList<CheckBox>):Boolean{
+    private fun allChecked(check_boxes:MutableList<CheckBox>):Boolean{
 
 
         var all=true
@@ -236,19 +228,8 @@ class Options() : AppCompatActivity() {
         return all
 
     }
-    /*fun anyChecked(check_boxes:MutableList<CheckBox>,cb:CheckBox):Boolean{
-        var any=false
-        check_boxes.add(cb)
-            for (c in check_boxes)
-                if (c.isChecked) {
-                    any = true
-                    break
-                }
 
-        return any
-    }*/
-
-    fun addInFilters(list:MutableList<String>, check_boxoes: MutableList<CheckBox>, c:CheckBox) {
+    private fun addInFilters(list:MutableList<String>, check_boxoes: MutableList<CheckBox>, c:CheckBox) {
 
         if(list.isEmpty()) {
             if (!c.isChecked) {
@@ -258,7 +239,7 @@ class Options() : AppCompatActivity() {
             }
         }
     }
-    fun addFIltersForJobs(check_boxes: MutableList<CheckBox>){
+    private fun addFIltersForJobs(check_boxes: MutableList<CheckBox>){
 
         if(filtersJob.isEmpty()) {
             for (i in check_boxes)
@@ -275,7 +256,7 @@ class Options() : AppCompatActivity() {
 
     }
 
-    private fun UbaciFilterePocetna(check_boxes:MutableList<CheckBox>) {
+    private fun UbaciFilterePocetna() {
 
         Posao_ili_praksa.visibility = View.INVISIBLE
 
@@ -285,7 +266,7 @@ class Options() : AppCompatActivity() {
 
 
     }
-    private fun UbaciFilterePozicija(check_boxes:MutableList<CheckBox>) {
+    private fun UbaciFilterePozicija() {
 
 
         Pozicija.visibility = View.INVISIBLE
@@ -293,27 +274,6 @@ class Options() : AppCompatActivity() {
         val layout: ConstraintLayout = findViewById(R.id.Jezici)
         layout.visibility = View.VISIBLE
 
-
-        //  d("filteri", filters.toString())
-
-
     }
 }
-/*  for(c in check_boxesLanguages) {
-       c.setOnClickListener() {
-          val any=anyChecked(check_boxesLanguages,cb_prikazi_sve_pageJezici)
-           if(any)
-               view.visibility=View.VISIBLE
-           else
-               view.visibility=View.INVISIBLE
-       }
-   }
-   cb_prikazi_sve_pageJezici.setOnClickListener() {
-       val any=anyChecked(check_boxesLanguages,cb_prikazi_sve_pageJezici)
-       if(any)
-           view.visibility=View.VISIBLE
-       else
-           view.visibility=View.INVISIBLE
-   }
-*/
 

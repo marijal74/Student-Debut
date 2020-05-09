@@ -12,8 +12,5 @@
     <color name="darker_blue">#1950E7</color>
     <color name="link_blue">#0645AD</color>
     <color name="link_purple">#663366</color>
-    <!--<color name="logo_color">#104126</color>-->
     <color name="logo_color">#082567</color>
-
-
 </resources>

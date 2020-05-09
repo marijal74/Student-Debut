@@ -18,29 +18,17 @@ import com.ms.square.android.expandabletextview.ExpandableTextView
 
 class FeedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-    var txtTitle: TextView
-    var txtPubdate: TextView
-    var txtContent: ExpandableTextView
+    var txtTitle: TextView = itemView.findViewById(id.txtTitle) as TextView
+    var txtPubdate: TextView = itemView.findViewById(id.txtPubDate) as TextView
+    var txtContent: ExpandableTextView = itemView.findViewById(id.txtContent) as ExpandableTextView
 
 
-    init {
-
-        txtTitle = itemView.findViewById(id.txtTitle) as TextView
-        txtPubdate = itemView.findViewById(id.txtPubDate) as TextView
-        txtContent = itemView.findViewById(id.txtContent) as ExpandableTextView
-
-
-    }
 }
 class FeedAdapter internal constructor( private val mContext :Context): RecyclerView.Adapter<FeedViewHolder>(){
 
-    private  val inflater: LayoutInflater
+    private  val inflater: LayoutInflater = LayoutInflater.from(mContext)
     private var jobs = emptyList<jobItem>()
 
-     init{
-
-        inflater = LayoutInflater.from(mContext)
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val itemView = inflater.inflate(layout.row, parent, false)
         return FeedViewHolder(itemView)
@@ -48,7 +36,7 @@ class FeedAdapter internal constructor( private val mContext :Context): Recycler
 
     override fun getItemCount(): Int {
         d("velicina", jobs.size.toString())
-        if(jobs.size==0)
+        if(jobs.isEmpty())
             Toast.makeText(mContext,"Ne postoje ovakvi zahtevi", Toast.LENGTH_LONG).show()
         return jobs.size
     }
@@ -70,14 +58,14 @@ class FeedAdapter internal constructor( private val mContext :Context): Recycler
         holder.txtPubdate.text = jobs[position].pubDate
 
 
-        holder.txtTitle.setOnClickListener(){
+        holder.txtTitle.setOnClickListener{
             holder.txtTitle.setTextColor((Color.parseColor("#663366")))
                         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(jobs[position].link))
                         mContext.startActivity(browserIntent)
 
 
 
-                    }
+        }
 
     }
 

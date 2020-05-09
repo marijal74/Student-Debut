@@ -2,8 +2,6 @@ package com.example.studentdebut
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Path
-import android.media.Image
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -14,25 +12,14 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
-import com.example.studentdebut.Common.HTTPDataHandler
-import com.example.studentdebut.Database.JobsViewModel
-import com.example.studentdebut.Database.jobItem
-import com.example.studentdebut.Model.RSSObject
-import com.google.gson.Gson
-import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.Default
-import com.example.studentdebut.MyApp.Companion.done
-import com.example.studentdebut.MyApp.Companion.ListOfJobItems
-import kotlinx.android.synthetic.main.activity_options.*
 import com.example.studentdebut.MyApp.Companion.ListToPopulateDB
-import com.example.studentdebut.MyApp.Companion.ListOfJobItems
 
-class MainActivity() : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
+    //popunjavanje IntroSlidera
     private val introSliderAdapter = IntroSliderAdapter(
         listOf(
             IntroSlide(
@@ -55,21 +42,26 @@ class MainActivity() : AppCompatActivity() {
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         d("LISTTODB",ListToPopulateDB.toString())
-        val TryAgain = findViewById<TextView>(R.id.try_again)
+        val tryAgain = findViewById<TextView>(R.id.try_again)
+
+        //obavestenje korisniku da nije povezan na internet kada udje u aplikaciju
         if (!isNetworkAvailable) {
 
-            TryAgain.visibility = View.VISIBLE
+            tryAgain.visibility = View.VISIBLE
             textSkipIntro.visibility = View.GONE
             buttonNext.visibility = View.GONE
             Toast.makeText(this, "Niste povezani na internet", Toast.LENGTH_LONG).show()
-            TryAgain.setOnClickListener { recreate() }
+            tryAgain.setOnClickListener { recreate() }
 
-        } else {
-            TryAgain.visibility = View.GONE
+        }
+        //inace se prikazuju IntroSlideri koji korisnika upoznaju sa aplikacijom
+        else {
+            tryAgain.visibility = View.GONE
 
             introSliderViewPager.adapter = introSliderAdapter
             setupIndicators()
@@ -94,7 +86,8 @@ class MainActivity() : AppCompatActivity() {
                     }
                 }
             }
-            textSkipIntro.setOnClickListener() {
+
+            textSkipIntro.setOnClickListener {
                 Intent(applicationContext, Options::class.java).also {
                     startActivity(it)
 
@@ -103,7 +96,7 @@ class MainActivity() : AppCompatActivity() {
         }
     }
 
-
+    //fja koja proverava da li korisnik ima aktivnu vezu sa internetom
     private val isNetworkAvailable: Boolean
         get() {
             var result = false
@@ -118,7 +111,10 @@ class MainActivity() : AppCompatActivity() {
                     actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
                     else -> false
                 }
-            }else {
+            }
+            //zbog ranijih verzija androida ostavljam ovaj else iako su ove stvari depricated
+            //kod u if u kome nisu depricated ne radi za starije verzije androida
+            else {
                 connectivityManager.run {
                     connectivityManager.activeNetworkInfo?.run {
                         result = when (type) {
@@ -135,6 +131,7 @@ class MainActivity() : AppCompatActivity() {
             return result
         }
 
+    //indikatori za IntroSlidere koji govore do koje slike je korisnik stigao(tri tackice ispod slika)
     private fun setupIndicators(){
         val indicators = arrayOfNulls<ImageView>(introSliderAdapter.itemCount)
         val layoutParams: LinearLayout.LayoutParams =

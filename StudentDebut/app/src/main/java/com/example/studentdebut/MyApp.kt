@@ -1,8 +1,9 @@
 package com.example.studentdebut
 
 import android.app.Application
-import com.example.studentdebut.Database.JobsViewModel
 import com.example.studentdebut.Database.jobItem
+
+//globalne promenljive za liste korisnikovih izbora prilikom biranja filtera po svakom pitanju
 
 class MyApp: Application() {
 
@@ -13,10 +14,5 @@ class MyApp: Application() {
         var filtersJob = mutableListOf<String>()
         var filtersPosition = mutableListOf<String>()
         var filtersLanguage = mutableListOf<String>()
-
-
     }
-
-
-
 }

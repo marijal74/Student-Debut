@@ -148,7 +148,7 @@ class SplashScreenActivity : AppCompatActivity() {
                                 it.filterContent(link)
                                 val positionf = addPosition(it.title + " " + it.content + " " + it.description)
                                 val languagef = addLanguages(it.title + " " + it.content + " " + it.description+ " "+it.categories)
-                                var jobf=addJob(link,it.title + " " + it.content + " " + it.description)
+                                val jobf=addJob(link,it.title + " " + it.content + " " + it.description)
                                 val ajob = jobItem(
                                     0,
                                     it.title,

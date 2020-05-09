@@ -16,8 +16,10 @@ import kotlinx.android.synthetic.main.activity_options.*
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import kotlinx.coroutines.*
 
+//prva aktivnost koja se pokrece, ucitavanje podataka sa interneta
 class SplashScreenActivity : AppCompatActivity() {
 
+    //stranice sa oglasima sa kojih uzimamo podatke
     private val RSS_to_JSON_API = "https://api.rss2json.com/v1/api.json?rss_url="
 
     /*
@@ -52,7 +54,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
     */
 
-    val rsslinks = mutableListOf(
+    private val rsslinks = mutableListOf(
+
 
         "https://startit.rs/poslovi/feed/",
         "https://startit.rs/poslovi/feed/?paged=2",
@@ -66,8 +69,7 @@ class SplashScreenActivity : AppCompatActivity() {
         "http://www.itposlovi.info/rss/dizajneri/"
     )
 
-    //viewModel
-    private lateinit var viewModel: JobsViewModel
+    //povezivanje na internet
     private fun makeConnection(link: String): String {
 
         val result: String
@@ -77,7 +79,7 @@ class SplashScreenActivity : AppCompatActivity() {
         return result
     }
 
-
+    //ucitavanje RSS feedova
     private suspend fun loadRSS(result: String): RSSObject?{
 
 
@@ -91,13 +93,13 @@ class SplashScreenActivity : AppCompatActivity() {
         return rssObject
     }
 
-    lateinit var view : View
-
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
+        //animacija koja treba da zamaskira vreme koje korisnik mora da ceka
         logo_text.alpha = 0f
         logo_text.animate().setDuration(4000).alpha(1f)
 
@@ -122,7 +124,8 @@ class SplashScreenActivity : AppCompatActivity() {
                 val url_get_data = StringBuilder(RSS_to_JSON_API)
                 url_get_data.append(it)
                 Log.d("url_get_data", url_get_data.toString())
-                var result = async {
+
+                val result = async {
                     makeConnection(url_get_data.toString())
                 }.await()
 
@@ -133,7 +136,7 @@ class SplashScreenActivity : AppCompatActivity() {
                     loadRSS(result)
 
                 }.await()
-                var link = it
+                val link = it
                 //iz rss u job item
                 if (rssObject != null) {
                     Log.d("done", MyApp.done.toString())
@@ -175,6 +178,7 @@ class SplashScreenActivity : AppCompatActivity() {
             }
 
         }
+
         MyApp.done=true
         Log.d(
             "done",
@@ -184,18 +188,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
     }
 
-   /* fun containsWord(inputString: String, items: List<String?>): String {
-        var thing:String=" "
-        for (item in items) {
-            inputString.indexOf(item,0,true)
-            if (inputString.contains(item!!,true)) {
-                thing=item
-                break
-            }
-        }
-        return thing
-    }*/
-    fun containsWord(inputString: String, items: List<String?>): String {
+    //pomocna fja, prolazi kroz tekst i nalazi prvo pojavljivanje reci
+    private fun containsWord(inputString: String, items: List<String?>): String {
         var thing:String=" "
         var firstposition=Int.MAX_VALUE
         var position:Int
@@ -210,7 +204,9 @@ class SplashScreenActivity : AppCompatActivity() {
         }
         return thing
     }
-    fun containsWordsForLanguages(inputString: String, items: List<String?>): String {
+
+    //pomocna fja, prolazi kroz tekst i nalazi koje se tehnologije pojavljuju
+    private fun containsWordsForLanguages(inputString: String, items: List<String?>): String {
         var found=false
         val things = StringBuilder()
         for (item in items) {
@@ -226,6 +222,8 @@ class SplashScreenActivity : AppCompatActivity() {
         else return " "
 
     }
+
+    //dodaje u bazu za koju je poziciju izdat oglas
     private fun addPosition(input:String):String{
 
         var position="Druge pozicije"
@@ -259,6 +257,8 @@ class SplashScreenActivity : AppCompatActivity() {
         }
         return position
     }
+
+    //dodaje u bazu koji se tehnologije traze u oglasu
     private fun addLanguages(input:String): String {
         var languages="Drugi jezici"
         val listoflanguages= mutableListOf<String>("JavaScript", ".NET", "Python",  "SQL",
@@ -270,6 +270,8 @@ class SplashScreenActivity : AppCompatActivity() {
             languages=containsWordsForLanguages(input,listoflanguages)
         return languages
     }
+
+    //dodaje u bazu da li je oglas posao/praksa/stipendija
     private fun addJob(link: String,input:String):String{
 
         var job:String

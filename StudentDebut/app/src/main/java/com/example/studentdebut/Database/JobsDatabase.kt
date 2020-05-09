@@ -19,7 +19,7 @@ import android.util.Log.d
 import com.example.studentdebut.MyApp.Companion.ListToPopulateDB
 
 
-//pravi se baza, koja je singlton
+//klasa koja predstavlja bazu
 @Database (entities = arrayOf(jobItem::class), version = 4)
 
 public abstract class JobsDatabase: RoomDatabase() {

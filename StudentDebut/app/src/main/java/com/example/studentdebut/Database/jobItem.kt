@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-
+//instanca baze
 @Entity (tableName="jobs_table")
 data class jobItem(
 

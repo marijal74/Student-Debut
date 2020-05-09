@@ -54,7 +54,14 @@ class SplashScreenActivity : AppCompatActivity() {
 
     val rsslinks = mutableListOf(
 
-
+        "https://startit.rs/poslovi/feed/",
+        "https://startit.rs/poslovi/feed/?paged=2",
+        "https://startit.rs/poslovi/feed/?paged=3",
+        "https://startit.rs/poslovi/feed/?paged=4",
+        "https://startit.rs/poslovi/feed/?paged=5",
+        "https://startit.rs/poslovi/feed/?paged=6",
+        "https://startit.rs/poslovi/feed/?paged=7",
+        "https://startit.rs/poslovi/feed/?paged=8",
         "https://www.helloworld.rs/rss/",
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2",
         "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2",
@@ -164,6 +171,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
                                 // d("item", ajob.toString())
                                 MyApp.ListOfJobItems.add(ajob)
+                                MyApp.ListToPopulateDB.add(ajob)
 
                             }
                         }
@@ -173,7 +181,6 @@ class SplashScreenActivity : AppCompatActivity() {
 
         }
         MyApp.done=true
-
         Log.d(
             "done",
             "DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOONEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
@@ -275,7 +282,7 @@ class SplashScreenActivity : AppCompatActivity() {
             job="Stipendija"
         else
             job="Posao"
-        val listofjobs= mutableListOf<String>("Praksa","Praksi","Praksu","Internship")
+        val listofjobs= mutableListOf<String>("Praksa","Praksi","Praksu","Prakse","Internship")
         val jobfound=containsWord(input,listofjobs)
         if(jobfound!=" ")
             job=jobfound

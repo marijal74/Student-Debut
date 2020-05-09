@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import android.util.Log
 import android.util.Log.d
+import com.example.studentdebut.MyApp.Companion.ListToPopulateDB
 
 
 //pravi se baza, koja je singlton
@@ -65,11 +66,11 @@ public abstract class JobsDatabase: RoomDatabase() {
                 scope.launch {
                     withContext(IO) {
                         val database: JobsDatabase = JobsDatabase.getDatabase(appContext, scope)
-                        //database.jobDao().deleteEverything()
+                        database.jobDao().deleteEverything()
                         if (done) {
 
-                            database.jobDao().insert(ListOfJobItems)
-                            println("UBACUJEM U BAZU" + ListOfJobItems.toString())
+                            database.jobDao().insert(ListToPopulateDB)
+                            println("UBACUJEM U BAZU" + ListToPopulateDB.toString())
                             println("ZAVRSIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
                             println("VELICINAAAA" + database.jobDao().velicinaBaze().toString())
 

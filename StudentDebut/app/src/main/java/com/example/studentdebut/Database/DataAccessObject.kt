@@ -15,7 +15,7 @@ interface DataAccessObject {
 
 
     @Query("SELECT * FROM jobs_table")
-    fun initializeDb(): List<jobItem>
+    fun startDB(): List<jobItem>
 
     // ignorise ako vec postoji u tabeli
     @Insert(onConflict = OnConflictStrategy.REPLACE)

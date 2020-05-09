@@ -28,6 +28,8 @@ import kotlinx.coroutines.Dispatchers.Default
 import com.example.studentdebut.MyApp.Companion.done
 import com.example.studentdebut.MyApp.Companion.ListOfJobItems
 import kotlinx.android.synthetic.main.activity_options.*
+import com.example.studentdebut.MyApp.Companion.ListToPopulateDB
+import com.example.studentdebut.MyApp.Companion.ListOfJobItems
 
 class MainActivity() : AppCompatActivity() {
 
@@ -56,8 +58,7 @@ class MainActivity() : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
+        d("LISTTODB",ListToPopulateDB.toString())
         val TryAgain = findViewById<TextView>(R.id.try_again)
         if (!isNetworkAvailable) {
 

@@ -57,11 +57,6 @@ class SplashScreenActivity : AppCompatActivity() {
         "https://startit.rs/poslovi/feed/",
         "https://startit.rs/poslovi/feed/?paged=2",
         "https://startit.rs/poslovi/feed/?paged=3",
-        "https://startit.rs/poslovi/feed/?paged=4",
-        "https://startit.rs/poslovi/feed/?paged=5",
-        "https://startit.rs/poslovi/feed/?paged=6",
-        "https://startit.rs/poslovi/feed/?paged=7",
-        "https://startit.rs/poslovi/feed/?paged=8",
         "https://www.helloworld.rs/rss/",
         "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2",
         "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2",
@@ -104,12 +99,12 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
 
         logo_text.alpha = 0f
-        logo_text.animate().setDuration(3000).alpha(1f)
+        logo_text.animate().setDuration(4000).alpha(1f)
 
         logo_pic.alpha = 0f
-        logo_pic.animate().setDuration(3000).alpha(1f).withEndAction{
+        logo_pic.animate().setDuration(4000).alpha(1f).withEndAction{
             val i = Intent(this, MainActivity::class.java)
-            startActivity(i)
+            startActivity(i) 
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }

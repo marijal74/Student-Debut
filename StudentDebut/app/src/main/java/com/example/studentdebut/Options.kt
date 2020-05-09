@@ -46,7 +46,6 @@ class Options() : AppCompatActivity() {
             ViewModelProvider(this, ViewModelFactory(application)).get(JobsViewModel::class.java)
 
         viewModel.startDB()
-        d("OPTIONNNS", ListOfJobItems.toString())
 
 
 
@@ -59,7 +58,8 @@ class Options() : AppCompatActivity() {
 
         mStipendija.setOnClickListener(View.OnClickListener { if(mStipendija.isChecked){
             mSledece.visibility = View.GONE
-            mHolder.visibility = View.VISIBLE}
+            mHolder.visibility = View.VISIBLE
+        }
         else{
             mSledece.visibility = View.VISIBLE
             mHolder.visibility = View.GONE
@@ -161,8 +161,10 @@ class Options() : AppCompatActivity() {
 
         view.setOnClickListener() {
             addFIltersForJobs(check_boxesJobs)
-            addInFilters(filtersPosition,check_boxesPositions,cb_prikazi_sve_pagePozicije)
-            addInFilters(filtersLanguage,check_boxesLanguages,cb_prikazi_sve_pageJezici)
+            if(!cb_stipendija.isChecked) {
+                addInFilters(filtersPosition, check_boxesPositions, cb_prikazi_sve_pagePozicije)
+                addInFilters(filtersLanguage, check_boxesLanguages, cb_prikazi_sve_pageJezici)
+            }
             val progressButton = ProgressButton(this@Options, view)
             progressButton.buttonActivated()
             val handler = Handler()
@@ -171,7 +173,6 @@ class Options() : AppCompatActivity() {
                     val intent = Intent(this@Options, ListOfJobs::class.java)
                     val pp=findViewById<ConstraintLayout>(R.id.Posao_ili_praksa)
                     val po=findViewById<ConstraintLayout>(R.id.Pozicija)
-                    val la=findViewById<ConstraintLayout>(R.id.Jezici)
                     var visi:Int=3
                     if(po.visibility==View.VISIBLE)
                         visi=2
@@ -195,7 +196,7 @@ class Options() : AppCompatActivity() {
                  }
             }
                 startActivity(intent)
-            },6000)
+            },3000)
 
         }
 
@@ -224,6 +225,14 @@ class Options() : AppCompatActivity() {
         }
 
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+       filtersLanguage.clear()
+       filtersPosition.clear()
+        filtersJob.clear()
+    }
+
 
     fun allChecked(check_boxes:MutableList<CheckBox>):Boolean{
 
@@ -283,7 +292,6 @@ class Options() : AppCompatActivity() {
         layout.visibility = View.VISIBLE
 
 
-
     }
     private fun UbaciFilterePozicija(check_boxes:MutableList<CheckBox>) {
 
@@ -299,6 +307,7 @@ class Options() : AppCompatActivity() {
 
     }
 }
+
 /*  for(c in check_boxesLanguages) {
        c.setOnClickListener() {
           val any=anyChecked(check_boxesLanguages,cb_prikazi_sve_pageJezici)

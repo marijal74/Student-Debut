@@ -5,6 +5,7 @@ import android.util.Log
 import android.util.Log.d
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -65,6 +66,8 @@ class ListOfJobs : AppCompatActivity() {
 
         adapter.setJobs(ListOfJobItems)
         adapter.notifyDataSetChanged()
+        if(adapter.itemCount==0)
+            Toast.makeText(this,"Ne postoje trazeni zahtevi", Toast.LENGTH_LONG).show()
 
 
 

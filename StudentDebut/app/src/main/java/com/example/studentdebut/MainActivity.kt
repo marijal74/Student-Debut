@@ -58,7 +58,7 @@ class MainActivity() : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        d("LISTTODB",ListToPopulateDB.toString())
+
         val TryAgain = findViewById<TextView>(R.id.try_again)
         if (!isNetworkAvailable) {
 

@@ -180,7 +180,7 @@ class Options() : AppCompatActivity() {
 
                     intent.putExtra("Visibilty",visi)
                     //STIZE DA UBACI FILTERE
-                if(done && !viewModel.emptyFilters()){
+                if(done){
 
                  CoroutineScope(Dispatchers.IO).launch {
 

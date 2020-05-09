@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentdebut.Database.jobItem
 import com.example.studentdebut.R.*
@@ -47,6 +48,8 @@ class FeedAdapter internal constructor( private val mContext :Context): Recycler
 
     override fun getItemCount(): Int {
         d("velicina", jobs.size.toString())
+        if(jobs.size==0)
+            Toast.makeText(mContext,"Ne postoje ovakvi zahtevi", Toast.LENGTH_LONG).show()
         return jobs.size
     }
 

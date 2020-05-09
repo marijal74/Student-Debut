@@ -32,6 +32,7 @@ class SplashScreenActivity : AppCompatActivity() {
       "https://startit.rs/poslovi/feed/?paged=7",
       "https://startit.rs/poslovi/feed/?paged=8"
 
+
       "https://www.helloworld.rs/rss/",
       "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2",
       "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2",
@@ -40,11 +41,25 @@ class SplashScreenActivity : AppCompatActivity() {
       "http://www.itposlovi.info/rss/programeri/",
       "http://www.itposlovi.info/rss/dizajneri/"
 
+
+
+      "http://oglasi.matf.bg.ac.rs/?feed=rss2",
+        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=2",
+        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=3",
+        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=4",
+        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2%26paged=5",
+        "http://oglasi.matf.bg.ac.rs/?tag=stipendije%26feed=rss2"
+
     */
 
     val rsslinks = mutableListOf(
 
 
+        "https://www.helloworld.rs/rss/",
+        "http://oglasi.matf.bg.ac.rs/?tag=poslovi%26feed=rss2",
+        "http://oglasi.matf.bg.ac.rs/?tag=praksa%26feed=rss2",
+        "http://oglasi.matf.bg.ac.rs/?tag=stipendije%26feed=rss2",
+        "http://www.sljaka.com/rss/itposlovi/",
         "http://www.itposlovi.info/rss/programeri/",
         "http://www.itposlovi.info/rss/dizajneri/"
     )
@@ -167,12 +182,28 @@ class SplashScreenActivity : AppCompatActivity() {
 
     }
 
-    fun containsWord(inputString: String, items: List<String?>): String {
+   /* fun containsWord(inputString: String, items: List<String?>): String {
         var thing:String=" "
         for (item in items) {
+            inputString.indexOf(item,0,true)
             if (inputString.contains(item!!,true)) {
                 thing=item
                 break
+            }
+        }
+        return thing
+    }*/
+    fun containsWord(inputString: String, items: List<String?>): String {
+        var thing:String=" "
+        var firstposition=Int.MAX_VALUE
+        var position:Int
+        for (item in items) {
+            position=inputString.indexOf(item!!,0,true)
+            if(position>=0) {
+                if (position < firstposition) {
+                    firstposition = position
+                    thing = item
+                }
             }
         }
         return thing
@@ -181,6 +212,7 @@ class SplashScreenActivity : AppCompatActivity() {
         var found=false
         val things = StringBuilder()
         for (item in items) {
+
             if (inputString.contains(item!!,true)) {
                 things.append(item)
                     .append("_")
@@ -201,7 +233,7 @@ class SplashScreenActivity : AppCompatActivity() {
         val tutor= mutableListOf("Tutor","Saradnika","Saradniku","Saradnik","Predavač","Predavaču","Predavača")
 
         val listofpositions= mutableListOf<String>("Developer","Analyst",
-                                                                     "Technical Lead", "Engineer", "Manager",
+                                                                     "Technical lead", "Engineer", "Manager",
                                                                      "Marketing", "Scientist")
         listofpositions.addAll(designer)
         listofpositions.addAll(administrator)

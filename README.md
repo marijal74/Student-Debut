@@ -7,7 +7,7 @@ Aplikacija koja korisniku omogućava da pronađe trenutne ponude za posao/prakse
 Korišćen je programski jezik Kotlin u Android Studio okruženju. Koristili smo Room, JSOUP, GSON API.
 
 ### Pokretanje
-Aplikacija je podržana za Android verzije od 4.1. U sekciji releases preuzmite StudentDebut.apk i pokrenite instalaciju. 
+Aplikacija je podržana za Android pocevsi od verzije 8. U sekciji releases preuzmite StudentDebut.apk i pokrenite instalaciju. 
 Tokom instalacije će vam zatražiti dodatne privilegije koje treba da dozvolite da bi se aplikacija instalirala. 
 
 ### Autori

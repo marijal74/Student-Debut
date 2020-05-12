@@ -18,3 +18,6 @@ Ana Nikačević: ana.nikacevic7@gmail.com
 
 Marija Lakić: mimosapudicapoison@gmail.com
 
+
+![1](https://user-images.githubusercontent.com/57152075/81669972-43d76580-9447-11ea-9b7b-6965845f08e0.gif)
+

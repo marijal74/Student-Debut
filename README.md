@@ -1,5 +1,7 @@
 # 2020_Student-Debut
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/99dd63d9153942c18d4a2ccb0ab6d009)](https://app.codacy.com/gh/matf-pp/2020_Student-Debut?utm_source=github.com&utm_medium=referral&utm_content=matf-pp/2020_Student-Debut&utm_campaign=Badge_Grade_Dashboard)
+
 ### Kratak opis
 Aplikacija koja korisniku omogućava da pronađe trenutne ponude za posao/prakse/stipendije iz oblasti informatike i matematike.
 

@@ -21,7 +21,7 @@ Marija Lakić: mimosapudicapoison@gmail.com
 
 ![1](https://user-images.githubusercontent.com/57152075/81669972-43d76580-9447-11ea-9b7b-6965845f08e0.gif) | ![2](https://user-images.githubusercontent.com/57152075/81671309-2acfb400-9449-11ea-963b-5b82c0c56c03.gif)
 
-![3](https://user-images.githubusercontent.com/57152075/81672140-01fbee80-944a-11ea-9686-566940fd4c56.gif)
+![3](https://user-images.githubusercontent.com/57152075/81672140-01fbee80-944a-11ea-9686-566940fd4c56.gif) | ![4](https://user-images.githubusercontent.com/57152075/81672275-37084100-944a-11ea-9f89-637033931724.gif)
 
 
 

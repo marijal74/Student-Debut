@@ -26,7 +26,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 
-//postavljanje ui za biranje filtera
+/**
+ * postavljanje ui za biranje filtera
+ */
 class Options : AppCompatActivity() {
 
 

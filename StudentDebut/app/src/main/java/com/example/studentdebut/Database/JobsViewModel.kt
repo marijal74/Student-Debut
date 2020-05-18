@@ -13,8 +13,9 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
 
-
-// ViewModel komunicira sa UI-om i bazom
+/**
+ * ViewModel komunicira sa UI-om i bazom
+ */
 class JobsViewModel( application: Application) :AndroidViewModel(application)  {
 
     val repo : JobsRepository
@@ -29,39 +30,7 @@ class JobsViewModel( application: Application) :AndroidViewModel(application)  {
         d("KONSTRUKTOR", allJobs.toString())
 
     }
-    public fun emptyFilters() : Boolean{
-        return filtersLanguage.isEmpty() && filtersJob.isEmpty() && filtersPosition.isEmpty()
-    }
 
-    fun velicinaBaze():Double{
-        var velicina:Double = -5.0
-        viewModelScope.launch(Dispatchers.IO){
-            velicina = repo.velicinaBaze()
-        }
-        return velicina
-    }
-    /*fun loadData() {
-
-        d("LOADUJEM", "ASAAAAAAAAAAAAAAAAAAAAAAAAA")
-
-        viewModelScope.launch(Dispatchers.IO){
-            allJobs= async{
-                repo.initializeDb()//filterThroughLanguages()
-
-            }.await()
-            d("VRACAMMMMM", allJobs.toString())
-
-        }
-        d("VRACAMMM", allJobs.toString())
-
-    }*/
-    fun insert() = viewModelScope.launch(Dispatchers.IO) {
-        repo.insert()
-    }
-
-    fun deleteEverything() = viewModelScope.launch(Dispatchers.IO) {
-        repo.deleteEverything()
-    }
     fun startDB() = viewModelScope.launch(Dispatchers.IO) {
         repo.startDB()
     }

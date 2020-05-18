@@ -13,7 +13,9 @@ import com.example.studentdebut.MyApp.Companion.filtersLanguage
 import com.example.studentdebut.MyApp.Companion.filtersPosition
 import kotlinx.android.synthetic.main.activity_list_of_jobs.*
 
-//prikaz poslova na osnovu filtera koje je korisnik odabrao
+/**
+ * prikaz poslova na osnovu filtera koje je korisnik odabrao
+ */
 class ListOfJobs : AppCompatActivity() {
 
 

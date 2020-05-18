@@ -7,7 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-//adapter za IntroSlidere
+/**
+ * adapter za IntroSlidere
+ */
 class IntroSliderAdapter(private val introSlides: List<IntroSlide>):
       RecyclerView.Adapter<IntroSliderAdapter.IntroSlideViewHolder>(){
 
@@ -33,12 +35,19 @@ class IntroSliderAdapter(private val introSlides: List<IntroSlide>):
         holder.bind(introSlides[position])
     }
 
+    /**
+     * klasa u kojoj je
+     * fja koja postavlja pronadjene podatke u intro slidere
+     */
     inner class IntroSlideViewHolder(view: View) : RecyclerView.ViewHolder(view){
 
         private val textTitle = view.findViewById<TextView>(R.id.textTitle)
         private val textDescription = view.findViewById<TextView>(R.id.textDescription)
         private val imageIcon = view.findViewById<ImageView>(R.id.imageSlideIcon)
 
+        /**
+         * fja koja postavlja
+         */
         fun bind(introSlide : IntroSlide) {
             textTitle.text = introSlide.title
             textDescription.text = introSlide.description

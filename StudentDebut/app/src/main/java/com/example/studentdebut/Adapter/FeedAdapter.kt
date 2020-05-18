@@ -15,7 +15,9 @@ import com.example.studentdebut.Database.jobItem
 import com.example.studentdebut.R.*
 import com.ms.square.android.expandabletextview.ExpandableTextView
 
-//klasa koja prikazuje podatke u recyclew view
+/**
+ * klasa koja prikazuje podatke u recyclew view
+ */
 class FeedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     var txtTitle: TextView = itemView.findViewById(id.txtTitle) as TextView
@@ -32,6 +34,10 @@ class FeedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     }
 }
+
+/**
+ * u klasi su fje za postavljanje u recycler view
+ */
 class FeedAdapter internal constructor( private val mContext :Context): RecyclerView.Adapter<FeedViewHolder>(){
 
     private  val inflater: LayoutInflater = LayoutInflater.from(mContext)
@@ -53,7 +59,7 @@ class FeedAdapter internal constructor( private val mContext :Context): Recycler
         notifyDataSetChanged()
     }
 
-    //fja koja postavlja pronadjene podatke u polja recyclew viewa
+    //fja koja postavlja pronadjene podatke u polja recycler viewa
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
 
 

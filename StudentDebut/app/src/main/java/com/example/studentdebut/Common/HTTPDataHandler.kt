@@ -11,12 +11,17 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
+/**
+ * klasa za povezivanje na internet
+ */
 class HTTPDataHandler {
 
     //promenljiva koja sluzi da korisnika obavesti ukoliko nijedna stranica nije dohvacena
     private var found = false
 
-    //povezivanje na internet koriscenjem HttpURLConnection
+    /**
+     * povezivanje na internet koriscenjem HttpURLConnection
+     */
     fun GetHTTPDataHandler(urlString: String?, c : Context): String? {
         try {
 

@@ -16,7 +16,9 @@ import kotlinx.android.synthetic.main.activity_options.*
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import kotlinx.coroutines.*
 
-//prva aktivnost koja se pokrece, ucitavanje podataka sa interneta
+/**
+ * prva aktivnost koja se pokrece, ucitavanje podataka sa interneta
+ */
 class SplashScreenActivity : AppCompatActivity() {
 
     //stranice sa oglasima sa kojih uzimamo podatke

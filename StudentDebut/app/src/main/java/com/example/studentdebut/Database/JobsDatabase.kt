@@ -19,12 +19,17 @@ import android.util.Log.d
 import com.example.studentdebut.MyApp.Companion.ListToPopulateDB
 
 
-//klasa koja predstavlja bazu
+/**
+ * klasa koja predstavlja bazu
+ */
 @Database (entities = arrayOf(jobItem::class), version = 4)
-
-public abstract class JobsDatabase: RoomDatabase() {
+abstract class JobsDatabase: RoomDatabase() {
 
     val dbCreated=MutableLiveData<Boolean>()
+
+    /**
+     * vraca DAO koji je prvi sloj komunikacije sa bazom
+     */
     abstract fun jobDao(): DataAccessObject
 
     companion object {

@@ -3,8 +3,9 @@ package com.example.studentdebut
 import android.app.Application
 import com.example.studentdebut.Database.jobItem
 
-//globalne promenljive za liste korisnikovih izbora prilikom biranja filtera po svakom pitanju
-
+/**
+ * globalne promenljive za liste korisnikovih izbora prilikom biranja filtera po svakom pitanju
+ */
 class MyApp: Application() {
 
     companion object {

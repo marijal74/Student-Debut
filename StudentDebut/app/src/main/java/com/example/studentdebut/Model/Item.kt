@@ -5,9 +5,10 @@ import android.util.Log.d
 import androidx.annotation.RequiresApi
 import org.jsoup.Jsoup
 
-//klasa za jedan item u okviru rss feeda
-
-//title description i content promenjeni na var da bi bili mutabilni
+/**
+ *klasa za jedan item u okviru rss feeda
+ * title description i content promenjeni na var da bi bili mutabilni
+ */
 data class Item (var title:String, val pubDate:String, var link:String, val guid:String, val author: String,
                  val thumbnail: String, var description: String, var content: String, val enclosure:Any, val categories:List<String>){
 

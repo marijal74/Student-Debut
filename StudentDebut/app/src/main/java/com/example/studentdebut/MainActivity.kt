@@ -17,6 +17,11 @@ import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.example.studentdebut.MyApp.Companion.ListToPopulateDB
 
+/**
+ * activity u kojoj se prikazuju intro slideri
+ * ili obavestenje korisniku da nije povezan na internet
+ * pri pokretanju aplikacije
+ */
 class MainActivity : AppCompatActivity() {
 
     //popunjavanje IntroSlidera

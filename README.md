@@ -26,11 +26,11 @@ Prikaz rada aplikacije kada nije odabran nijedan filter
 
 ![1](https://user-images.githubusercontent.com/57152075/81669972-43d76580-9447-11ea-9b7b-6965845f08e0.gif)
 
-Prikaz rada aplikacije kada su izabrane razlicite kombinacije filtera
+Prikaz rada aplikacije kada su izabrane različite kombinacije filtera
 
 ![2](https://user-images.githubusercontent.com/57152075/81671309-2acfb400-9449-11ea-963b-5b82c0c56c03.gif)
 
-Prikaz rada aplikacije prilikom izbora dodatnih opcija za filtere kao sto je npr. "Prikazi sve" opcija</br>
+Prikaz rada aplikacije prilikom izbora dodatnih opcija za filtere kao što je npr. "Prikaži sve" opcija</br>
 i prilikom izbora za prikaz stipendija
 
 ![3](https://user-images.githubusercontent.com/57152075/81672140-01fbee80-944a-11ea-9686-566940fd4c56.gif)

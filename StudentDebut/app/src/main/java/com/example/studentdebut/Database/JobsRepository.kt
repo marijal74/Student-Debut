@@ -8,10 +8,16 @@ import com.example.studentdebut.MyApp.Companion.ListOfJobItems
  */
 class JobsRepository(private val jobsDao: DataAccessObject) {
 
+    /**
+     * startDB je upit koji uzima sve iz baze
+     */
     fun startDB(): List<jobItem>{
         return jobsDao.startDB()
     }
 
+    /**
+     * filterThroughlLanguages su upiti koji filtriraju podatke u bazi
+     */
     fun filterThroughLanguages() : List<jobItem> {
          return jobsDao.filterThroughLanguages()
      }

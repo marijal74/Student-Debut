@@ -14,6 +14,9 @@ import com.example.studentdebut.MyApp.Companion.filtersPosition
 interface DataAccessObject {
 
 
+    /**
+     * uzimanje cele baze
+     */
     @Query("SELECT * FROM jobs_table")
     fun startDB(): List<jobItem>
 

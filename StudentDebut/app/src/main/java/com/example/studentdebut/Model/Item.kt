@@ -12,6 +12,10 @@ import org.jsoup.Jsoup
 data class Item (var title:String, val pubDate:String, var link:String, val guid:String, val author: String,
                  val thumbnail: String, var description: String, var content: String, val enclosure:Any, val categories:List<String>){
 
+
+    /**
+     * parsira html(title+content+description) preko jsoup
+     */
     @RequiresApi(Build.VERSION_CODES.Q)
     fun filterContent(url:String){
         val tra=Translator()

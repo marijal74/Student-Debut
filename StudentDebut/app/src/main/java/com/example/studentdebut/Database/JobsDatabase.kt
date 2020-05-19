@@ -39,6 +39,10 @@ abstract class JobsDatabase: RoomDatabase() {
         @Volatile
         private var instance: JobsDatabase? = null
 
+        /**
+         * provera da li je baza napravljena
+         * i pravi je ukoliko nije
+         */
         fun getDatabase(context: Context, scope: CoroutineScope): JobsDatabase {
             val tempInstance = instance
             //ako je vec napravljena samo je prosledi

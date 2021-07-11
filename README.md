@@ -18,7 +18,7 @@ Milica Radojičić: radojicicmilica98@gmail.com
 
 Ana Nikačević: ana.nikacevic7@gmail.com
 
-Marija Lakić: mimosapudicapoison@gmail.com
+Marija Lakić: lakic.marija98@gmail.com
 
 ## Prikaz rada aplikacije
 
